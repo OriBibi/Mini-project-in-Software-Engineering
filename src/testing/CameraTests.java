@@ -6,7 +6,7 @@ public class CameraTests {
 
     @org.junit.jupiter.api.Test
     void testRaysConstruction() {
-        Vector vup = new Vector(0, 2, 0);
+        Vector vup = new Vector(0, 1, 0);
         Vector vto = new Vector(0, 0, -1);
 
         Camera c = new Camera(new Point3D(), vup, vto);
