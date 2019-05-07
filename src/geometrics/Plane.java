@@ -1,4 +1,4 @@
-package Geometrics;
+package geometrics;
 
 import primitives.Point3D;
 import primitives.Vector;
@@ -16,4 +16,5 @@ public class Plane {
     public Vector getOrthogonalVector() {
         return orthogonalVector;
     }
+
 }

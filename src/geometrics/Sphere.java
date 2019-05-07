@@ -1,4 +1,4 @@
-package Geometrics;
+package geometrics;
 
 import primitives.*;
 
