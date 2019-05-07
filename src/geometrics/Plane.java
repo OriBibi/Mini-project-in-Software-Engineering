@@ -1,11 +1,10 @@
 package geometrics;
-import primitives.*;
 import primitives.Point3D;
+import primitives.Ray;
 import primitives.Vector;
 import java.util.List;
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Objects;
+
 
 public class Plane extends Geometry {
     protected Point3D point;
@@ -16,7 +15,7 @@ public class Plane extends Geometry {
     }
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersectionPoints = new List<Point3D>();
+        List<Point3D> intersectionPoints = new ArrayList<Point3D>();
         Point3D P0 = ray.getStartPoint();
         Point3D Q0 = this.getPoint();
         Vector N = this.getOrthogonalVector();
