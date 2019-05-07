@@ -28,7 +28,7 @@ public class CameraTests {
         Vector direction = new Vector(0.5773502691896257, -0.5773502691896257, -0.5773502691896257);
 
         Ray answer = new Ray(direction,centerPoint);
-        assertEquals(answer.toString(), ray.toString());
+        assertEquals(answer, ray);
     }
 
     @Test
