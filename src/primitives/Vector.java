@@ -42,7 +42,7 @@ public class Vector
     @Override
     public String toString() {
         return "Vector{" +
-                "head=" + this.getHead().toString() +
+                "head=" + this.getHead().toString().substring(7) +
                 '}';
     }
     @Override
