@@ -1,9 +1,8 @@
 package geometrics;
 
-public abstract class RadialGeometry {
+public abstract class RadialGeometry extends Geometry {
 
     protected double _radius;
-
     public RadialGeometry(double _radius) {
         this._radius = _radius;
     }

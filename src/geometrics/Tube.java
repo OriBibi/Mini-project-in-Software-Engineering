@@ -10,6 +10,7 @@ public class Tube extends RadialGeometry {
     public Tube(double _radius, Ray ray) {
         super(_radius);
         this.ray = ray;
+
     }
     public Tube(RadialGeometry radialGeometry, Ray ray) {
         super(radialGeometry);
