@@ -1,14 +1,15 @@
 package geometrics;
 
-import primitives.*;
+import primitives.Point3D;
+import primitives.Ray;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class  Geometry {
 
 
     public Color geoColor;
-    public abstract ArrayList<Point3D> findIntersections( Ray ray);
+    public abstract List<Point3D> findIntersections( Ray ray);
 
 }
