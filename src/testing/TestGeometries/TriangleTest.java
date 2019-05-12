@@ -1,7 +1,7 @@
 package testing.TestGeometries;
 
-import geometrics.Plane;
-import geometrics.Triangle;
+import geometries.Plane;
+import geometries.Triangle;
 import org.junit.jupiter.api.Test;
 import primitives.Point3D;
 import primitives.Ray;
