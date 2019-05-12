@@ -1,8 +1,11 @@
 package geometrics;
-import java.awt.Color;
-import primitives.*;
-import java.util.List;
+import primitives.Point3D;
+import primitives.Ray;
+import primitives.Vector;
+
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 public class Sphere extends RadialGeometry {
 
     protected Point3D middlePoint;
@@ -34,7 +37,7 @@ public class Sphere extends RadialGeometry {
         List<Point3D> intersectionPoints= new ArrayList<Point3D>(2);
 
         Vector u = new Vector(ray.getStartPoint(), this.getMiddlePoint());
-        double tm = u.dotProduct(ray.getVector());
+        double tm = u.dotProduct(ray.getVector().getNormal());
         double d = Math.sqrt((u.vectorSize()*u.vectorSize()) - (tm*tm));
 
         if (d > this.get_radius())
