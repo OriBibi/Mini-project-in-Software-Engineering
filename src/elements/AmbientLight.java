@@ -10,14 +10,14 @@ public class AmbientLight {
 
     public AmbientLight() {
         this.setColor(Color.white);
-        this.setKa(1.0);
+        this.setKa(0.25);
     }
     public AmbientLight(Color color, double ka) {
         this.setColor(color);
         this.setKa(ka);
     }
     public AmbientLight(int a,int b,int c){
-        this.setKa(0.1);
+        this.setKa(0.25);
         this.setColor(new Color(a,b,c));
     }
     public AmbientLight(AmbientLight al){

@@ -1,7 +1,7 @@
-package Scene;
+package scene;
 import elements.AmbientLight;
 import elements.Camera;
-import geometrics.Geometry;
+import geometries.Geometry;
 import java.util.Iterator;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -49,6 +49,13 @@ public class Scene {
     public void setScreenDistance(double screenDistance) {
         this.screenDistance = screenDistance;
     }
+    public AmbientLight getAmbientLight() {
+        return ambientLight;
+    }
+    public void setAmbientLight(AmbientLight ambientLight) {
+        this.ambientLight = ambientLight;
+    }
+
     // ***************** Constructors ********************** //
     public Scene() {
         geometries=new ArrayList<>();
@@ -56,6 +63,7 @@ public class Scene {
         sceneName=" ";
         backGround=Color.black;
         camera= new Camera();
+        ambientLight=new AmbientLight();
     }
 
     public Scene(String sceneName, Color backGround, Camera camera, double screenDistance, AmbientLight ambientLight) {
