@@ -1,8 +1,11 @@
 package geometrics;
-import java.awt.Color;
-import primitives.*;
-import java.util.List;
+import primitives.Point3D;
+import primitives.Ray;
+import primitives.Vector;
+
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 public class Sphere extends RadialGeometry {
 
     protected Point3D middlePoint;

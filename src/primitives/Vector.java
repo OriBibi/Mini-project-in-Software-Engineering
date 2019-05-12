@@ -106,7 +106,8 @@ public class Vector
         double x1 = this.getHead().getX().get();
         double y1 = this.getHead().getY().get();
         double z1 = this.getHead().getZ().get();
-        return Math.sqrt(Util.uadd(Util.uadd(Util.uscale(x1,x1),Util.uscale(y1,y1)),Util.uscale(z1,z1)));
+        double xx=Math.sqrt(Util.uadd(Util.uadd(Util.uscale(x1,x1),Util.uscale(y1,y1)),Util.uscale(z1,z1)));
+        return xx;
     }
     public double dotProduct(Vector vector) {
 
