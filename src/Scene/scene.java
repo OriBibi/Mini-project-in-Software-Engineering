@@ -3,7 +3,7 @@ import java.awt.Color;
 
 public class scene {
 
-    protected String _sceneName;
-    protected Color _backGround;
+    protected String sceneName;
+    protected Color backGround;
 
 }
