@@ -25,6 +25,8 @@ class SphereTest {
         assertEquals(answer, vector);
     }
 
+    
+
     @Test
     public void testFindIntersections() {
         /**
@@ -67,27 +69,28 @@ class SphereTest {
 
         /**
          * Test for getting 2 point on the sphere
-
+         */
         ray = new Ray(new Vector(0, 0, -1),new Point3D(0, 0, 3));
         list.add(new Point3D(0, 0, 1));
         list.add(new Point3D(0, 0, -1));
-        assertEquals(sphere.findIntersections(ray), list);*/
+        assertEquals(sphere.findIntersections(ray), list);
 
         /**
          * test for ray that tangent to the sphere
-
+         */
+        /*
         ray = new Ray(new Vector(0, -5, 0),new Point3D(0, 1, 1));
         list.clear();
         list.add(new Point3D(0, 0, 1));
-        assertEquals(list,sphere.findIntersections(ray));*/
+        assertEquals(sphere.findIntersections(ray), list);*/
 
         /**
          * test for when the ray start on the surface of the sphere and go away from it
-
+         */
+        /*
         ray = new Ray( new Vector(0, 0, 1),new Point3D(0, 0, 1));
         // System.out.println(sphere.findIntersections(ray));
         list.clear();
-        assertEquals(sphere.findIntersections(ray), list); */
+        assertEquals(sphere.findIntersections(ray), list);*/
     }
-
 }
