@@ -53,9 +53,8 @@ class SphereTest {
 
         // building the ray that will intersect the spheres
 
-        Ray ray1 = new Ray(centerPoint, direction1);
-        Ray ray2 = new Ray(centerPoint, direction2);
-
+        Ray ray1 = new Ray( direction1,centerPoint);
+        Ray ray2 = new Ray( direction1,centerPoint);
         // testing the findIntersection functions
         List<Point3D> list1 = new ArrayList<Point3D>();
         list1 = sphere1.findIntersections(ray1);

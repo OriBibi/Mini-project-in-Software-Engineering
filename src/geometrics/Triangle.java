@@ -1,17 +1,31 @@
 package geometrics;
 
 import primitives.*;
+
+import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 public class Triangle extends Geometry {
 
     protected Point3D A,B,C;
-
+    public Triangle (Triangle triangle){
+        this.geoColor=triangle.geoColor;
+        this.A = triangle.A;
+        this.B = triangle.B;
+        this.C = triangle.C;
+    }
+    public Triangle (Color color,Point3D a, Point3D b, Point3D c ) {
+    geoColor=color;
+    A = a;
+    B = b;
+    C = c;
+}
     public Triangle(Point3D a, Point3D b, Point3D c) {
         A = a;
         B = b;
         C = c;
     }
+
     public Point3D getA() {
         return A;
     }

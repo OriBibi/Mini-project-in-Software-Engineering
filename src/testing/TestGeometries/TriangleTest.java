@@ -1,5 +1,7 @@
-package geometrics;
+package testing.TestGeometries;
 
+import geometrics.Plane;
+import geometrics.Triangle;
 import org.junit.jupiter.api.Test;
 import primitives.Point3D;
 import primitives.Ray;
@@ -49,7 +51,7 @@ class TriangleTest {
 
         Point3D centerPoint = new Point3D(0,0,0);
         Vector vector = new Vector(0, 0, -5);
-        Ray ray = new Ray(centerPoint, vector);
+        Ray ray = new Ray(vector,centerPoint);
 
         // testing the findIntersection function
 

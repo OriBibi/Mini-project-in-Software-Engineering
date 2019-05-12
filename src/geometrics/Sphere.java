@@ -1,12 +1,17 @@
 package geometrics;
-
+import java.awt.Color;
 import primitives.*;
 import java.util.List;
 import java.util.ArrayList;
 public class Sphere extends RadialGeometry {
 
     protected Point3D middlePoint;
+    public Sphere(Color color,double _radius, Point3D middlePoint){
+        this.geoColor=color;
+        this._radius=_radius;
+        this.middlePoint=middlePoint;
 
+    }
     public Sphere(double _radius, Point3D middlePoint) {
         super(_radius);
         this.middlePoint = middlePoint;

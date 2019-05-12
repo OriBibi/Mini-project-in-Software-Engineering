@@ -9,7 +9,7 @@ import java.util.List;
 public abstract class  Geometry {
 
 
-    public Color geoColor;
+    protected Color geoColor;
     public abstract List<Point3D> findIntersections( Ray ray);
 
 }

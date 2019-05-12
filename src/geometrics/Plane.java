@@ -4,7 +4,7 @@ import primitives.Ray;
 import primitives.Vector;
 import java.util.List;
 import java.util.ArrayList;
-
+import java.awt.Color;
 
 public class Plane extends Geometry {
     protected Point3D point;
@@ -12,6 +12,16 @@ public class Plane extends Geometry {
     public Plane(Point3D point, Vector orthogonalVector) {
         this.point = point;
         this.orthogonalVector = orthogonalVector;
+    }
+    public Plane( Color color,Point3D point, Vector orthogonalVector){
+        this.geoColor=color;
+        this.point=point;
+        this.orthogonalVector=orthogonalVector;
+    }
+    public Plane(Plane plane){
+        this.geoColor=plane.geoColor;
+        this.point=plane.point;
+        this.orthogonalVector=plane.orthogonalVector;
     }
     @Override
     public List<Point3D> findIntersections(Ray ray) {
