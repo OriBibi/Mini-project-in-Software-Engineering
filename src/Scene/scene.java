@@ -12,7 +12,7 @@ public class scene {
     ArrayList<Geometry> geometries;
     Camera camera;
     double screenDistance;
-    public void addGeometry(){}
+    public void addGeometry(Geometry geometry){}
 
     // ***************** Getters/Setters ********************** //
     public String getSceneName() {

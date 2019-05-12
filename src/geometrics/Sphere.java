@@ -1,9 +1,11 @@
 package geometrics;
+
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 public class Sphere extends RadialGeometry {
@@ -35,10 +37,11 @@ public class Sphere extends RadialGeometry {
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         List<Point3D> intersectionPoints= new ArrayList<Point3D>(2);
+        DecimalFormat numberFormat = new DecimalFormat("#.00");
 
         Vector u = new Vector(ray.getStartPoint(), this.getMiddlePoint());
         double tm = u.dotProduct(ray.getVector().getNormal());
-        double d = Math.sqrt((u.vectorSize()*u.vectorSize()) - (tm*tm));
+        double  d = Double.parseDouble(numberFormat.format(Math.sqrt((u.vectorSize()*u.vectorSize()) - (tm*tm))));
 
         if (d > this.get_radius())
             return intersectionPoints; // return null;
@@ -49,7 +52,7 @@ public class Sphere extends RadialGeometry {
         double t2 = tm + th;
 
         if (t1 >= 0){
-            Vector V = ray.getVector();
+            Vector V = ray.getVector().getNormal();
             V.scale(t1);
             Point3D p = ray.getStartPoint();
             Point3D P1 =p.addVector(V);
@@ -57,7 +60,7 @@ public class Sphere extends RadialGeometry {
         }
 
         if (t2 >= 0){
-            Vector V = ray.getVector();
+            Vector V = ray.getVector().getNormal();
             V.scale(t2);
             Point3D p = ray.getStartPoint();
             Point3D P2 =p.addVector(V);
