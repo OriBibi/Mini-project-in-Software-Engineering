@@ -1,18 +1,22 @@
 package Scene;
+import elements.AmbientLight;
 import elements.Camera;
 import geometrics.Geometry;
-
+import java.util.Iterator;
 import java.awt.Color;
 import java.util.ArrayList;
 
-public class scene {
+public class Scene {
 
     protected String sceneName;
     protected Color backGround;
-    ArrayList<Geometry> geometries;
-    Camera camera;
-    double screenDistance;
-    public void addGeometry(){}
+    protected ArrayList<Geometry> geometries;
+    protected Camera camera;
+    protected double screenDistance;
+    protected AmbientLight ambientLight;
+    public void addGeometry(Geometry geometry){
+        this.geometries.add(geometry);
+    }
 
     // ***************** Getters/Setters ********************** //
     public String getSceneName() {
@@ -46,11 +50,34 @@ public class scene {
         this.screenDistance = screenDistance;
     }
     // ***************** Constructors ********************** //
-    public scene() {
+    public Scene() {
         geometries=new ArrayList<>();
-        screenDistance=0;
+        screenDistance=100;
         sceneName=" ";
         backGround=Color.black;
         camera= new Camera();
     }
+
+    public Scene(String sceneName, Color backGround, Camera camera, double screenDistance, AmbientLight ambientLight) {
+        this.sceneName = sceneName;
+        this.backGround = backGround;
+        this.geometries = new ArrayList<>();
+        this.camera = camera;
+        this.screenDistance = screenDistance;
+        this.ambientLight = ambientLight;
+    }
+
+    public Scene(Scene scene) {
+        this.sceneName = scene.sceneName;
+        this.backGround = scene.backGround;
+        this.geometries = scene.geometries;
+        this.camera = scene.camera;
+        this.screenDistance = scene.screenDistance;
+        this.ambientLight = scene.ambientLight;
+    }
+    public Iterator<Geometry> getGeometriesIterator()
+    {
+        return this.geometries.iterator();
+    }
+
 }
