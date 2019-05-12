@@ -39,7 +39,7 @@ public class Plane extends Geometry {
         }
 
         Vector u = new Vector(Q0, P0);
-        double t = (N.dotProduct(u) * -1) / N.dotProduct(V);
+        double t = (N.dotProduct(u)*-1 ) / N.dotProduct(V);
 
         if (t >= 0) {
             V.scale(t);

@@ -45,7 +45,6 @@ public class scene {
     public void setScreenDistance(double screenDistance) {
         this.screenDistance = screenDistance;
     }
-
     // ***************** Constructors ********************** //
     public scene() {
         geometries=new ArrayList<>();
