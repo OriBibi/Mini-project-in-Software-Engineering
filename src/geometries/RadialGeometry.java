@@ -7,7 +7,6 @@ import java.util.List;
 
 
 public abstract class RadialGeometry extends Geometry {
-    protected Color geoColor;
     protected double _radius;
     public abstract List<Point3D> findIntersections(Ray ray);
     public RadialGeometry() {

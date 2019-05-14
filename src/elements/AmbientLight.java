@@ -5,32 +5,32 @@ import primitives.Point3D;
 import java.awt.Color;
 
 public class AmbientLight {
-    private Color color;
+    private Color intensity;
     private double ka;
 
     public AmbientLight() {
-        this.setColor(Color.white);
+        this.setIntensity(Color.white);
         this.setKa(0.25);
     }
-    public AmbientLight(Color color, double ka) {
-        this.setColor(color);
+    public AmbientLight(Color intensity, double ka) {
+        this.setIntensity(intensity);
         this.setKa(ka);
     }
     public AmbientLight(int a,int b,int c){
         this.setKa(0.25);
-        this.setColor(new Color(a,b,c));
+        this.setIntensity(new Color(a,b,c));
     }
     public AmbientLight(AmbientLight al){
-        this.setColor(al.getColor());
+        this.setIntensity(al.getIntensity());
         this.setKa(al.getKa());
     }
 
-    public Color getColor() {
-        return color;
+    public Color getIntensity() {
+        return intensity;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setIntensity(Color intensity) {
+        this.intensity = intensity;
     }
 
     public double getKa() {
@@ -52,8 +52,8 @@ public class AmbientLight {
     }
 
     public Color getIntensity(Point3D point){
-        return new Color((int) (getColor().getRed() * getKa()),
-                (int) (getColor().getGreen() * getKa()),
-                (int) (getColor().getBlue() * getKa()));
+        return new Color((int) (getIntensity().getRed() * getKa()),
+                (int) (getIntensity().getGreen() * getKa()),
+                (int) (getIntensity().getBlue() * getKa()));
     }
 }
