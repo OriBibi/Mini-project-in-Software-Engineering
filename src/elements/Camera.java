@@ -22,6 +22,9 @@ public class Camera {
     }
     public Camera(Point3D sourcePoint) {
         this.p0 = sourcePoint;
+        vUp=new Vector(new Coordinate(1.0),Coordinate.ZERO,Coordinate.ZERO);
+        vToward=new Vector(Coordinate.ZERO,Coordinate.ZERO,new Coordinate(-1.0));
+        vRight=vUp.crossProduct(vToward);
     }
     public Camera(Point3D point,Vector vUp, Vector vToward) {
         this.vUp = vUp;

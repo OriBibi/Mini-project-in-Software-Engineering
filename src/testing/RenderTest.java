@@ -1,9 +1,12 @@
 package testing;
 
+import elements.AmbientLight;
+import elements.Camera;
 import geometries.Sphere;
 import geometries.Triangle;
 import org.junit.jupiter.api.Test;
 import primitives.Point3D;
+import primitives.Vector;
 import renderer.ImageWriter;
 import renderer.Render;
 import scene.Scene;
@@ -17,6 +20,8 @@ public class RenderTest {
     public void basicRendering(){
 
         Scene scene = new Scene();
+        /*scene= new Scene("point&vector change",Color.BLACK,
+                new Camera(new Point3D(0,-80,40),new Vector(1,0,0),new Vector(0,2,-1)),100,new AmbientLight());*/
 
         scene.addGeometry(new Sphere(Color.blue, 50, new Point3D(0.0, 0.0, -150)));
 
@@ -41,7 +46,7 @@ public class RenderTest {
         scene.addGeometry(triangle3);
         scene.addGeometry(triangle4);
 
-        ImageWriter imageWriter = new ImageWriter("Render test", 500, 500, 500, 500);
+        ImageWriter imageWriter = new ImageWriter(scene.getSceneName(), 500, 500, 500, 500);
 
         Render render = new Render(scene, imageWriter);
 
