@@ -29,8 +29,12 @@ public class PointLight extends Light {
 
     }
     // ***************** Getters/Setters ********************** //
-    public Color getIntensity(Point3D point);
-    public Vector getL(Point3D point);
+    public Color getIntensity(Point3D point){
+        return null;
+    }
+    public Vector getL(Point3D point){
+        return null;
+    }
 
     public Point3D getPosition() {
         return position;

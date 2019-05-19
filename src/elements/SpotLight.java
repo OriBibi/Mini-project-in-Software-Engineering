@@ -28,7 +28,9 @@ public class SpotLight extends PointLight {
         this.setKq(0);
     }
     // ***************** Getters/Setters ********************** //
-    public Color getIntensity(Point3D point);
+    public Color getIntensity(Point3D point){
+        return null;
+    }
 
     public Vector getDirection() {
         return direction;
