@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 public class Scene {
 
-    protected String sceneName;
-    protected Color backGround;
-    protected ArrayList<Geometry> geometries;
-    protected Camera camera;
-    protected double screenDistance;
-    protected AmbientLight ambientLight;
+    private String sceneName;
+    private Color backGround;
+    private ArrayList<Geometry> geometries;
+    private Camera camera;
+    private double screenDistance;
+    private AmbientLight ambientLight;
     public void addGeometry(Geometry geometry){
-        this.geometries.add(geometry);
+        this.getGeometries().add(geometry);
     }
 
     // ***************** Getters/Setters ********************** //
@@ -58,34 +58,35 @@ public class Scene {
 
     // ***************** Constructors ********************** //
     public Scene() {
-        geometries=new ArrayList<>();
-        screenDistance=100;
-        sceneName=" ";
-        backGround=Color.black;
-        camera= new Camera();
-        ambientLight=new AmbientLight();
+        setSceneName("default scene");
+        setGeometries(new ArrayList<>());
+        setScreenDistance(100);
+        setSceneName(" ");
+        setBackGround(Color.black);
+        setCamera(new Camera());
+        setAmbientLight(new AmbientLight());
     }
 
     public Scene(String sceneName, Color backGround, Camera camera, double screenDistance, AmbientLight ambientLight) {
-        this.sceneName = sceneName;
-        this.backGround = backGround;
-        this.geometries = new ArrayList<>();
-        this.camera = camera;
-        this.screenDistance = screenDistance;
-        this.ambientLight = ambientLight;
+        this.setSceneName(sceneName);
+        this.setBackGround(backGround);
+        this.setGeometries(new ArrayList<>());
+        this.setCamera(camera);
+        this.setScreenDistance(screenDistance);
+        this.setAmbientLight(ambientLight);
     }
 
     public Scene(Scene scene) {
-        this.sceneName = scene.sceneName;
-        this.backGround = scene.backGround;
-        this.geometries = scene.geometries;
-        this.camera = scene.camera;
-        this.screenDistance = scene.screenDistance;
-        this.ambientLight = scene.ambientLight;
+        this.setSceneName(scene.getSceneName());
+        this.setBackGround(scene.getBackGround());
+        this.setGeometries(scene.getGeometries());
+        this.setCamera(scene.getCamera());
+        this.setScreenDistance(scene.getScreenDistance());
+        this.setAmbientLight(scene.getAmbientLight());
     }
     public Iterator<Geometry> getGeometriesIterator()
     {
-        return this.geometries.iterator();
+        return this.getGeometries().iterator();
     }
 
 }
