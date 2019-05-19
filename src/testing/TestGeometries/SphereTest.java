@@ -7,6 +7,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -114,19 +115,20 @@ class SphereTest {
         /**
          * test for ray that tangent to the sphere
          */
-        /*
+
         ray = new Ray(new Vector(0, -5, 0),new Point3D(0, 1, 1));
         list.clear();
         list.add(new Point3D(0, 0, 1));
-        assertEquals(sphere.findIntersections(ray), list);*/
+        List<Point3D> l=sphere.findIntersections(ray);
+        assertEquals(l, list);
 
         /**
          * test for when the ray start on the surface of the sphere and go away from it
          */
-        /*
+
         ray = new Ray( new Vector(0, 0, 1),new Point3D(0, 0, 1));
         // System.out.println(sphere.findIntersections(ray));
         list.clear();
-        assertEquals(sphere.findIntersections(ray), list);*/
+        assertEquals(sphere.findIntersections(ray), list);
     }
 }

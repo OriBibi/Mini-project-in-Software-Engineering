@@ -1,6 +1,7 @@
 package geometries;
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Util;
 import primitives.Vector;
 
 import java.awt.*;
@@ -40,7 +41,8 @@ public class Sphere extends RadialGeometry {
         Vector nd=ray.getVector().getNormal();
         double tm = u.dotProduct(nd);
         double d = Math.sqrt((u.vectorSize()*u.vectorSize()) - (tm*tm));
-
+        d=(int)(Math.abs(d*10000));
+        d=d/10000;
         if (d > this.get_radius())
             return intersectionPoints; // return null;
 
@@ -49,7 +51,7 @@ public class Sphere extends RadialGeometry {
         double t1 = tm - th;
         double t2 = tm + th;
 
-        if (t1 >= 0){
+        if (t1 > 0){
             Vector V = ray.getVector().getNormal();
             V.scale(t1);
             Point3D p = ray.getStartPoint();
@@ -57,7 +59,7 @@ public class Sphere extends RadialGeometry {
             intersectionPoints.add(P1);
         }
 
-        if (t2 >= 0){
+        if (t2 > 0&& t1!=t2){
             Vector V = ray.getVector().getNormal();
             V.scale(t2);
             Point3D p = ray.getStartPoint();

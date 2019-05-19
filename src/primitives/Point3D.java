@@ -37,7 +37,7 @@ public class Point3D extends Point2D  {
     public String toString() {
         String str= super.toString();
         return "Point3D{" + str.substring(8,str.length()-1)+
-                ", z=" + getZ()+
+                ", z=" + Math.abs(getZ().get()*10000)/10000+
                 '}';
     }
     public static double distance(Point3D point1, Point3D point2)

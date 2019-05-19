@@ -59,7 +59,7 @@ public class CameraTests {
                 Ray ray = camera.constructRayThroughPixel(
                         WIDTH, HEIGHT, j, i, 1, 3 * WIDTH, 3 * HEIGHT);
 
-                //screen[i][j] = ray.getPoo();
+                screen[i][j] = ray.getStartPoint();
 
                 System.out.print(" ^^ " + screen[i][j]);
                 System.out.println(" *** " + ray.getStartPoint());
