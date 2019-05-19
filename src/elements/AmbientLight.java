@@ -1,37 +1,30 @@
 package elements;
 
 import primitives.Point3D;
+import primitives.Vector;
 
 import java.awt.Color;
 
-public class AmbientLight {
-    private Color intensity;
+public class AmbientLight extends Light{
     private double ka;
 
     public AmbientLight() {
-        this.setIntensity(Color.white);
+        this.setColor(Color.yellow);
         this.setKa(0.25);
     }
-    public AmbientLight(Color intensity, double ka) {
-        this.setIntensity(intensity);
+    public AmbientLight(Color color, double ka) {
+        this.setColor(color);
         this.setKa(ka);
     }
     public AmbientLight(int a,int b,int c){
         this.setKa(0.25);
-        this.setIntensity(new Color(a,b,c));
+        this.setColor(new Color(a,b,c));
     }
     public AmbientLight(AmbientLight al){
-        this.setIntensity(al.getIntensity());
+        this.setColor(al.getColor());
         this.setKa(al.getKa());
     }
 
-    public Color getIntensity() {
-        return intensity;
-    }
-
-    public void setIntensity(Color intensity) {
-        this.intensity = intensity;
-    }
 
     public double getKa() {
         return ka;
@@ -52,8 +45,13 @@ public class AmbientLight {
     }
 
     public Color getIntensity(Point3D point){
-        return new Color((int) (getIntensity().getRed() * getKa()),
-                (int) (getIntensity().getGreen() * getKa()),
-                (int) (getIntensity().getBlue() * getKa()));
+        return new Color((int) (getColor().getRed() * getKa()),
+                (int) (getColor().getGreen() * getKa()),
+                (int) (getColor().getBlue() * getKa()));
+    }
+
+    @Override
+    public Vector getL(Point3D point) {
+        return new Vector(1,0,0);
     }
 }
