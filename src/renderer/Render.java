@@ -59,7 +59,7 @@ public class Render  {
                         imageWriter.getNx(), imageWriter.getNy(), j, i,
                         scene.getScreenDistance(),
                         imageWriter.getWidth(), imageWriter.getHeight());
-                ArrayList<Point3D> intersections = getSceneRayIntersections(ray);
+                //ArrayList<Point3D> intersections = getSceneRayIntersections(ray);
                 if(intersections.isEmpty()) {
                     imageWriter.writePixel(j, i, scene.getBackGround());
                 }
