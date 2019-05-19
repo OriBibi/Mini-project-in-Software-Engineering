@@ -60,8 +60,7 @@ public class Scene {
     public Scene() {
         setSceneName("default scene");
         setGeometries(new ArrayList<>());
-        setScreenDistance(100);
-        setSceneName(" ");
+        setScreenDistance(160);
         setBackGround(Color.black);
         setCamera(new Camera());
         setAmbientLight(new AmbientLight());

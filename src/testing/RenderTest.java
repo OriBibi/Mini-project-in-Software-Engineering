@@ -20,9 +20,9 @@ public class RenderTest {
     public void basicRendering(){
 
         Scene scene = new Scene();
-        /*scene= new Scene("point&vector change",Color.BLACK,
-                new Camera(new Point3D(0,-80,40),new Vector(1,0,0),new Vector(0,2,-1)),100,new AmbientLight());
-*/
+       // scene= new Scene("point&vector change",Color.BLACK,
+         //       new Camera(new Point3D(0,-80,40),new Vector(1,0,0),new Vector(0,2,-1)),100,new AmbientLight());
+
         scene.addGeometry(new Sphere(Color.blue, 50, new Point3D(0.0, 0.0, -150)));
 
         Triangle triangle = new Triangle(Color.red,new Point3D( 100, 0, -149),
