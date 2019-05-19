@@ -10,7 +10,7 @@ public class Sphere extends RadialGeometry {
 
     protected Point3D middlePoint;
     public Sphere(Color color,double _radius, Point3D middlePoint){
-        this.geoColor=color;
+        this.setEmmission(color);
         this._radius=_radius;
         this.middlePoint=middlePoint;
 

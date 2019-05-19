@@ -9,13 +9,13 @@ public class Triangle extends Geometry {
 
     protected Point3D A,B,C;
     public Triangle (Triangle triangle){
-        this.geoColor=triangle.geoColor;
+        this.setEmmission(triangle.getEmmission());
         this.A = triangle.A;
         this.B = triangle.B;
         this.C = triangle.C;
     }
     public Triangle (Color color,Point3D a, Point3D b, Point3D c ) {
-    geoColor=color;
+    setEmmission(color);
     A = a;
     B = b;
     C = c;

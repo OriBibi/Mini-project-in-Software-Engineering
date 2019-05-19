@@ -6,24 +6,24 @@ import java.util.List;
 
 public class Cylinder extends Tube {
 
-    protected Double hight;
+    protected Double height;
 
 
-    public Cylinder(double _radius, Ray ray, Double hight) {
+    public Cylinder(double _radius, Ray ray, Double height) {
         super(_radius, ray);
-        this.hight = hight;
+        this.height = height;
     }
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         // To be implemented
         return null;
     }
-    public Cylinder(RadialGeometry radialGeometry, Ray ray, Double hight) {
+    public Cylinder(RadialGeometry radialGeometry, Ray ray, Double height) {
         super(radialGeometry, ray);
-        this.hight = hight;
+        this.height = height;
     }
 
-    public Double getHight() {
-        return hight;
+    public Double getHeight() {
+        return height;
     }
 }

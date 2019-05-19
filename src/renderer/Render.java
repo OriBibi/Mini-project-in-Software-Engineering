@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.List;
 import java.util.Map.Entry;
 
+
 public class Render  {
 
     protected Scene scene;
@@ -74,18 +75,32 @@ public class Render  {
         Geometry finalGeometry= null;
         Point3D minDistancePoint= new Point3D();
         Point3D P0 = scene.getCamera().getp0();
+
         for(Entry<Geometry,List<Point3D>> entry: intersectionPoints.entrySet()){
-        for (Point3D point: entry.getValue()) {
-            if (Point3D.distance(point, P0) < distance)
-                minDistancePoint = new Point3D(point);
+            for (Point3D point: entry.getValue()) {
+                if (Point3D.distance(point, P0) < distance)
+                    minDistancePoint = new Point3D(point);
                 finalGeometry=entry.getKey();
-        }}
+            }
+        }
+
         HashMap<Geometry,Point3D> finalEntry= new HashMap<Geometry,Point3D>();
         finalEntry.put(finalGeometry,minDistancePoint);
+
         return finalEntry.entrySet().iterator().next();
     }
     private Color calcColor(Point3D point,Geometry geometry) {
-        return getScene().getAmbientLight().getIntensity(point);
+        Color ambientLight = this.scene.getAmbientLight().getIntensity(point);
+
+        Color emissionLight = geometry.getEmmission();
+
+        Color I0 = new Color (ambientLight.getRed()	+ emissionLight.getRed(),
+                ambientLight.getGreen() + emissionLight.getGreen(),
+                ambientLight.getBlue()	+ emissionLight.getBlue());
+
+        return I0;
+
+
     }
     private Map<Geometry,List<Point3D>> getSceneRayIntersections(Ray ray) {
 
