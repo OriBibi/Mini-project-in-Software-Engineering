@@ -3,9 +3,9 @@ import scene.*;
 import primitives.*;
 import geometries.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class Render  {
 
@@ -68,31 +68,34 @@ public class Render  {
             }
         }
     }
-    private Point3D getClosestPoint(ArrayList<Point3D> intersectionPoints) {
+    private Entry<Geometry,Point3D> getClosestPoint(HashMap<Geometry,List<Point3D>> intersectionPoints) {
 
         double distance = Double.MAX_VALUE;
+        Geometry finalGeometry= null;
+        Point3D minDistancePoint= new Point3D();
         Point3D P0 = scene.getCamera().getp0();
-        Point3D minDistancePoint = null;
-
-        for (Point3D point: intersectionPoints) {
+        for(Entry<Geometry,List<Point3D>> entry: intersectionPoints.entrySet()){
+        for (Point3D point: entry.getValue()) {
             if (Point3D.distance(point, P0) < distance)
                 minDistancePoint = new Point3D(point);
-        }
-        //distance = Point3D.distance(minDistancePoint,P0);
-        return minDistancePoint;
+                finalGeometry=entry.getKey();
+        }}
+        HashMap<Geometry,Point3D> finalEntry= new HashMap<Geometry,Point3D>();
+        finalEntry.put(finalGeometry,minDistancePoint);
+        return finalEntry.entrySet().iterator().next();
     }
-    private Color calcColor(Point3D point) {
+    private Color calcColor(Point3D point,Geometry geometry) {
         return getScene().getAmbientLight().getIntensity(point);
     }
-    private ArrayList<Point3D> getSceneRayIntersections(Ray ray) {
+    private Map<Geometry,List<Point3D>> getSceneRayIntersections(Ray ray) {
 
         Iterator<Geometry> geometries = scene.getGeometriesIterator();
-        ArrayList<Point3D> intersectionPoints = new ArrayList<Point3D>();
+        HashMap<Geometry,List<Point3D>> intersectionPoints=new HashMap<>();
 
         while (geometries.hasNext()) {
             Geometry geometry = geometries.next();
             List<Point3D> geometryIntersectionPoints = geometry.findIntersections(ray);
-            intersectionPoints.addAll(geometryIntersectionPoints);
+            intersectionPoints.put(geometry,geometryIntersectionPoints);
         }
         return intersectionPoints;
 
