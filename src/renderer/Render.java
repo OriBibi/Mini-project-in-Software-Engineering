@@ -59,17 +59,18 @@ public class Render  {
                         imageWriter.getNx(), imageWriter.getNy(), j, i,
                         scene.getScreenDistance(),
                         imageWriter.getWidth(), imageWriter.getHeight());
-                //ArrayList<Point3D> intersections = getSceneRayIntersections(ray);
+                Map<Geometry,List<Point3D>> intersections = getSceneRayIntersections(ray);
                 if(intersections.isEmpty()) {
                     imageWriter.writePixel(j, i, scene.getBackGround());
                 }
                 else {
-                    imageWriter.writePixel(j, i, calcColor(getClosestPoint(intersections)));
+                    Entry<Geometry,Point3D> entry=getClosestPoint(intersections);
+                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey()));
                 }
             }
         }
     }
-    private Entry<Geometry,Point3D> getClosestPoint(HashMap<Geometry,List<Point3D>> intersectionPoints) {
+    private Entry<Geometry,Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints) {
 
         double distance = Double.MAX_VALUE;
         Geometry finalGeometry= null;
@@ -78,10 +79,14 @@ public class Render  {
 
         for(Entry<Geometry,List<Point3D>> entry: intersectionPoints.entrySet()){
             for (Point3D point: entry.getValue()) {
-                if (Point3D.distance(point, P0) < distance)
+                if (Point3D.distance(point, P0) < distance) {
                     minDistancePoint = new Point3D(point);
-                finalGeometry=entry.getKey();
+                    finalGeometry = entry.getKey();
+                }
             }
+        }
+        if(finalGeometry==null) {
+            return null;
         }
 
         HashMap<Geometry,Point3D> finalEntry= new HashMap<Geometry,Point3D>();
@@ -91,12 +96,12 @@ public class Render  {
     }
     private Color calcColor(Point3D point,Geometry geometry) {
         Color ambientLight = this.scene.getAmbientLight().getIntensity(point);
-
         Color emissionLight = geometry.getEmmission();
 
-        Color I0 = new Color (ambientLight.getRed()	+ emissionLight.getRed(),
-                ambientLight.getGreen() + emissionLight.getGreen(),
-                ambientLight.getBlue()	+ emissionLight.getBlue());
+        int red=Math.max(0,Math.min(255,ambientLight.getRed()+emissionLight.getRed()));
+        int green=Math.max(0,Math.min(255,ambientLight.getGreen() + emissionLight.getGreen()));
+        int blue=Math.max(0,Math.min(255, ambientLight.getBlue()+ emissionLight.getBlue()));
+        Color I0 = new Color (red, blue, green);
 
         return I0;
 
@@ -110,6 +115,9 @@ public class Render  {
         while (geometries.hasNext()) {
             Geometry geometry = geometries.next();
             List<Point3D> geometryIntersectionPoints = geometry.findIntersections(ray);
+            if(geometryIntersectionPoints.isEmpty()){
+                continue;
+            }
             intersectionPoints.put(geometry,geometryIntersectionPoints);
         }
         return intersectionPoints;
