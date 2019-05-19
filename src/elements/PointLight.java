@@ -29,8 +29,24 @@ public class PointLight extends Light {
 
     }
     // ***************** Getters/Setters ********************** //
-    public Color getIntensity(Point3D point);
-    public Vector getL(Point3D point);
+    @Override
+    public Color getIntensity(Point3D point) {
+
+        int r = this.getColor().getRed();
+        int g = this.getColor().getGreen();
+        int b = this.getColor().getBlue();
+
+        double d = Point3D.distance(getPosition(),point);
+
+        double k = 1 / (getKc() + getKl() * d + getKq() * Math.pow(d, 2));
+
+        if (k > 1) k = 1;
+
+        return new Color((int) (r * k),
+                (int) (g * k),
+                (int) (b * k));
+    }
+    public Vector getL(Point3D point){return new Vector(position,point);}
 
     public Point3D getPosition() {
         return position;

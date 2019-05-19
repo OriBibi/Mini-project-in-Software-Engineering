@@ -28,7 +28,21 @@ public class SpotLight extends PointLight {
         this.setKq(0);
     }
     // ***************** Getters/Setters ********************** //
-    public Color getIntensity(Point3D point);
+    public Color getIntensity(Point3D point) {
+
+        Color pointColor = super.getIntensity(point);
+
+        Vector l = getL(point);
+        l.normalize();
+
+        double k = Math.abs(direction.dotProduct(l));
+
+        if (k > 1) k = 1; // doesn't allow light magnification
+
+        return new Color((int) (pointColor.getRed() * k),
+                (int) (pointColor.getGreen() * k),
+                (int) (pointColor.getBlue() * k));
+    }
 
     public Vector getDirection() {
         return direction;

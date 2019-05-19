@@ -38,6 +38,14 @@ public class Render  {
     }
 
     // ************* Functions ****************** //
+
+    private static class GeoPoint {
+        public Geometry geometry;
+        public Point3D point;
+    }
+
+
+
     public void printGrid(int interval){
         int height = imageWriter.getHeight();
         int width = imageWriter.getWidth();
