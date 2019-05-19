@@ -9,14 +9,22 @@ import java.util.List;
 public abstract class  Geometry {
 
 
-    protected Color geoColor;
+    private Color emmission;
+    Geometry(){
+        setEmmission(Color.white);
+    }
+    Geometry(Geometry g){
+        setEmmission(g.getEmmission());
+    }
+    Geometry(Color color){
+        setEmmission(color);
+    }
     public abstract List<Point3D> findIntersections( Ray ray);
-
-    public Color getGeoColor() {
-        return geoColor;
+    public Color getEmmission() {
+        return emmission;
     }
 
-    public void setGeoColor(Color geoColor) {
-        this.geoColor = geoColor;
+    public void setEmmission(Color emmission) {
+        this.emmission = emmission;
     }
 }

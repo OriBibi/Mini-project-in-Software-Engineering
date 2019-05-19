@@ -90,7 +90,17 @@ public class Render  {
         return finalEntry.entrySet().iterator().next();
     }
     private Color calcColor(Point3D point,Geometry geometry) {
-        Color color= getScene().getAmbientLight().getIntensity(point);
+        Color ambientLight = this.scene.getAmbientLight().getIntensity(point);
+
+        Color emissionLight = geometry.getEmmission();
+
+        Color I0 = new Color (ambientLight.getRed()	+ emissionLight.getRed(),
+                ambientLight.getGreen() + emissionLight.getGreen(),
+                ambientLight.getBlue()	+ emissionLight.getBlue());
+
+        return I0;
+
+
     }
     private Map<Geometry,List<Point3D>> getSceneRayIntersections(Ray ray) {
 

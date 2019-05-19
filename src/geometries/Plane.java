@@ -14,12 +14,12 @@ public class Plane extends Geometry {
         this.orthogonalVector = orthogonalVector;
     }
     public Plane( Color color,Point3D point, Vector orthogonalVector){
-        this.geoColor=color;
+        this.setEmmission(color);
         this.point=point;
         this.orthogonalVector=orthogonalVector;
     }
     public Plane(Plane plane){
-        this.geoColor=plane.geoColor;
+        this.setEmmission(plane.getEmmission());
         this.point=plane.point;
         this.orthogonalVector=plane.orthogonalVector;
     }
