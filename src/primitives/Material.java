@@ -16,7 +16,7 @@ public class Material {
         this.setnShininess(nShininess);
     }
     public Material() {
-        this.setKd(0.2);
+        this.setKd(1);
         this.setKs(0.2);
         this.setnShininess(1);
     }

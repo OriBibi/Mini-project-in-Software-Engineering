@@ -152,12 +152,12 @@ public class RenderTest {
 
         Scene scene = new Scene();
         scene.setScreenDistance(100);
-        Sphere sphere = new Sphere (new Color(0,0,100),800, new Point3D(0,0,-1000));
+        Sphere sphere = new Sphere (new Color(36, 100, 43),800, new Point3D(0,0,-1000));
         Material m=new Material();
         m.setnShininess(20);
         sphere.setMaterial(m);
         scene.addGeometry(sphere);
-        scene.addLight(new PointLight(new Color(255,100,100), new Point3D(-200, -200,-100),//-200, -200, -100),
+        scene.addLight(new PointLight(new Color(57, 93, 255), new Point3D(-200, -200,-100),//-200, -200, -100),
                 0, 0.00001, 0.000005));
 
         ImageWriter imageWriter = new ImageWriter("Point Test1", 500, 500, 500, 500);
@@ -188,7 +188,7 @@ public class RenderTest {
 
         scene.addGeometry(triangle);
         scene.addGeometry(triangle2);
-
+        scene.addGeometry(sphere);
         scene.addLight(new PointLight(new Color(255,100,100), new Point3D(-200,200, -100),
                 0, 0.000001, 0.0000005));
 

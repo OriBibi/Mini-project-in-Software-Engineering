@@ -157,8 +157,8 @@ public class Render  {
     }
     private Color calcDiffuseComp(double kd, Vector normal, Vector vecL, Color intensity){
 
-        vecL.getNormal();
-        normal.getNormal();
+        vecL.normalize();
+        normal.normalize    ();
         Double diffuse= Math.abs(kd*normal.dotProduct(vecL));
         Color color=scaleColor(intensity,diffuse);
         return color;
