@@ -1,4 +1,6 @@
 package renderer;
+import elements.Light;
+import primitives.Vector;
 import scene.*;
 import primitives.*;
 import geometries.*;
@@ -105,10 +107,20 @@ public class Render  {
         Color color = new Color (red, blue, green);
         return color;
     }
+    private Color scaleColor(Color color,double scaling){
+        int red=(int)Math.max(0,Math.min(255,color.getRed()*scaling));
+        int green=(int)Math.max(0,Math.min(255,color.getGreen() *scaling));
+        int blue=(int)Math.max(0,Math.min(255, color.getBlue()*scaling));
+        Color scaledcolor = new Color (red, blue, green);
+        return scaledcolor;
+    }
     private Color calcColor(Point3D point,Geometry geometry) {
         Color ambientLight = this.scene.getAmbientLight().getIntensity(point);
         Color emissionLight = geometry.getEmmission();
         Color I0 = addColors(ambientLight,emissionLight);
+        Iterator<Light> lights = scene.getLightsIterator();
+        while (lights.hasNext()){
+            I0=addColors(I0,calcDiffuseComp(geometry.getMaterial().getKd(),geometry.getNormal(point),))
 
         return I0;
 
@@ -127,6 +139,15 @@ public class Render  {
             intersectionPoints.put(geometry,geometryIntersectionPoints);
         }
         return intersectionPoints;
+
+    }
+    private Color calcDiffuseComp(double kd, Vector normal, Vector vecL, Color intensity){
+
+        vecL.getNormal();
+        normal.getNormal();
+        Double Diffuse= kd*normal.dotProduct(vecL);
+        Color color=scaleColor(intensity,Diffuse);
+        return color;
 
     }
 }

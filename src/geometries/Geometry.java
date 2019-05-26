@@ -3,6 +3,7 @@ package geometries;
 import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
+import primitives.Vector;
 
 import java.awt.*;
 import java.util.List;
@@ -27,6 +28,8 @@ public abstract class  Geometry {
         setEmmission(color);
     }
     public abstract List<Point3D> findIntersections( Ray ray);
+    public abstract Vector getNormal(Point3D point);
+
     public Color getEmmission() {
         return emmission;
     }
@@ -39,4 +42,5 @@ public abstract class  Geometry {
     public void setMaterial(Material material) {
         this.material = material;
     }
+
 }
