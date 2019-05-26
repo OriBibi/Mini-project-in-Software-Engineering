@@ -1,4 +1,5 @@
 package geometries;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
@@ -10,6 +11,7 @@ public class Plane extends Geometry {
     protected Point3D point;
     protected Vector orthogonalVector;
     public Plane(Point3D point, Vector orthogonalVector) {
+        super();
         this.point = point;
         this.orthogonalVector = orthogonalVector;
     }
@@ -18,8 +20,13 @@ public class Plane extends Geometry {
         this.point=point;
         this.orthogonalVector=orthogonalVector;
     }
+    public Plane(Material material, Color color, Point3D point, Vector orthogonalVector){
+        super(color,material);
+        this.point=point;
+        this.orthogonalVector=orthogonalVector;
+    }
     public Plane(Plane plane){
-        this.setEmmission(plane.getEmmission());
+        super(plane.getEmmission(),plane.getMaterial());
         this.point=plane.point;
         this.orthogonalVector=plane.orthogonalVector;
     }

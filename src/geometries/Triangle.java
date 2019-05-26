@@ -8,18 +8,32 @@ import java.util.ArrayList;
 public class Triangle extends Geometry {
 
     protected Point3D A,B,C;
+
+    public Triangle() {
+        super();
+        A=new Point3D(1,0,0);
+        B=new Point3D(0,1,0);
+        C=new Point3D(0,0,1);
+    }
+
     public Triangle (Triangle triangle){
-        this.setEmmission(triangle.getEmmission());
+        super(triangle.getEmmission(),triangle.getMaterial());
         this.A = triangle.A;
         this.B = triangle.B;
         this.C = triangle.C;
+    }
+    public Triangle (Material material,Color color,Point3D a, Point3D b, Point3D c ) {
+        super(color,material);
+        A = a;
+        B = b;
+        C = c;
     }
     public Triangle (Color color,Point3D a, Point3D b, Point3D c ) {
     setEmmission(color);
     A = a;
     B = b;
     C = c;
-}
+    }
     public Triangle(Point3D a, Point3D b, Point3D c) {
         A = a;
         B = b;
