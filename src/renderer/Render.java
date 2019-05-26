@@ -129,7 +129,7 @@ public class Render  {
 
             I0=addColors(I0,
                     calcSpecularComp(geometry.getMaterial().getKs(),
-                            scene.getCamera().getvToward(),
+                            new Vector(point,scene.getCamera().getp0()),
                             geometry.getNormal(point),
                             light.getL(point),
                             geometry.getMaterial().getnShininess(),
@@ -159,17 +159,19 @@ public class Render  {
 
         vecL.getNormal();
         normal.getNormal();
-        Double Diffuse= kd*normal.dotProduct(vecL);
-        Color color=scaleColor(intensity,Diffuse);
+        Double diffuse= Math.abs(kd*normal.dotProduct(vecL));
+        Color color=scaleColor(intensity,diffuse);
         return color;
 
     }
     private Color calcSpecularComp(double ks,Vector vector,Vector normal,Vector vecL, int shininess,Color intensity){
         normal.normalize();
         vecL.normalize();
+        vector.normalize();
         Vector tempvector=new Vector(normal);
         tempvector.scale(vecL.dotProduct(normal)*2);
         Vector R= vecL.subtractVector(tempvector);
+        R.normalize();
         double colorscale=ks*Math.pow(vector.dotProduct(R),shininess);
         Color color=scaleColor(intensity,colorscale);
         return color;

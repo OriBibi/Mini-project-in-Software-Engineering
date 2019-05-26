@@ -30,6 +30,9 @@ public class Plane extends Geometry {
         this.point=plane.point;
         this.orthogonalVector=plane.orthogonalVector;
     }
+    public Vector getNormal(Point3D point){
+        return orthogonalVector;
+    }
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         List<Point3D> intersectionPoints = new ArrayList<Point3D>();
