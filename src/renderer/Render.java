@@ -98,15 +98,17 @@ public class Render  {
 
         return finalEntry.entrySet().iterator().next();
     }
+    private Color addColors(Color c1,Color c2){
+        int red=Math.max(0,Math.min(255,c1.getRed()+c2.getRed()));
+        int green=Math.max(0,Math.min(255,c1.getGreen() + c2.getGreen()));
+        int blue=Math.max(0,Math.min(255, c1.getBlue()+ c2.getBlue()));
+        Color color = new Color (red, blue, green);
+        return color;
+    }
     private Color calcColor(Point3D point,Geometry geometry) {
         Color ambientLight = this.scene.getAmbientLight().getIntensity(point);
-
         Color emissionLight = geometry.getEmmission();
-
-        int red=Math.max(0,Math.min(255,ambientLight.getRed()+emissionLight.getRed()));
-        int green=Math.max(0,Math.min(255,ambientLight.getGreen() + emissionLight.getGreen()));
-        int blue=Math.max(0,Math.min(255, ambientLight.getBlue()+ emissionLight.getBlue()));
-        Color I0 = new Color (red, blue, green);
+        Color I0 = addColors(ambientLight,emissionLight);
 
         return I0;
 
