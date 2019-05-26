@@ -172,7 +172,10 @@ public class Render  {
         tempvector.scale(vecL.dotProduct(normal)*2);
         Vector R= vecL.subtractVector(tempvector);
         R.normalize();
-        double colorscale=ks*Math.pow(vector.dotProduct(R),shininess);
+        double colorscale=0;
+        if(vector.dotProduct(R)>0){
+            colorscale=ks*Math.pow(vector.dotProduct(R),shininess);
+        }
         Color color=scaleColor(intensity,colorscale);
         return color;
     }

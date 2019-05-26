@@ -51,7 +51,7 @@ public class RenderTest {
         Render render = new Render(scene, imageWriter);
 
         render.renderImage();
-        render.printGrid(50);
+        //render.printGrid(50);
         imageWriter.writeToimage();
 
 
@@ -92,7 +92,7 @@ public class RenderTest {
         Render render = new Render(scene, imageWriter);
 
         render.renderImage();
-        render.printGrid(50);
+        //render.printGrid(50);
         imageWriter.writeToimage();
 
 
@@ -128,7 +128,7 @@ public class RenderTest {
         Render render = new Render(scene, imageWriter);
 
         render.renderImage();
-        render.printGrid(50);
+        //render.printGrid(50);
         imageWriter.writeToimage();
 
 
@@ -165,7 +165,7 @@ public class RenderTest {
         Render render = new Render(scene, imageWriter);
 
         render.renderImage();
-        render.printGrid(50);
+        ////render.printGrid(50);
         imageWriter.writeToimage();
 
     }
@@ -197,7 +197,7 @@ public class RenderTest {
         Render render = new Render(scene, imageWriter);
 
         render.renderImage();
-        render.printGrid(50);
+        ////render.printGrid(50);
         imageWriter.writeToimage();
     }
 
@@ -224,7 +224,7 @@ public class RenderTest {
         Render render = new Render(scene, imageWriter);
 
         render.renderImage();
-        render.printGrid(50);
+        ////render.printGrid(50);
         imageWriter.writeToimage();
     }
 
@@ -260,7 +260,7 @@ public class RenderTest {
         Render render = new Render(scene, imageWriter);
 
         render.renderImage();
-        render.printGrid(50);
+        ////render.printGrid(50);
         imageWriter.writeToimage();
     }
 
@@ -297,7 +297,7 @@ public class RenderTest {
         Render render = new Render(scene, imageWriter);
 
         render.renderImage();
-        //	render.printGrid(50);
+        //render.printGrid(50);
         imageWriter.writeToimage();
 
     }
