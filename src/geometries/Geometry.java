@@ -17,7 +17,7 @@ public abstract class  Geometry {
     private Color emmission;
     Geometry(){
         setMaterial(new Material());
-        setEmmission(Color.white);
+        setEmmission(Color.black);
     }
     Geometry(Geometry g){
         setMaterial(g.getMaterial());
