@@ -104,14 +104,14 @@ public class Render  {
         int red=Math.max(0,Math.min(255,c1.getRed()+c2.getRed()));
         int green=Math.max(0,Math.min(255,c1.getGreen() + c2.getGreen()));
         int blue=Math.max(0,Math.min(255, c1.getBlue()+ c2.getBlue()));
-        Color color = new Color (red, blue, green);
+        Color color = new Color (red, green, blue);
         return color;
     }
     private Color scaleColor(Color color,double scaling){
         int red=(int)Math.max(0,Math.min(255,color.getRed()*scaling));
         int green=(int)Math.max(0,Math.min(255,color.getGreen() *scaling));
         int blue=(int)Math.max(0,Math.min(255, color.getBlue()*scaling));
-        Color scaledcolor = new Color (red, blue, green);
+        Color scaledcolor = new Color (red, green, blue);
         return scaledcolor;
     }
     private Color calcColor(Point3D point,Geometry geometry) {
@@ -158,7 +158,7 @@ public class Render  {
     private Color calcDiffuseComp(double kd, Vector normal, Vector vecL, Color intensity){
 
         vecL.normalize();
-        normal.normalize    ();
+        normal.normalize();
         Double diffuse= Math.abs(kd*normal.dotProduct(vecL));
         Color color=scaleColor(intensity,diffuse);
         return color;

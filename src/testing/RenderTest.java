@@ -152,7 +152,7 @@ public class RenderTest {
 
         Scene scene = new Scene();
         scene.setScreenDistance(100);
-        Sphere sphere = new Sphere (new Color(36, 100, 43),800, new Point3D(0,0,-1000));
+        Sphere sphere = new Sphere (new Color(0, 0, 100),800, new Point3D(0,0,-1000));
         Material m=new Material();
         m.setnShininess(20);
         sphere.setMaterial(m);
