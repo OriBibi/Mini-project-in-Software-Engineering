@@ -1,32 +1,41 @@
 package geometries;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Util;
-import primitives.Vector;
+import primitives.*;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 public class Sphere extends RadialGeometry {
 
-    protected Point3D middlePoint;
+    private Point3D middlePoint;
     public Sphere(Color color,double _radius, Point3D middlePoint){
         this.setEmmission(color);
         this._radius=_radius;
-        this.middlePoint=middlePoint;
+        this.setMiddlePoint(middlePoint);
 
     }
     public Sphere(double _radius, Point3D middlePoint) {
         super(_radius);
+        this.setMiddlePoint(middlePoint);
+    }
+    public Sphere( Color color, Material material,double _radius, Point3D middlePoint) {
+        super(_radius,color,material);
+        this.setMiddlePoint(middlePoint);
+    }
+    public Sphere(RadialGeometry radialGeometry, Point3D middlePoint) {
+        super(radialGeometry);
+        this.setMiddlePoint(middlePoint);
+    }
+    public Sphere(Sphere sphere){
+        super(sphere);
+        this.setMiddlePoint(sphere.getMiddlePoint());
+    }
+
+    public void setMiddlePoint(Point3D middlePoint) {
         this.middlePoint = middlePoint;
     }
 
-    public Sphere(RadialGeometry radialGeometry, Point3D middlePoint) {
-        super(radialGeometry);
-        this.middlePoint = middlePoint;
-    }
     public Vector getNormal(Point3D point) {
-        Vector vector = new Vector(middlePoint, point);
+        Vector vector = new Vector(getMiddlePoint(), point);
         vector.normalize();
         return vector;
     }

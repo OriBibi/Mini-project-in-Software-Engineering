@@ -20,6 +20,14 @@ public class PointLight extends Light {
     this.setKl(kl);
     this.setKq(kq);
     }
+    public PointLight(PointLight pointLight){
+        pointLight.setColor(this.getColor());
+        pointLight.setPosition(this.getPosition());
+        pointLight.setKc(this.getKc());
+        pointLight.setKl(this.getKl());
+        pointLight.setKq(this.getKq());
+
+    }
     public PointLight(){
         this.setColor(Color.yellow);
         this.setPosition(new Point3D(Coordinate.ZERO,Coordinate.ZERO,new Coordinate(10.0)));

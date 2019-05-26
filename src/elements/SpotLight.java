@@ -19,6 +19,15 @@ public class SpotLight extends PointLight {
         this.setKl(kl);
         this.setKq(kq);
     }
+    public SpotLight(SpotLight spotLight){
+        spotLight.setColor(this.getColor());
+        spotLight.setPosition(this.getPosition());
+        spotLight.setDirection(this.getDirection());
+        spotLight.setKc(this.getKc());
+        spotLight.setKl(this.getKl());
+        spotLight.setKq(this.getKq());
+
+    }
     public SpotLight(){
         this.setColor(Color.yellow);
         this.setPosition(new Point3D(Coordinate.ZERO,Coordinate.ZERO,new Coordinate(10.0)));

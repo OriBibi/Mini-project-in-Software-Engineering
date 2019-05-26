@@ -1,4 +1,5 @@
 package geometries;
+import primitives.Material;
 import primitives.Point3D;
 import primitives.Ray;
 
@@ -11,6 +12,10 @@ public abstract class RadialGeometry extends Geometry {
     public abstract List<Point3D> findIntersections(Ray ray);
     public RadialGeometry() {
         super();
+    }
+    public RadialGeometry(double _radius, Color color, Material material){
+        super(color,material);
+        this._radius = _radius;
     }
     public RadialGeometry(double _radius) {
         super();
