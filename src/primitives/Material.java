@@ -6,47 +6,29 @@ public class Material {
 
     private double kd; // Diffusion attenuation coefficient
     private double ks; // Specular attenuation coefficient
-    private double nShininess;  // Refraction index
+    private int nShininess;  // Refraction index
 
     // ***************** Constructors ********************** //
 
-    public Material(double kd, double ks, double nShininess) {
-        this.set_kd (kd);
-        this.set_ks (ks);
+    public Material(double kd, double ks, int nShininess) {
+        this.setKd (kd);
+        this.setKs (ks);
         this.setnShininess(nShininess);
     }
     public Material() {
         this.setKd(0.2);
         this.setKs(0.2);
-        this.setnShininess(0.2);
+        this.setnShininess(1);
     }
     public Material(Material material) {
         this.setKd(material.getKd());
-        this.setKs(material.getKd());
-        this.setnShininess(material.getKd());
+        this.setKs(material.getKs());
+        this.setnShininess(material.getnShininess());
     }
 
 
     // ***************** Getters/Setters ******************* //
 
-    public double get_kd() {
-        return getKd();
-    }
-    public void set_kd(double kd) {
-        this.setKd(kd);
-    }
-    public double get_ks() {
-        return getKs();
-    }
-    public void set_ks(double ks) {
-        this.setKs(ks);
-    }
-    public double get_nShininess() {
-        return getnShininess();
-    }
-    public void set_nShininess(double nShininess) {
-        this.setnShininess(nShininess);
-    }
 
     public double getKd() {
         return kd;
@@ -64,11 +46,11 @@ public class Material {
         this.ks = ks;
     }
 
-    public double getnShininess() {
+    public int getnShininess() {
         return nShininess;
     }
 
-    public void setnShininess(double nShininess) {
+    public void setnShininess(int nShininess) {
         this.nShininess = nShininess;
     }
 }

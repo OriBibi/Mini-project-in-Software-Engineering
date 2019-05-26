@@ -119,8 +119,22 @@ public class Render  {
         Color emissionLight = geometry.getEmmission();
         Color I0 = addColors(ambientLight,emissionLight);
         Iterator<Light> lights = scene.getLightsIterator();
-        while (lights.hasNext()){
-            I0=addColors(I0,calcDiffuseComp(geometry.getMaterial().getKd(),geometry.getNormal(point),))
+        while (lights.hasNext()) {
+            Light light=lights.next();
+            I0 = addColors(I0,
+                    calcDiffuseComp(geometry.getMaterial().getKd(),
+                            geometry.getNormal(point),
+                            light.getL(point),
+                            light.getIntensity(point) ));
+
+            I0=addColors(I0,
+                    calcSpecularComp(geometry.getMaterial().getKs(),
+                            scene.getCamera().getvToward(),
+                            geometry.getNormal(point),
+                            light.getL(point),
+                            geometry.getMaterial().getnShininess(),
+                            light.getIntensity(point)));
+        }
 
         return I0;
 
@@ -150,4 +164,15 @@ public class Render  {
         return color;
 
     }
+    private Color calcSpecularComp(double ks,Vector vector,Vector normal,Vector vecL, int shininess,Color intensity){
+        normal.normalize();
+        vecL.normalize();
+        Vector tempvector=new Vector(normal);
+        tempvector.scale(vecL.dotProduct(normal)*2);
+        Vector R= vecL.subtractVector(tempvector);
+        double colorscale=ks*Math.pow(vector.dotProduct(R),shininess);
+        Color color=scaleColor(intensity,colorscale);
+        return color;
+    }
+
 }
