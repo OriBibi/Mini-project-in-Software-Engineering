@@ -1,4 +1,4 @@
-package testing.TestGeometries;
+package TestGeometries;
 
 import geometries.Plane;
 import geometries.Triangle;

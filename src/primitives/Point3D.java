@@ -58,6 +58,7 @@ public class Point3D extends Point2D  {
         if (this == o) return true;
         if (this == null) return false;
         if (!(o instanceof Point3D)) return false;
+        if(!super.equals((Point2D)o)) return false;
         Point3D point3D = (Point3D) o;
         return getZ().equals(point3D.getZ());
     }

@@ -1,4 +1,4 @@
-package testing.TestGeometries;
+package TestGeometries;
 
 import geometries.Sphere;
 import org.junit.jupiter.api.Test;

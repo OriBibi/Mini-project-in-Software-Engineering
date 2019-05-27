@@ -188,7 +188,6 @@ public class RenderTest {
 
         scene.addGeometry(triangle);
         scene.addGeometry(triangle2);
-        scene.addGeometry(sphere);
         scene.addLight(new PointLight(new Color(255,100,100), new Point3D(-200,200, -100),
                 0, 0.000001, 0.0000005));
 
