@@ -41,10 +41,9 @@ public class SpotLight extends PointLight {
 
         Color pointColor = super.getIntensity(point);
 
-        Vector l = getL(point);
+        Vector l = super.getL(point);
         l.normalize();
-
-        double k = Math.abs(direction.dotProduct(l));
+        double k = Math.abs(getDirection().dotProduct(l));
 
         if (k > 1) k = 1; // doesn't allow light magnification
 
@@ -59,6 +58,6 @@ public class SpotLight extends PointLight {
     }
 
     public void setDirection(Vector direction) {
-        this.direction = direction;
+        this.direction = direction.getNormal();
     }
 }

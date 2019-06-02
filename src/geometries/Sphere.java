@@ -70,7 +70,7 @@ public class Sphere extends RadialGeometry {
             intersectionPoints.add(P1);
         }
 
-        if (t2 > 0){
+        if (t2 > 0&& Math.abs(t1-t2)<0.1){
             Vector V = ray.getVector().getNormal();
             V.scale(t2);
             Point3D p = ray.getStartPoint();

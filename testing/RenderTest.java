@@ -158,7 +158,7 @@ public class RenderTest {
         m.setnShininess(20);
         sphere.setMaterial(m);
         scene.addGeometry(sphere);
-        scene.addLight(new PointLight(new Color(57, 93, 255), new Point3D(-200, -200,-100),//-200, -200, -100),
+        scene.addLight(new PointLight(new Color(255, 100, 100), new Point3D(-200, -200,-100),//-200, -200, -100),
                 0, 0.00001, 0.000005));
 
         ImageWriter imageWriter = new ImageWriter("Point Test1", 500, 500, 500, 500);
@@ -200,6 +200,7 @@ public class RenderTest {
         ////render.printGrid(50);
         imageWriter.writeToimage();
     }
+    /*
     @Test
     public void proTests(){
         Scene scene = new Scene();
@@ -220,7 +221,7 @@ public class RenderTest {
         Render rn = new Render(scene,imw);
         rn.renderImage();
         imw.writeToimage();
-    }
+    }*/
 
 
     @Test
