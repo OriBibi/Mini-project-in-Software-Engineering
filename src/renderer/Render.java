@@ -15,7 +15,7 @@ public class Render  {
     protected Scene scene;
     protected ImageWriter imageWriter;
 
-    // ************* Constructors ****************** //
+    // ************* Constructors ******************* //
     public Render(Scene scene, ImageWriter imageWriter) {
         this.scene = scene;
         this.imageWriter = imageWriter;
@@ -39,15 +39,11 @@ public class Render  {
         this.imageWriter = imageWriter;
     }
 
-    // ************* Functions ****************** //
 
     private static class GeoPoint {
         public Geometry geometry;
         public Point3D point;
     }
-
-
-
     public void printGrid(int interval){
         int height = imageWriter.getHeight();
         int width = imageWriter.getWidth();
@@ -100,13 +96,14 @@ public class Render  {
 
         return finalEntry.entrySet().iterator().next();
     }
-    private Color addColors(Color c1,Color c2){
+    public Color addColors(Color c1,Color c2){
         int red=Math.max(0,Math.min(255,c1.getRed()+c2.getRed()));
         int green=Math.max(0,Math.min(255,c1.getGreen() + c2.getGreen()));
         int blue=Math.max(0,Math.min(255, c1.getBlue()+ c2.getBlue()));
         Color color = new Color (red, green, blue);
         return color;
     }
+
     private Color scaleColor(Color color,double scaling){
         int red=(int)Math.max(0,Math.min(255,color.getRed()*scaling));
         int green=(int)Math.max(0,Math.min(255,color.getGreen() *scaling));

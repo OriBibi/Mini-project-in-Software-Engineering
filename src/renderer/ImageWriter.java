@@ -33,7 +33,7 @@ public class ImageWriter {
         _imageName = imageName;
 
         _image = new BufferedImage(
-                _imageWidth, _imageHeight, BufferedImage.TYPE_INT_RGB);;
+                _imageWidth, _imageHeight, BufferedImage.TYPE_INT_RGB);
     }
 
     public ImageWriter (ImageWriter imageWriter){
@@ -46,7 +46,7 @@ public class ImageWriter {
         _imageName = imageWriter._imageName;
 
         _image = new BufferedImage(
-                _imageWidth, _imageHeight, BufferedImage.TYPE_INT_RGB);;
+                _imageWidth, _imageHeight, BufferedImage.TYPE_INT_RGB);
     }
 
     // ***************** Getters/Setters ********************** //
@@ -72,21 +72,18 @@ public class ImageWriter {
             e.printStackTrace();
         }
     }
-
     public void writePixel(int xIndex, int yIndex, int r, int g, int b){
 
         int rgb = new Color(r, g, b).getRGB();
         _image.setRGB(xIndex, yIndex, rgb);
 
     }
-
     public void writePixel(int xIndex, int yIndex, int[] rgbArray){
 
         int rgb = new Color(rgbArray[0], rgbArray[1], rgbArray[2]).getRGB();
         _image.setRGB(xIndex, yIndex, rgb);
 
     }
-
     public void writePixel(int xIndex, int yIndex, Color color){
 
         _image.setRGB(xIndex, yIndex, color.getRGB());

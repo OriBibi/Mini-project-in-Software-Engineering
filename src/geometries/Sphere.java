@@ -7,6 +7,9 @@ import java.util.List;
 public class Sphere extends RadialGeometry {
 
     private Point3D middlePoint;
+
+    // ************* Constructors ****************** //
+
     public Sphere(Color color,double _radius, Point3D middlePoint){
         this.setEmmission(color);
         this._radius=_radius;
@@ -30,18 +33,17 @@ public class Sphere extends RadialGeometry {
         this.setMiddlePoint(sphere.getMiddlePoint());
     }
 
+    // ************* Getters/Setters ****************** //
+
     public void setMiddlePoint(Point3D middlePoint) {
         this.middlePoint = middlePoint;
-    }
-
-    public Vector getNormal(Point3D point) {
-        Vector vector = new Vector(getMiddlePoint(), point);
-        vector.normalize();
-        return vector;
     }
     public Point3D getMiddlePoint() {
         return middlePoint;
     }
+
+    // ************* Functions ************************ //
+
     @Override
     public List<Point3D> findIntersections(Ray ray) {
         List<Point3D> intersectionPoints= new ArrayList<Point3D>(2);
@@ -78,5 +80,11 @@ public class Sphere extends RadialGeometry {
 
         return intersectionPoints;
     }
+    public Vector getNormal(Point3D point) {
+        Vector vector = new Vector(getMiddlePoint(), point);
+        vector.normalize();
+        return vector;
+    }
+
 }
 
