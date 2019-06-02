@@ -43,10 +43,17 @@ public class Point2D {
     }
 
     public void setY(Coordinate y) {
+
+        double b=y.get();
+        b=Math.round(b*100);
+        y=new Coordinate(b/100.0);
         this.y = new Coordinate(y);
     }
 
     public void setX(Coordinate x) {
+        double a=x.get();
+        a=Math.round(a*100);
+        x=new Coordinate(a/100.0);
         this.x = new Coordinate(x);
     }
 

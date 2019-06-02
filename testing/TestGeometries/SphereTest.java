@@ -115,8 +115,8 @@ public void Test16(){
     for (Point3D iPoint: intersectionPointsSphere1)
     {
 
-        assertTrue(iPoint.equals(new Point3D(0.0, 0.0, -2.0)) == 0 ||
-                iPoint.equals(new Point3D(0.0, 0.0, -4.0)) == 0);
+        assertTrue(iPoint.equals(new Point3D(0.0, 0.0, -2.0)) ||
+                iPoint.equals(new Point3D(0.0, 0.0, -4.0)));
         System.out.println(iPoint);
     }
 }
@@ -186,5 +186,14 @@ public void Test16(){
         // System.out.println(sphere.findIntersections(ray));
         list.clear();
         assertEquals(sphere.findIntersections(ray), list);
+    }
+    @Test
+    public void Test17()
+    {
+        System.out.print("Test17: Sphere getNormal test: ");
+        Sphere sphere = new Sphere(10, new Point3D(0.0, 0.0, -3.0));
+        Vector normal = sphere.getNormal(new Point3D(5.0,5.0,-3.0));
+        System.out.println(normal);
+        assertEquals("Bad normal! ", normal.toString(),"Vector{head={x=0.71, y=0.71, z=0.0}}");
     }
 }
