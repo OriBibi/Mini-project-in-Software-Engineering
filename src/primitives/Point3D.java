@@ -12,7 +12,6 @@ public class Point3D extends Point2D  {
         super(x, y);
 
 
-
         this.setZ(z);
     }
     public Point3D(Point3D other) {
@@ -34,14 +33,12 @@ public class Point3D extends Point2D  {
         return new Coordinate(z);
     }
     public void setZ(Coordinate z) {
-        double c=z.get();
-        c=Math.round(c*100);
-        z=new Coordinate(c/100.0);
         this.z = new Coordinate(z);
     }
     @Override
     public String toString() {
         String str= super.toString();
+
         return "Point3D{" + str.substring(8,str.length()-1)+
                 ", z=" + getZ().get()+
                 '}';
