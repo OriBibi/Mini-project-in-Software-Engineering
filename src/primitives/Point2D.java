@@ -29,8 +29,8 @@ public class Point2D {
     @Override
     public String toString() {
         return "Point2D{" +
-                "x=" + Math.abs(getX().get()*10000)/10000 +
-                ", y=" + Math.abs(getY().get()*10000)/10000 +
+                "x=" + getX().get()+
+                ", y=" + getY().get() +
                 '}';
     }
 

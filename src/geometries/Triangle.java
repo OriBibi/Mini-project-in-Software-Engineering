@@ -53,7 +53,7 @@ public class Triangle extends Geometry {
     public Vector getNormal(Point3D p) {
         Vector v1 = new Vector(A, B);
         Vector v2 = new Vector(A, C);
-        Vector v = v2.crossProduct(v1);
+        Vector v = v1.crossProduct(v2);
         v.normalize();
         v.scale(-1);
         return v;
