@@ -203,13 +203,14 @@ public class RenderTest {
     @Test
     public void proTests(){
         Scene scene = new Scene();
-        scene.setCamera(new Camera(new Point3D(-400,-600,800),new Vector(0,-1,0),new Vector(0,0,-1),new Vector(-1,0,0)));
+        scene.setCamera(new Camera(new Point3D(-400,-600,800),new Vector(0,-1,0),new Vector(0,0,-1)));
+        scene.setScreenDistance(250);
         scene.setBackGround(Color.BLACK);
         scene.setAmbientLight(new AmbientLight(new Color(20,20,20),1));
         scene.addLight(new DirectionalLight(new Color(150,150,130),new Vector(-1,1,-1)));
         scene.addLight(new SpotLight(new Color(100,100,100),new Point3D(200,-400,0),new Vector(5,1,-1),0.05,0.00005,0.000008));
-        scene.addGeometry(new Triangle(new Material(0.5,0.5,100),new Color(0,0,0),new Point3D(600,0,-400),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320)));
-        scene.addGeometry(new Triangle(new Material(0.5,0.5,100),new Color(0,0,0),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320),new Point3D(-1400,-1000,-2320)));
+        scene.addGeometry(new Triangle(new Material(0.5,0.5,100),new Color(20,20,20),new Point3D(600,0,-400),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320)));
+        scene.addGeometry(new Triangle(new Material(0.5,0.5,100),new Color(20,20,20),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320),new Point3D(-1400,-1000,-2320)));
 
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){

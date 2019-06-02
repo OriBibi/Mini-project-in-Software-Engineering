@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +25,7 @@ class SphereTest {
         Vector vector = sphere.getNormal(p2);
         assertEquals(answer, vector);
     }
-    /*
+/*
     @Test
     void findIntersections() {
         // creating the expected values
@@ -62,8 +62,8 @@ class SphereTest {
         List<Point3D> list2 = new ArrayList<Point3D>();
         list2 = sphere2.findIntersections(ray2);
         assertEquals(answerList2, list2);
-    }*/
-
+    }
+*/
     @Test
     public void testFindIntersections() {
         /**
