@@ -52,7 +52,7 @@ public class Sphere extends RadialGeometry {
         Vector nd=ray.getVector().getNormal();
         double tm = u.dotProduct(nd);
         double d = Math.sqrt((u.vectorSize()*u.vectorSize()) - (tm*tm));
-        d=(int)(Math.abs(d*10000));
+        d=(int)((d*10000));
         d=d/10000;
         if (d > this.get_radius())
             return intersectionPoints; // return null;
@@ -70,7 +70,7 @@ public class Sphere extends RadialGeometry {
             intersectionPoints.add(P1);
         }
 
-        if (t2 > 0&& Math.abs(t1-t2)<0.1){
+        if (t2 > 0&& t1!=t2){
             Vector V = ray.getVector().getNormal();
             V.scale(t2);
             Point3D p = ray.getStartPoint();

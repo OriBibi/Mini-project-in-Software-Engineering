@@ -17,7 +17,7 @@ public class Vector
                 pt2.getZ().subtract(pt1.getZ())));
     }
     public Vector() {
-    this.setHead(new Point3D());
+    this.setHead(new Point3D(0,0,-1));
     }
     public Vector(Coordinate x,Coordinate y, Coordinate z)
     {

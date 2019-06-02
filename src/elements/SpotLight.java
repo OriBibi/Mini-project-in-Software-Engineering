@@ -20,12 +20,12 @@ public class SpotLight extends PointLight {
         this.setKq(kq);
     }
     public SpotLight(SpotLight spotLight){
-        spotLight.setColor(this.getColor());
-        spotLight.setPosition(this.getPosition());
-        spotLight.setDirection(this.getDirection());
-        spotLight.setKc(this.getKc());
-        spotLight.setKl(this.getKl());
-        spotLight.setKq(this.getKq());
+        this.setColor(spotLight.getColor());
+        this.setPosition(spotLight.getPosition());
+        this.setDirection(spotLight.getDirection());
+        this.setKc(spotLight.getKc());
+        this.setKl(spotLight.getKl());
+        this.setKq(spotLight.getKq());
 
     }
     public SpotLight(){
