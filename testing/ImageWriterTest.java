@@ -1,5 +1,3 @@
-package testing;
-
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 

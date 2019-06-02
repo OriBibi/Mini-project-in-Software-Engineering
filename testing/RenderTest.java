@@ -1,4 +1,4 @@
-package testing;
+
 
 import elements.*;
 import geometries.Sphere;
