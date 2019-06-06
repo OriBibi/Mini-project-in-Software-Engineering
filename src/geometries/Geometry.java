@@ -10,11 +10,13 @@ import java.util.List;
 
 public abstract class  Geometry {
 
-    private Material material;
+    // ***************** variables ************************* //
 
+    private Material material;//everything that wants to be a geometry that has to be made of a particular material.
+    private Color emmission;//The light that geometry produces
 
+    // ***************** Constructors ********************** //
 
-    private Color emmission;
     Geometry(){
         setMaterial(new Material());
         setEmmission(Color.black);
@@ -27,8 +29,8 @@ public abstract class  Geometry {
         setMaterial(material);
         setEmmission(color);
     }
-    public abstract List<Point3D> findIntersections( Ray ray);
-    public abstract Vector getNormal(Point3D point);
+
+    // ***************** Getters/Setters ******************* //
 
     public Color getEmmission() {
         return emmission;
@@ -42,5 +44,11 @@ public abstract class  Geometry {
     public void setMaterial(Material material) {
         this.material = material;
     }
+
+    // ***************** Operations ******************** //
+
+    public abstract List<Point3D> findIntersections( Ray ray);//All geometries must contain this function if they want to be visible in space
+    public abstract Vector getNormal(Point3D point);//You must know Normal at any point in geometry for many uses, such as for correct calculation of lighting
+
 
 }

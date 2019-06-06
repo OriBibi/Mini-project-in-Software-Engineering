@@ -5,7 +5,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 import java.awt.*;
-
+//Light without direction but the light decreases with the distance that it has a location. And therefore has: intensity, location and has no direction.
 public class PointLight extends Light {
     private Point3D position;
     private double Kc;

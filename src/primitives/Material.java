@@ -1,5 +1,5 @@
 package primitives;
-
+//A class that defines for everything that wants to be a geometry that has to be made of a particular material.
 public class Material {
 
     // ***************** variables ************************* //

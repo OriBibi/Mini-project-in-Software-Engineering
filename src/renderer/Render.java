@@ -38,8 +38,6 @@ public class Render  {
     public void setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
     }
-
-
     private static class GeoPoint {
         public Geometry geometry;
         public Point3D point;
@@ -65,17 +63,20 @@ public class Render  {
                         imageWriter.getNx(), imageWriter.getNy(), j, i,
                         scene.getScreenDistance(),
                         imageWriter.getWidth(), imageWriter.getHeight());
-                Map<Geometry,List<Point3D>> intersections = getSceneRayIntersections(ray);
-                if(intersections.isEmpty()) {
+                Map<Geometry,List<Point3D>> intersections = getSceneRayIntersections(ray);//A function that collects all the points of intersection of the beam with the shapes
+
+                if(intersections.isEmpty()) {//If intersection == null inserts the background color
+
                     imageWriter.writePixel(j, i, scene.getBackGround());
                 }
-                else {
+                else {//If there are any cut points then you will return the nearest crop point.
+
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections);
-                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey()));
+                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey()));//Request from imageWriter to write a certain color to the current pixel.
                 }
             }
         }
-    }
+    }//A function that builds a ray for each pixel and checks for cutting points with shapes in space
     private Entry<Geometry,Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints) {
 
         double distance = Double.MAX_VALUE;
@@ -103,7 +104,6 @@ public class Render  {
         Color color = new Color (red, green, blue);
         return color;
     }
-
     private Color scaleColor(Color color,double scaling){
         int red=(int)Math.max(0,Math.min(255,color.getRed()*scaling));
         int green=(int)Math.max(0,Math.min(255,color.getGreen() *scaling));
@@ -136,7 +136,7 @@ public class Render  {
         return I0;
 
 
-    }
+    }//Calculate the final color while considering the different light types that affect the shape. Using a Phong model
     private Map<Geometry,List<Point3D>> getSceneRayIntersections(Ray ray) {
 
         Iterator<Geometry> geometries = scene.getGeometriesIterator();
@@ -152,21 +152,24 @@ public class Render  {
         return intersectionPoints;
 
     }
-    private Color calcDiffuseComp(double kd, Vector normal, Vector vecL, Color intensity){
+    private Color calcDiffuseComp(double kd, Vector normal, Vector vecL, Color intensity)   {
 
         vecL.normalize();
         normal.normalize();
+        /*The more the angle formed between the normal of the shape
+         and direction vector of the light will be the bigger the
+         amount of light will decreasing*/
         Double diffuse= Math.abs(kd*normal.dotProduct(vecL));
         Color color=scaleColor(intensity,diffuse);
         return color;
 
-    }
+    }//Light that comes to geometry and creates the effect of light that distributes light to its environment.
     private Color calcSpecularComp(double ks,Vector vector,Vector normal,Vector vecL, int shininess,Color intensity){
         normal.normalize();
         vecL.normalize();
         vector.normalize();
         Vector tempvector=new Vector(normal);
-        tempvector.scale(vecL.dotProduct(normal)*2);
+        tempvector.scale(vecL.dotProduct(normal)*2);//The more the angle of the viewer \ camera will be the smaller the specular affects more.
         Vector R= vecL.subtractVector(tempvector);
         R.normalize();
         double colorscale=0;
@@ -175,6 +178,6 @@ public class Render  {
         }
         Color color=scaleColor(intensity,colorscale);
         return color;
-    }
+    }//Light created by a special break of light.
 
 }

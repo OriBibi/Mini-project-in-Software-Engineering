@@ -4,7 +4,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 import java.awt.*;
-
+//Light that is found in the infinite. He has strength and intensity. I do not have a position, so the amount of light is equal to each point in space.
 public class DirectionalLight extends Light {
     private Vector direction;
 

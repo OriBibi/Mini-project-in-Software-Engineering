@@ -200,28 +200,28 @@ public class RenderTest {
         ////render.printGrid(50);
         imageWriter.writeToimage();
     }
-    /*
+
     @Test
     public void proTests(){
         Scene scene = new Scene();
+        scene.setScreenDistance(200);
         scene.setBackGround(Color.BLACK);
         scene.setAmbientLight(new AmbientLight(new Color(20,20,20),1));
-        scene.addLight(new DirectionalLight(new Color(150,150,130),new Vector(-1,1,-1)));
-        scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(-200, -200, -100),
-                new Vector(2, 2, -3),0, 0.00001, 0.000005 ));
-        scene.addGeometry(new Triangle(new Material(0.5,0.5,100),new Color(0,0,0),new Point3D(600,0,-400),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320)));
-        scene.addGeometry(new Triangle(new Material(0.5,0.5,100),new Color(0,0,0),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320),new Point3D(-1400,-1000,-2320)));
-
+        scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(-200, -200, -150),
+                new Vector(2, 2, -3),0.1, 0.00001, 0.000005 ));
+        scene.addGeometry(new Triangle(new Color(0,0,100),new Point3D(600,0,-400),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320)));
+        scene.addGeometry(new Triangle(new Color(0,0,100),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320),new Point3D(-1400,-1000,-2320)));
         for(int i=0;i<10;i++){
             for(int j=0;j<10;j++){
                 scene.addGeometry(new Sphere(new Color ((int) Math.random()*100,(int)Math.random()*100,(int)Math.random()*100),new Material(0.5,0.5,100),100,new Point3D(500-i*200,-(100+j*100),-(500+j*180))));
             }
         }
-        ImageWriter imw = new ImageWriter("IMG_0021_Balls",500,500,2000,2000);
+        ImageWriter imw = new ImageWriter("IMG_0021_Balls",500,500,500,500);
         Render rn = new Render(scene,imw);
         rn.renderImage();
         imw.writeToimage();
-    }*/
+
+    }
 
 
     @Test

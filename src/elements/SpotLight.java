@@ -5,7 +5,7 @@ import primitives.Point3D;
 import primitives.Vector;
 
 import java.awt.*;
-
+//A light that combines direction and location. Its light is smaller as distance grows.
 public class SpotLight extends PointLight {
 
     private Vector direction;

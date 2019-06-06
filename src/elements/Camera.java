@@ -65,12 +65,12 @@ public class Camera {
         this.vToward = vToward;
         vRight=vToward.crossProduct(vUp);
     }
-    // ***************** Administration ********************** //
+// ***************** Operations ******************** //
     public String toString(){
         return "vToward: "   + vToward + "\n" +
                 "vUp: "   + vUp + "\n" +
                 "vRight:" + vRight + ".";
-    }    // ***************** Operations ******************** //
+    }
     public Ray constructRayThroughPixel (int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight)
     {
         Vector vToward = new Vector(getvToward());

@@ -48,19 +48,21 @@ public class Sphere extends RadialGeometry {
     public List<Point3D> findIntersections(Ray ray) {
         List<Point3D> intersectionPoints= new ArrayList<Point3D>(2);
 
-        Vector u = new Vector(ray.getStartPoint(), this.getMiddlePoint());
-        Vector nd=ray.getVector().getNormal();
-        double tm = u.dotProduct(nd);
-        double d = Math.sqrt((u.vectorSize()*u.vectorSize()) - (tm*tm));
+        Vector u = new Vector(ray.getStartPoint(), this.getMiddlePoint());//Vector "center" which is between the main point and the center point of the sphere.
+        Vector nd=ray.getVector().getNormal();//Find  normal vector for multiplication with the special coefficient.
+        double tm = u.dotProduct(nd);//We get the size of the vector on which the intersection points of the ray     are located with the sphere.
+        double d = Math.sqrt((u.vectorSize()*u.vectorSize()) - (tm*tm));//The size of the vertical with the given ray.
         d=(int)((d*10000));
         d=d/10000;
-        if (d > this.get_radius())
+        if (d > this.get_radius())//If the vertical is larger than the radius it means that the ray  is not intersected with the sphere
+
             return intersectionPoints; // return null;
 
-        double th = Math.sqrt((this.get_radius()*this.get_radius()) - (d*d));
+        double th = Math.sqrt((this.get_radius()*this.get_radius()) - (d*d));//The third side in the right triangle. One side is the vertical, the other is the radius and the third is found by the Phygorers theorem
 
-        double t1 = tm - th;
-        double t2 = tm + th;
+
+        double t1 = tm - th;//The coefficient that will lead me to the near  point of intersection
+        double t2 = tm + th;//The coefficient that will lead me to the far point of intersection
 
         if (t1 > 0){
             Vector V = ray.getVector().getNormal();
@@ -70,7 +72,7 @@ public class Sphere extends RadialGeometry {
             intersectionPoints.add(P1);
         }
 
-        if (t2 > 0&& t1!=t2){
+        if (t2 > 0&& Math.abs(t1-t2)<0.1){
             Vector V = ray.getVector().getNormal();
             V.scale(t2);
             Point3D p = ray.getStartPoint();
