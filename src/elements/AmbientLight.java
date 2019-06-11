@@ -62,4 +62,10 @@ public class AmbientLight extends Light{
     public Vector getL(Point3D point) {
         return new Vector(1,0,0);
     }
+    public Color getIntensity() {
+        return new Color((int) (getColor().getRed() * getKa()),
+                (int) (getColor().getGreen() * getKa()),
+                (int) (getColor().getBlue() * getKa()));
+
+    }
 }

@@ -5,7 +5,7 @@ import primitives.*;
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
-public class Triangle extends Geometry {
+public class Triangle extends Geometry implements FlatGeometry {
 
     protected Point3D A,B,C;
 

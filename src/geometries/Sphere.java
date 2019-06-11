@@ -82,6 +82,7 @@ public class Sphere extends RadialGeometry {
 
         return intersectionPoints;
     }
+
     public Vector getNormal(Point3D point) {
         Vector vector = new Vector(getMiddlePoint(), point);
         vector.normalize();

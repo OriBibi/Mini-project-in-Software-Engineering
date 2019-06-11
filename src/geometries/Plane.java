@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.awt.Color;
 
-public class Plane extends Geometry {
+public class Plane extends Geometry implements FlatGeometry {
     protected Point3D point;
     protected Vector orthogonalVector;
     public Plane(Point3D point, Vector orthogonalVector) {
