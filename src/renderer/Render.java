@@ -5,6 +5,7 @@ import scene.*;
 import primitives.*;
 import geometries.*;
 import java.awt.*;
+import java.security.KeyStore;
 import java.util.*;
 import java.util.List;
 import java.util.Map.Entry;
@@ -71,32 +72,32 @@ public class Render  {
                 }
                 else {//If there are any cut points then you will return the nearest crop point.
 
-                    Entry<Geometry,Point3D> entry=getClosestPoint(intersections);
+                    Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
                     imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey()));//Request from imageWriter to write a certain color to the current pixel.
                 }
             }
         }
     }//A function that builds a ray for each pixel and checks for Intersection points with shapes in the scene.
-    private Entry<Geometry,Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints) {
+   private Map<Geometry, Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints){
 
-        double distance = Double.MAX_VALUE;
-        Geometry finalGeometry= null;
-        Point3D minDistancePoint= new Point3D();
-        Point3D P0 = scene.getCamera().getp0();
+       double distance = Double.MAX_VALUE;
+       Point3D P0 = new Point3D(scene.getCamera().getp0());
+       Point3D minDistancPoint = null;
+       Geometry minDistancGeometry = null;
 
-        for(Entry<Geometry,List<Point3D>> entry: intersectionPoints.entrySet()){
-            for (Point3D point: entry.getValue()) {
-                if (Point3D.distance(point, P0) < distance)
-                    minDistancePoint = new Point3D(point);
-                    finalGeometry=entry.getKey();
-            }
-        }
+       for(Entry<Geometry, List<Point3D>> entry : intersectionPoints.entrySet()){
+           for (Point3D point: entry.getValue())
+               if(Point3D.distance(point, P0) < distance){
+                   minDistancPoint = new Point3D(point);
+                   minDistancGeometry = entry.getKey();
+                   distance = Point3D.distance(point, P0);
+               }
+       }
 
-        HashMap<Geometry,Point3D> finalEntry= new HashMap<Geometry,Point3D>();
-        finalEntry.put(finalGeometry,minDistancePoint);
-
-        return finalEntry.entrySet().iterator().next();
-    }
+       Map<Geometry,Point3D> minDistancMap=new HashMap<>();
+       minDistancMap.put(minDistancGeometry,minDistancPoint);
+       return minDistancMap;
+   }
     public Color addColors(Color c1,Color c2){
         int red=Math.max(0,Math.min(255,c1.getRed()+c2.getRed()));
         int green=Math.max(0,Math.min(255,c1.getGreen() + c2.getGreen()));
@@ -137,8 +138,9 @@ public class Render  {
         Color I0 = addColors(ambientLight,emissionLight);
         Iterator<Light> lights = scene.getLightsIterator();
         while (lights.hasNext()) {
-            Light light=lights.next();
+            Light light = lights.next();
             if (!occluded(light, point, geometry)) {
+
                 I0 = addColors(I0,
                         calcDiffuseComp(geometry.getMaterial().getKd(),
                                 geometry.getNormal(point),
@@ -214,4 +216,24 @@ public class Render  {
                (int)(lightIntensity.getGreen()*specular)%256,
                (int)(lightIntensity.getBlue()*specular)%256);
    }*/
+   /* private Entry<Geometry,Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints) {
+
+        double distance = Double.MAX_VALUE;
+        Geometry finalGeometry= null;
+        Point3D minDistancePoint= new Point3D();
+        Point3D P0 = scene.getCamera().getp0();
+
+        for(Entry<Geometry,List<Point3D>> entry: intersectionPoints.entrySet()){
+            for (Point3D point: entry.getValue()) {
+                if (Point3D.distance(point, P0) < distance)
+                    minDistancePoint = new Point3D(point);
+                    finalGeometry=entry.getKey();
+            }
+        }
+
+        HashMap<Geometry,Point3D> finalEntry= new HashMap<Geometry,Point3D>();
+        finalEntry.put(finalGeometry,minDistancePoint);
+
+        return finalEntry.entrySet().iterator().next();
+    }*/
 }
