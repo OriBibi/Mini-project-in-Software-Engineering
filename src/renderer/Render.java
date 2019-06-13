@@ -73,7 +73,7 @@ public class Render  {
                 else {//If there are any cut points then you will return the nearest crop point.
 
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
-                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey(),ray,3));//Request from imageWriter to write a certain color to the current pixel.
+                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey(),ray,0));//Request from imageWriter to write a certain color to the current pixel.
                 }
             }
         }
@@ -265,12 +265,14 @@ public class Render  {
 
        Vector normal = geometry.getNormal(point);
        normal.scale(-2);
-       point.addVector(normal);
-
+       point=point.addVector(normal);
+       Vector temp= new Vector( inRay.getVector());
+       Point3D poinetAndRey=new Point3D(point);
+       poinetAndRey=poinetAndRey.addVector(temp);
        if (geometry instanceof FlatGeometry){
-           return new Ray ( inRay.getVector(),point);
+           return new Ray (temp,poinetAndRey);
        } else {
-           return new Ray (inRay.getVector(),point);
+           return new Ray (temp,poinetAndRey);
        }
 
    }
@@ -285,9 +287,10 @@ public class Render  {
         Vector R = new Vector(l);
         R.normalize();
 
-        point.addVector(normal);
-
-        Ray reflectedRay = new Ray( R,point);
+        point=point.addVector(normal);
+        Point3D point1 = new Point3D(point);
+        point1.addVector(R);
+        Ray reflectedRay = new Ray( R,point1);
 
         return reflectedRay;
     }
