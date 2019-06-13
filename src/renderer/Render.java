@@ -265,12 +265,14 @@ public class Render  {
 
        Vector normal = geometry.getNormal(point);
        normal.scale(-2);
-       point = point.addVector(normal);
-
+       point=point.addVector(normal);
+       Vector temp= new Vector( inRay.getVector());
+       Point3D poinetAndRey=new Point3D(point);
+       poinetAndRey=poinetAndRey.addVector(temp);
        if (geometry instanceof FlatGeometry){
-           return new Ray ( inRay.getVector(),point);
+           return new Ray (temp,poinetAndRey);
        } else {
-           return new Ray (inRay.getVector(),point);
+           return new Ray (temp,poinetAndRey);
        }
 
    }
@@ -286,8 +288,9 @@ public class Render  {
         R.normalize();
 
         point=point.addVector(normal);
-
-        Ray reflectedRay = new Ray( R,point);
+        Point3D point1 = new Point3D(point);
+        point1.addVector(R);
+        Ray reflectedRay = new Ray( R,point1);
 
         return reflectedRay;
     }

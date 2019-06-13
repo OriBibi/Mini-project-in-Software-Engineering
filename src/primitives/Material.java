@@ -21,6 +21,8 @@ public class Material {
     public Material(double kd, double ks, int nShininess) {
         this.setKd (kd);
         this.setKs (ks);
+        this.setKr (0);
+        this.setKt (0);
         this.setnShininess(nShininess);
         this.setKt(0.5);
         this.setKr(0.5);
