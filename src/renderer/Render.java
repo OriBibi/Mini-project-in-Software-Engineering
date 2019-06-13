@@ -73,7 +73,7 @@ public class Render  {
                 else {//If there are any cut points then you will return the nearest crop point.
 
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
-                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey(),ray,0));//Request from imageWriter to write a certain color to the current pixel.
+                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey(),ray,1));//Request from imageWriter to write a certain color to the current pixel.
                 }
             }
         }
@@ -128,11 +128,8 @@ public class Render  {
         if (geometry instanceof FlatGeometry){
             intersectionPoint.remove(geometry);
         }
-        for(Entry<Geometry,List<Point3D>> entry:intersectionPoint.entrySet()){
-            if (entry.getKey().getMaterial().getKt()==0){
-                intersectionPoint.remove(entry.getKey());
-            }
-        }
+        intersectionPoint.entrySet().removeIf(e ->e.getKey().getMaterial().getKt()==0);
+
 
 
         return !intersectionPoint.isEmpty();
@@ -233,51 +230,18 @@ public class Render  {
         Color color=scaleColor(intensity,colorscale);
         return color;
     }//Light created by a special break of light.
-   /*private Color calcSpecularComp(double ks, Vector v, Vector normal,Vector l, double shininess, Color lightIntensity)  {
-       Vector r = new Vector(normal);
-       r.scale(-2*normal.dotProduct(l));
-       r.addVector(l);
-       r.normalize();
-       v.normalize();
-       double specular = ks*Math.pow(r.dotProduct(v),shininess);
-       if(specular < 0)
-       {specular *= -1;}
-       return new Color((int)(lightIntensity.getRed()* specular)%256 ,
-               (int)(lightIntensity.getGreen()*specular)%256,
-               (int)(lightIntensity.getBlue()*specular)%256);
-   }*/
-   /* private Entry<Geometry,Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints) {
-
-        double distance = Double.MAX_VALUE;
-        Geometry finalGeometry= null;
-        Point3D minDistancePoint= new Point3D();
-        Point3D P0 = scene.getCamera().getp0();
-
-        for(Entry<Geometry,List<Point3D>> entry: intersectionPoints.entrySet()){
-            for (Point3D point: entry.getValue()) {
-                if (Point3D.distance(point, P0) < distance)
-                    minDistancePoint = new Point3D(point);
-                    finalGeometry=entry.getKey();
-            }
-        }
-
-        HashMap<Geometry,Point3D> finalEntry= new HashMap<Geometry,Point3D>();
-        finalEntry.put(finalGeometry,minDistancePoint);
-
-        return finalEntry.entrySet().iterator().next();
-    }*/
-   private Ray constructRefractedRay(Geometry geometry, Point3D point, Ray inRay)  {
+    private Ray constructRefractedRay(Geometry geometry, Point3D point, Ray inRay)  {
 
        Vector normal = geometry.getNormal(point);
        normal.scale(-2);
        point=point.addVector(normal);
        Vector temp= new Vector( inRay.getVector());
-       Point3D poinetAndRey=new Point3D(point);
-       poinetAndRey=poinetAndRey.addVector(temp);
+       //Point3D poinetAndRey=new Point3D(point);
+       //poinetAndRey=poinetAndRey.addVector(temp);
        if (geometry instanceof FlatGeometry){
-           return new Ray (temp,poinetAndRey);
+           return new Ray (temp,point);
        } else {
-           return new Ray (temp,poinetAndRey);
+           return new Ray (temp,point);
        }
 
    }
@@ -295,7 +259,7 @@ public class Render  {
         point=point.addVector(normal);
         Point3D point1 = new Point3D(point);
         point1.addVector(R);
-        Ray reflectedRay = new Ray( R,point1);
+        Ray reflectedRay = new Ray( R,point);
 
         return reflectedRay;
     }
