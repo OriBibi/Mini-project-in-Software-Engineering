@@ -128,6 +128,11 @@ public class Render  {
         if (geometry instanceof FlatGeometry){
             intersectionPoint.remove(geometry);
         }
+        for(Entry<Geometry,List<Point3D>> entry:intersectionPoint.entrySet()){
+            if (entry.getKey().getMaterial().getKt()==0){
+                intersectionPoint.remove(entry.getKey());
+            }
+        }
 
 
         return !intersectionPoint.isEmpty();

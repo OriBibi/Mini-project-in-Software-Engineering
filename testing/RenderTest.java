@@ -179,7 +179,12 @@ public class RenderTest {
         Sphere sphere = new Sphere (new Color(0,0,100),800, new Point3D(0,0, -1000));
         Material m=new Material();
         m.setnShininess(20);
+
+
+
         sphere.setMaterial(m);
+
+
 
 
         Triangle triangle = new Triangle(new Color(0,0,0), new Point3D(  3500, 3500, -2000),
@@ -187,6 +192,12 @@ public class RenderTest {
         Triangle triangle2 = new Triangle(new Color(0,0,0), new Point3D(   3500, 3500, -2000),
                 new Point3D(   -3500, 3500, -1000), new Point3D( -3500, -3500, -1000));
 
+        m.setKr(1);
+        m.setKt(1);
+        triangle.setMaterial(m);
+        m.setKr(0);
+        m.setKt(0);
+        triangle2.setMaterial(m);
         scene.addGeometry(triangle);
         scene.addGeometry(triangle2);
         scene.addLight(new PointLight(new Color(255,100,100), new Point3D(-200,200, -100),
@@ -200,7 +211,7 @@ public class RenderTest {
         ////render.printGrid(50);
         imageWriter.writeToimage();
     }
-
+/*
     @Test
     public void proTests(){
         Scene scene = new Scene();
@@ -211,8 +222,8 @@ public class RenderTest {
                 new Vector(2, 2, -3),0.1, 0.00001, 0.000005 ));
         scene.addGeometry(new Triangle(new Color(0,0,100),new Point3D(600,0,-400),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320)));
         scene.addGeometry(new Triangle(new Color(0,0,100),new Point3D(-1400,0,-400),new Point3D(600,-1000,-2320),new Point3D(-1400,-1000,-2320)));
-        for(int i=0;i<10;i++){
-            for(int j=0;j<10;j++){
+        for(int i=1;i<10;i++){
+            for(int j=1;j<10;j++){
                 scene.addGeometry(new Sphere(new Color ((int) Math.random()*100,(int)Math.random()*100,(int)Math.random()*100),new Material(0.5,0.5,100),100,new Point3D(500-i*200,-(100+j*100),-(500+j*180))));
             }
         }
@@ -222,7 +233,7 @@ public class RenderTest {
         imw.writeToimage();
 
     }
-
+*/
 
     @Test
     public void spotLightTest1(){
@@ -368,7 +379,7 @@ public class RenderTest {
         Sphere sphere = new Sphere(Color.RED, 500, new Point3D(0.0, 0.0, -1000));
         Material m=new Material();
         m.setnShininess(20);
-        m.setKt(0);
+        m.setKt(0.5);
         sphere.setMaterial(m);
         scene.addGeometry(sphere);
 
@@ -376,7 +387,7 @@ public class RenderTest {
         //Sphere sphere2 = new Sphere(new Color(100, 20, 20), 250, new Point3D(0.0, 0.0, -1000));
         Material m2=new Material();
         m2.setnShininess(20);
-        m2.setKt(0);
+        m2.setKt(0.5);
         sphere2.setMaterial(m2);
         scene.addGeometry(sphere2);
 
