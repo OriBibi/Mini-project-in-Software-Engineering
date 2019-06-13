@@ -358,4 +358,36 @@ public class RenderTest {
         render.printGrid(50);
         imageWriter.writeToimage();
     }
+    @Test
+    public void recursiveTest1(){
+
+        Scene scene = new Scene();
+        scene.setScreenDistance(300);
+
+        //	Sphere sphere = new Sphere(new Color(0, 0, 100), 500, new Point3D(0.0, 0.0, -1000));
+        Sphere sphere = new Sphere(Color.RED, 500, new Point3D(0.0, 0.0, -1000));
+        Material m=new Material();
+        m.setnShininess(20);
+        m.setKt(0);
+        sphere.setMaterial(m);
+        scene.addGeometry(sphere);
+
+        Sphere sphere2 = new Sphere(Color.BLUE, 250, new Point3D(0.0, 0.0, -1000));
+        //Sphere sphere2 = new Sphere(new Color(100, 20, 20), 250, new Point3D(0.0, 0.0, -1000));
+        Material m2=new Material();
+        m2.setnShininess(20);
+        m2.setKt(0);
+        sphere2.setMaterial(m2);
+        scene.addGeometry(sphere2);
+
+        scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(-200, -200, -150),
+                new Vector(2, 2, -3), 0.1, 0.00001, 0.000005));
+
+        ImageWriter imageWriter = new ImageWriter("RRRRRRecursive Test1", 500, 500, 500, 500);
+
+        Render render = new Render(scene, imageWriter);
+
+        render.renderImage();
+        imageWriter.writeToimage();
+    }
 }

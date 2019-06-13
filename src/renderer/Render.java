@@ -73,7 +73,7 @@ public class Render  {
                 else {//If there are any cut points then you will return the nearest crop point.
 
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
-                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey()));//Request from imageWriter to write a certain color to the current pixel.
+                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey(),ray,3));//Request from imageWriter to write a certain color to the current pixel.
                 }
             }
         }
