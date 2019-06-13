@@ -69,12 +69,12 @@ public class Point3D extends Point2D  {
     public int hashCode() {
         return Objects.hash(getZ());
     }
-public Point3D addVector(Vector v)
-{
-    return new  Point3D(this.getX().add(v.getHead().getX()),
-            this.getY().add(v.getHead().getY()),
-            this.getZ().add(v.getHead().getZ()));
-}
+    public Point3D addVector(Vector v)
+    {
+        return new  Point3D(this.getX().add(v.getHead().getX()),
+                this.getY().add(v.getHead().getY()),
+                this.getZ().add(v.getHead().getZ()));
+    }
 
 }
 
