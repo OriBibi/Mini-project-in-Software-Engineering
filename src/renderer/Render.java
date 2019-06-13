@@ -15,7 +15,7 @@ public class Render  {
 
     protected Scene scene;
     protected ImageWriter imageWriter;
-
+    private final int RECURSION_LEVEL = 3;
     // ************* Constructors ******************* //
     public Render(Scene scene, ImageWriter imageWriter) {
         this.scene = scene;
@@ -120,7 +120,7 @@ public class Render  {
 
         Vector epsVector = new Vector(geometry.getNormal(point));
         epsVector.scale(2);
-        geometryPoint.addVector(epsVector);
+        geometryPoint=geometryPoint.addVector(epsVector);
 
         Ray lightRay = new Ray( lightDirection,geometryPoint);
         Map <Geometry,List<Point3D>> intersectionPoint = getSceneRayIntersections(lightRay);
@@ -132,7 +132,10 @@ public class Render  {
 
         return !intersectionPoint.isEmpty();
     }
-    private Color calcColor(Point3D point,Geometry geometry) {
+    private Color calcColor(Point3D point,Geometry geometry, Ray inRay,int level) {
+        if (level == RECURSION_LEVEL){
+            return new Color(0, 0, 0);
+        }
         Color ambientLight = this.scene.getAmbientLight().getIntensity(point);
         Color emissionLight = geometry.getEmmission();
         Color I0 = addColors(ambientLight,emissionLight);
@@ -156,7 +159,29 @@ public class Render  {
                                 light.getIntensity(point)));
             }
         }
+            // Recursive call for a reflected ray
+            Ray reflectedRay = constructReflectedRay(geometry.getNormal(point), point, inRay);
+            Entry<Geometry, Point3D> reflectedEntry = findClosesntIntersection(reflectedRay);
+            Color reflected = new Color(0, 0, 0);
+            if (reflectedEntry != null){
+                reflected = calcColor( reflectedEntry.getValue(),reflectedEntry.getKey(), reflectedRay, level + 1);
+                double kr = geometry.getMaterial().getKr();
+                reflected = scaleColor(reflected,kr);
 
+            }
+
+            // Recursive call for a refracted ray
+            Ray refractedRay = constructRefractedRay(geometry, point, inRay);
+            Entry<Geometry, Point3D> refractedEntry = findClosesntIntersection(refractedRay);
+            Color refracted = new Color(0, 0, 0);
+            if (refractedEntry != null){
+                refracted = calcColor(refractedEntry.getValue(),refractedEntry.getKey(), refractedRay, level + 1);
+                double kt = geometry.getMaterial().getKt();
+                refracted = scaleColor(refracted,kt);
+
+            }
+        I0= addColors(I0,reflected);
+        I0= addColors(I0,refracted);
         return I0;
 
 
@@ -236,4 +261,44 @@ public class Render  {
 
         return finalEntry.entrySet().iterator().next();
     }*/
+   private Ray constructRefractedRay(Geometry geometry, Point3D point, Ray inRay)  {
+
+       Vector normal = geometry.getNormal(point);
+       normal.scale(-2);
+       point.addVector(normal);
+
+       if (geometry instanceof FlatGeometry){
+           return new Ray ( inRay.getVector(),point);
+       } else {
+           return new Ray (inRay.getVector(),point);
+       }
+
+   }
+    private Ray constructReflectedRay(Vector normal, Point3D point, Ray inRay)  {
+
+        Vector l = inRay.getVector();
+        l.normalize();
+
+        normal.scale(-2 * l.dotProduct(normal));
+        l.addVector(normal);
+
+        Vector R = new Vector(l);
+        R.normalize();
+
+        point.addVector(normal);
+
+        Ray reflectedRay = new Ray( R,point);
+
+        return reflectedRay;
+    }
+    private Entry<Geometry, Point3D> findClosesntIntersection(Ray ray)  {
+        Map<Geometry, List<Point3D>> intersectionPoints = getSceneRayIntersections(ray);
+
+        if (intersectionPoints.size() == 0)
+            return null;
+
+        Map<Geometry, Point3D> closestPoint = getClosestPoint(intersectionPoints);
+        Entry<Geometry, Point3D> entry = closestPoint.entrySet().iterator().next();
+        return entry;
+    }
 }
