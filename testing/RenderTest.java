@@ -388,7 +388,7 @@ public class RenderTest {
         scene.addGeometry(sphere2);
 
         scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(-200, -200, -150),
-                new Vector(2, 2, -3), 0.1, 0.00001, 0.000005));
+                new Vector(2, 2, -3), 0.2   , 0.00001, 0.000005));
 
         ImageWriter imageWriter = new ImageWriter("Recursive Test 11", 500, 500, 500, 500);
 
@@ -430,8 +430,8 @@ public class RenderTest {
         scene.addGeometry(triangle);
         scene.addGeometry(triangle2);
 
-        //scene.addLight(new SpotLight(new Color(255, 100, 100),  new Point3D(200, 200, -150),
-              //  new Vector(-2, -2, -3), 0, 0.00001, 0.000005));
+        scene.addLight(new SpotLight(new Color(255, 100, 100),  new Point3D(200, 200, -150),
+               new Vector(-2, -2, -3), 0, 0.00001, 0.000005));
 
         ImageWriter imageWriter = new ImageWriter("Recursive Test 2", 500, 500, 500, 500);
 

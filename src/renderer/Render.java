@@ -128,13 +128,13 @@ public class Render  {
         if (geometry instanceof FlatGeometry){
             intersectionPoint.remove(geometry);
         }
-        intersectionPoint.entrySet().removeIf(e ->e.getKey().getMaterial().getKt()==0);
+        for (Entry<Geometry, List<Point3D>> entry: intersectionPoint.entrySet())
+            if (entry.getKey().getMaterial().getKt() == 0)
+                return true;
+        return false;
 
-
-
-        return !intersectionPoint.isEmpty();
     }
-    private Color calcColor(Point3D point,Geometry geometry, Ray inRay,int level) {
+    public Color calcColor(Point3D point,Geometry geometry, Ray inRay,int level) {
         if (level == RECURSION_LEVEL){
             return new Color(0, 0, 0);
         }
@@ -162,7 +162,8 @@ public class Render  {
             }
         }
             // Recursive call for a reflected ray
-            Ray reflectedRay = constructReflectedRay(geometry.getNormal(point), point, inRay);
+             Vector vector=geometry.getNormal(point);
+            Ray reflectedRay = constructReflectedRay(vector, point, inRay);
             Entry<Geometry, Point3D> reflectedEntry = findClosesntIntersection(reflectedRay);
             Color reflected = new Color(0, 0, 0);
             if (reflectedEntry != null){
@@ -236,8 +237,8 @@ public class Render  {
        normal.scale(-2);
        point=point.addVector(normal);
        Vector temp= new Vector( inRay.getVector());
-       //Point3D poinetAndRey=new Point3D(point);
-       //poinetAndRey=poinetAndRey.addVector(temp);
+       Point3D poinetAndRey=new Point3D(point);
+       poinetAndRey=poinetAndRey.addVector(temp);
        if (geometry instanceof FlatGeometry){
            return new Ray (temp,point);
        } else {
