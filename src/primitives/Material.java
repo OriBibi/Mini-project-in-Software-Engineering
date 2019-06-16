@@ -30,8 +30,8 @@ public class Material {
     public Material() {
         this.setKd(1);
         this.setKs(1);
-        this.setKr (0.5);
-        this.setKt (0.5);
+        this.setKr (0);
+        this.setKt (0);
         this.setnShininess(25);
     }
     public Material(Material material) {

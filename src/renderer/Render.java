@@ -128,7 +128,7 @@ public class Render  {
         if (geometry instanceof FlatGeometry){
             intersectionPoint.remove(geometry);
         }
-        for (Entry<Geometry, List<Point3D>> entry: intersectionPoint.entrySet())
+        for (Entry<Geometry, List<Point3D>> entry: intersectionPoint.entrySet())//Adding a condition to the shadow: If the geometry is sealed (KT == 0) - there is a shadow, if it is a bit transparent - no shadow.
             if (entry.getKey().getMaterial().getKt() == 0)
                 return true;
         return false;
@@ -252,7 +252,7 @@ public class Render  {
         l.normalize();
 
         normal.scale(-2 * l.dotProduct(normal));
-        l.addVector(normal);
+        l=l.addVector(normal);
 
         Vector R = new Vector(l);
         R.normalize();
