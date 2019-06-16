@@ -24,8 +24,7 @@ public class Material {
         this.setKr (0);
         this.setKt (0);
         this.setnShininess(nShininess);
-        this.setKt(0.5);
-        this.setKr(0.5);
+
     }
     public Material() {
         this.setKd(1);

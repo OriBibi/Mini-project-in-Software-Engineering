@@ -37,6 +37,6 @@ public class DirectionalLight extends Light {
     }
     public Vector getL(Point3D point){
         //to implement
-        return null;
+        return getDirection().getNormal();
     }
 }

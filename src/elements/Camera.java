@@ -33,7 +33,7 @@ public class Camera {
         this.p0=point;
     }
     public Camera() {
-        p0= new Point3D(0,0,10);
+        p0= new Point3D(0,0,0);
         vUp=new Vector(1,0,0);
         vToward=new Vector(0,0,-1);
         vRight=vUp.crossProduct(vToward);
