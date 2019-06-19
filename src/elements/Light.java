@@ -23,6 +23,8 @@ public abstract class Light {
     public void setColor(Color color) {
         this.color = color;
     }
+    public abstract Point3D getPosition();
+    public abstract void setPosition(Point3D position);
 
 
     // ***************** Constructors ********************** //
