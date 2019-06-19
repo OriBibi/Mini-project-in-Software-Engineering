@@ -13,19 +13,18 @@ public class PointLight extends Light {
     private double Kq;
     // ***************** Constructors ********************** //
     public PointLight(Color color, Point3D position, double kc, double kl, double kq){
-    this.setColor(color);
-    this.setPosition(position);
-    this.setKc(kc);
-    this.setKl(kl);
-    this.setKq(kq);
+        this.setColor(color);
+        this.setPosition(position);
+        this.setKc(kc);
+        this.setKl(kl);
+        this.setKq(kq);
     }
     public PointLight(PointLight pointLight){
-        pointLight.setColor(this.getColor());
-        pointLight.setPosition(this.getPosition());
-        pointLight.setKc(this.getKc());
-        pointLight.setKl(this.getKl());
-        pointLight.setKq(this.getKq());
-
+        this.setColor(pointLight.getColor());
+        this.setPosition(pointLight.getPosition());
+        this.setKc(pointLight.getKc());
+        this.setKl(pointLight.getKl());
+        this.setKq(pointLight.getKq());
     }
     public PointLight(){
         this.setColor(Color.yellow);
@@ -55,10 +54,10 @@ public class PointLight extends Light {
     }
     public Vector getL(Point3D point){return new Vector(position,point);}
     public Point3D getPosition() {
-        return position;
+        return new Point3D(position);
     }
     public void setPosition(Point3D position) {
-        this.position = position;
+        this.position = new Point3D(position);
     }
     public double getKc() {
         return Kc;
