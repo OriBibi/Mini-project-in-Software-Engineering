@@ -174,18 +174,26 @@ public class RenderTest {
     }
 
 
-   /* @Test
+    @Test
     public void pointLightTest2(){
         Scene scene = new Scene();
         scene.setScreenDistance(100);
         Sphere sphere = new Sphere (new Color(0,0,100),800, new Point3D(0,0, -1000));
         Material m=new Material();
         m.setnShininess(20);
+
+        scene.addGeometry(sphere);
+
         sphere.setMaterial(m);
+
+
+
+
         Triangle triangle = new Triangle(new Color(0,0,0), new Point3D(  3500, 3500, -2000),
                 new Point3D( -3500, -3500, -1000),  new Point3D(3500, -3500, -2000) );
         Triangle triangle2 = new Triangle(new Color(0,0,0), new Point3D(   3500, 3500, -2000),
                 new Point3D(   -3500, 3500, -1000), new Point3D( -3500, -3500, -1000));
+
         m.setKr(1);
         m.setKt(1);
         triangle.setMaterial(m);
@@ -196,6 +204,8 @@ public class RenderTest {
         scene.addGeometry(triangle2);
         scene.addLight(new PointLight(new Color(255,100,100), new Point3D(-200,200, -100),
                 0, 0.000001, 0.0000005));
+
+
         ImageWriter imageWriter = new ImageWriter("Point Test2", 500, 500, 500, 500);
         Render render = new Render(scene, imageWriter);
 
@@ -203,9 +213,9 @@ public class RenderTest {
         ////render.printGrid(50);
         imageWriter.writeToimage();
     }
-*/
+
    @Test
-   public void pointLightTest2(){
+   public void pointLightTest7(){
        Scene scene = new Scene();
        scene.setScreenDistance(100);
        Sphere sphere = new Sphere (new Color(0,0,100),new Material(0.5, 0.5, 80,0,0.9),400, new Point3D(0,0, -1000));
