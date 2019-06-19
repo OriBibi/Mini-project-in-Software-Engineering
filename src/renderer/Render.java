@@ -67,13 +67,49 @@ public class Render  {
                 Map<Geometry,List<Point3D>> intersections = getSceneRayIntersections(ray);//A function that collects all the points of intersection of the beam with the shapes.
 
                 if(intersections.isEmpty()) {//If intersection == null inserts the background color.
-
                     imageWriter.writePixel(j, i, scene.getBackGround());
                 }
                 else {//If there are any cut points then you will return the nearest crop point.
-
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
-                    imageWriter.writePixel(j, i, calcColor(entry.getValue(),entry.getKey(),ray,0));//Request from imageWriter to write a certain color to the current pixel.
+                    Color color=calcColor(entry.getValue(),entry.getKey(),ray,0);
+
+                    Color tempcolor=Color.black;
+                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,1,0)));
+                    intersections = getSceneRayIntersections(ray);
+                    if(!intersections.isEmpty()) {
+                        entry = getClosestPoint(intersections).entrySet().iterator().next();
+                        tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+                    }
+                    color=mixColors(color,tempcolor);
+
+                    tempcolor=Color.black;
+                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,-2,0)));
+                    intersections = getSceneRayIntersections(ray);
+                    if(!intersections.isEmpty()) {
+                        entry = getClosestPoint(intersections).entrySet().iterator().next();
+                        tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+                    }
+                    color=mixColors(color,tempcolor);
+
+                    tempcolor=Color.black;
+                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(1,1,0)));
+                    intersections = getSceneRayIntersections(ray);
+                    if(!intersections.isEmpty()) {
+                        entry = getClosestPoint(intersections).entrySet().iterator().next();
+                        tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+                    }
+                    color=mixColors(color,tempcolor);
+
+                    tempcolor=Color.black;
+                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(-2,0,0)));
+                    intersections = getSceneRayIntersections(ray);
+                    if(!intersections.isEmpty()) {
+                        entry = getClosestPoint(intersections).entrySet().iterator().next();
+                        tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+                    }
+                    color=mixColors(color,tempcolor);
+
+                    imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
                 }
             }
         }
@@ -111,6 +147,9 @@ public class Render  {
         int blue=(int)Math.max(0,Math.min(255, color.getBlue()*scaling));
         Color scaledcolor = new Color (red, green, blue);
         return scaledcolor;
+    }
+    private Color mixColors(Color color1,Color color2){
+        return addColors(scaleColor(color1,0.5),scaleColor(color2,0.5));
     }
     private boolean occluded(Light light, Point3D point, Geometry geometry)  {
         Vector lightDirection = light.getL(point);

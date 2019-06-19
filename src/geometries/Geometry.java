@@ -42,7 +42,7 @@ public abstract class  Geometry {
         return material;
     }
     public void setMaterial(Material material) {
-        this.material = material;
+        this.material = new Material(material);
     }
 
     // ***************** Operations ******************** //
