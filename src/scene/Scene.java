@@ -1,8 +1,8 @@
 package scene;
-import elements.AmbientLight;
-import elements.Camera;
-import elements.Light;
+import elements.*;
 import geometries.Geometry;
+import primitives.Vector;
+
 import java.util.Iterator;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -22,7 +22,50 @@ public class Scene {
         this.getGeometries().add(geometry);
     }
     public void addLight(Light light){
-        this.lights.add(light);
+        if(light.getPosition()==null){
+            this.lights.add(light);
+        }
+        else {
+            light.setColor(new Color(light.getColor().getRed() / 7,
+                    light.getColor().getGreen() / 7,
+                    light.getColor().getBlue() / 7));
+
+            if(light instanceof PointLight) {
+                PointLight pointLight = (PointLight) light;
+                //making the lights form in a 3d area
+                light.setPosition(pointLight.getPosition().addVector(new Vector(0, 0, 5)));
+                this.lights.add(new PointLight(pointLight));
+                light.setPosition(pointLight.getPosition().addVector(new Vector(0, 0, -10)));
+                this.lights.add(new PointLight(pointLight));
+                light.setPosition(pointLight.getPosition().addVector(new Vector(0, 5, 5)));
+                this.lights.add(new PointLight(pointLight));
+                light.setPosition(pointLight.getPosition().addVector(new Vector(0, -10, 0)));
+                this.lights.add(new PointLight(pointLight));
+                light.setPosition(pointLight.getPosition().addVector(new Vector(5, 5, 0)));
+                this.lights.add(new PointLight(pointLight));
+                light.setPosition(pointLight.getPosition().addVector(new Vector(-10, 0, 0)));
+                this.lights.add(new PointLight(pointLight));
+                light.setPosition(pointLight.getPosition().addVector(new Vector(5, 0, 0)));
+                this.lights.add(new PointLight(pointLight));
+            }
+            else if(light instanceof SpotLight){
+                SpotLight spotLight=(SpotLight)light;
+
+                //need to enter orthogonal vectors to spotlight direction
+                //to put 5 point of lights with one of them in the middle
+
+                light.setPosition(spotLight.getPosition().addVector(new Vector(0, 0, 20)));
+                this.lights.add(new SpotLight(spotLight));
+                light.setPosition(spotLight.getPosition().addVector(new Vector(0, 0, -40)));
+                this.lights.add(new SpotLight(spotLight));
+                light.setPosition(spotLight.getPosition().addVector(new Vector(0, 20, 20)));
+                this.lights.add(new SpotLight(spotLight));
+                light.setPosition(spotLight.getPosition().addVector(new Vector(0, -40, 0)));
+                this.lights.add(new SpotLight(spotLight));
+                light.setPosition(spotLight.getPosition().addVector(new Vector(20, 20, 0)));
+                this.lights.add(new SpotLight(spotLight));
+            }
+        }
     }
 
 
