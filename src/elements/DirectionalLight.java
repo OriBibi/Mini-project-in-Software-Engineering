@@ -34,7 +34,7 @@ public class DirectionalLight extends Light {
     }
 
     public Color getIntensity(Point3D point){
-        return Color.yellow;
+        return super.getColor();
     }
     public Vector getL(Point3D point){
         //to implement
