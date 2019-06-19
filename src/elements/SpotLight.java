@@ -54,7 +54,7 @@ public class SpotLight extends PointLight {
     }
 
     public Vector getDirection() {
-        return direction;
+        return direction.getNormal();
     }
 
     public void setDirection(Vector direction) {
