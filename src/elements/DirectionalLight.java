@@ -40,10 +40,5 @@ public class DirectionalLight extends Light {
         //to implement
         return getDirection().getNormal();
     }
-    public Point3D getPosition(){
-        return null;
-    }
-    public void setPosition(Point3D position){
-        //do nothing
-    }
+
 }

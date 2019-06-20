@@ -68,10 +68,4 @@ public class AmbientLight extends Light{
                 (int) (getColor().getBlue() * getKa()));
 
     }
-    public Point3D getPosition(){
-        return null;
-    }
-    public void setPosition(Point3D position){
-        //do nothing
-    }
 }
