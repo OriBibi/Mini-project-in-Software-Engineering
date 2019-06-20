@@ -71,6 +71,18 @@ public class Camera {
                 "vUp: "   + vUp + "\n" +
                 "vRight:" + vRight + ".";
     }
+    /*************************************************
+     * FUNCTION
+      constructRayThroughPixel.
+     * PARAMETERS
+      int Nx, int Ny, // Screen size
+      double x, double y, // Point
+      double screenDist, double screenWidth, double screenHeight.
+     * RETURN VALUE
+      Ray.
+     * MEANING
+      This function sends ray through the center of the  pixel into the  view plane.
+     **************************************************/
     public Ray constructRayThroughPixel (int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight)
     {
         Vector vToward = new Vector(getvToward());

@@ -6,7 +6,11 @@ import primitives.Vector;
 import java.awt.*;
 //Light that is found in the infinite. He has strength and intensity. I do not have a position, so the amount of light is equal to each point in space.
 public class DirectionalLight extends Light {
+    // ***************** variables ********************** //
+
     private Vector direction;
+
+    // ***************** Constructors ********************** //
 
     public DirectionalLight() {
         super();
@@ -25,6 +29,7 @@ public class DirectionalLight extends Light {
 
     }
 
+    // ***************** Getters/Setters ********************** //
 
     public Vector getDirection() {
         return direction;
@@ -33,6 +38,19 @@ public class DirectionalLight extends Light {
         this.direction = direction;
     }
 
+// ***************** Operations ******************** //
+    /*************************************************
+     * FUNCTION
+      getIntensity
+     * PARAMETERS
+     * Point3D
+     * RETURN VALUE
+     * LColor
+     * MEANING
+     * This functions get a point and return the color in the same area eithou any change
+     * SEE ALSO
+     * Geomerty-> FindIntersections
+     /*********************************************/
     public Color getIntensity(Point3D point){
         return super.getColor();
     }
