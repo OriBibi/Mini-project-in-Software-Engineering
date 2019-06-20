@@ -17,7 +17,7 @@ public class AmbientLight extends Light{
 
     public AmbientLight() {
         this.setColor(Color.white);
-        this.setKa(0.1);
+        this.setKa(0);
     }
     public AmbientLight(Color color, double ka) {
         this.setColor(color);
@@ -53,6 +53,16 @@ public class AmbientLight extends Light{
     public String toString() {
         return super.toString();
     }
+    /*************************************************
+     * FUNCTION:
+     getIntensity.
+     * PARAMETERS:
+     Point3D
+     * RETURN VALUE:
+     color.
+     * MEANING
+     We are never use this function,  inheritance from an abstract class.
+     **************************************************/
     public Color getIntensity(Point3D point){
         return new Color((int) (getColor().getRed() * getKa()),
                 (int) (getColor().getGreen() * getKa()),
@@ -62,6 +72,16 @@ public class AmbientLight extends Light{
     public Vector getL(Point3D point) {
         return new Vector(1,0,0);
     }
+    /*************************************************
+     * FUNCTION:
+       getIntensity.
+     * PARAMETERS:
+       N\A.
+     * RETURN VALUE:
+       color.
+     * MEANING
+       This function returns the color of the geomtry that using the ambient light.
+     **************************************************/
     public Color getIntensity() {
         return new Color((int) (getColor().getRed() * getKa()),
                 (int) (getColor().getGreen() * getKa()),
