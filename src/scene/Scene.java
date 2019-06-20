@@ -37,19 +37,19 @@ public class Scene {
             if(light instanceof PointLight) {
                 PointLight pointLight = (PointLight) light;
                 //making the lights form in a 3d area
-                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0, 0, 5)));
+                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0, 0, 0.5)));
                 this.lights.add(new PointLight(pointLight));
-                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0, 0, -10)));
+                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0, 0, -1)));
                 this.lights.add(new PointLight(pointLight));
-                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0, 5, 5)));
+                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0, 0.5, 0.5)));
                 this.lights.add(new PointLight(pointLight));
-                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0, -10, 0)));
+                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0, -1, 0)));
                 this.lights.add(new PointLight(pointLight));
-                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(5, 5, 0)));
+                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0.5, 0.5, 0)));
                 this.lights.add(new PointLight(pointLight));
-                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(-10, 0, 0)));
+                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(-1, 0, 0)));
                 this.lights.add(new PointLight(pointLight));
-                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(5, 0, 0)));
+                pointLight.setPosition(pointLight.getPosition().addVector(new Vector(0.5, 0, 0)));
                 this.lights.add(new PointLight(pointLight));
             }
             else if(light instanceof SpotLight){
@@ -58,15 +58,15 @@ public class Scene {
                 //need to enter orthogonal vectors to spotlight direction
                 //to put 5 point of lights with one of them in the middle
 
-                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(0, 0, 20)));
+                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(0, 0, 0.5)));
                 this.lights.add(new SpotLight(spotLight));
-                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(0, 0, -40)));
+                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(0, 0, -1)));
                 this.lights.add(new SpotLight(spotLight));
-                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(0, 20, 20)));
+                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(0, 0.5, 0.5)));
                 this.lights.add(new SpotLight(spotLight));
-                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(0, -40, 0)));
+                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(0, -1, 0)));
                 this.lights.add(new SpotLight(spotLight));
-                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(20, 20, 0)));
+                spotLight.setPosition(spotLight.getPosition().addVector(new Vector(0.5, 0.5, 0)));
                 this.lights.add(new SpotLight(spotLight));
             }
         }

@@ -74,7 +74,7 @@ public class Render  {
                     Color color=calcColor(entry.getValue(),entry.getKey(),ray,0);
 
                     Color tempcolor=Color.black;
-                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,1,0)));
+                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,2,0)));
                     intersections = getSceneRayIntersections(ray);
                     if(!intersections.isEmpty()) {
                         entry = getClosestPoint(intersections).entrySet().iterator().next();
@@ -83,7 +83,7 @@ public class Render  {
                     color=mixColors(color,tempcolor);
 
                     tempcolor=Color.black;
-                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,-2,0)));
+                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,-4,0)));
                     intersections = getSceneRayIntersections(ray);
                     if(!intersections.isEmpty()) {
                         entry = getClosestPoint(intersections).entrySet().iterator().next();
@@ -92,7 +92,7 @@ public class Render  {
                     color=mixColors(color,tempcolor);
 
                     tempcolor=Color.black;
-                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(1,1,0)));
+                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(2,2,0)));
                     intersections = getSceneRayIntersections(ray);
                     if(!intersections.isEmpty()) {
                         entry = getClosestPoint(intersections).entrySet().iterator().next();
@@ -101,7 +101,7 @@ public class Render  {
                     color=mixColors(color,tempcolor);
 
                     tempcolor=Color.black;
-                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(-2,0,0)));
+                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(-4,0,0)));
                     intersections = getSceneRayIntersections(ray);
                     if(!intersections.isEmpty()) {
                         entry = getClosestPoint(intersections).entrySet().iterator().next();
@@ -250,7 +250,10 @@ public class Render  {
         /*The more the angle formed between the normal of the shape
          and direction vector of the light will be the bigger the
          amount of light will decreasing*/
-        Double diffuse= Math.abs(kd*normal.dotProduct(vecL));
+        Double diffuse= -1*kd*normal.dotProduct(vecL);
+        if(diffuse<0){
+            diffuse=0.0;
+        }
         Color color=scaleColor(intensity,diffuse);
         return color;
 
