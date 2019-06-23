@@ -15,7 +15,6 @@ import java.awt.*;
 public class RenderTest {
 
     @Test
-
     public void basicRendering(){
 
         Scene scene = new Scene();
@@ -56,7 +55,6 @@ public class RenderTest {
 
     }
     @Test
-
     public void basicRendering2(){
 
         Scene scene = new Scene();
@@ -133,7 +131,6 @@ public class RenderTest {
 
 
     }
-
     @Test
     public void testAddingLightSources(){
 
@@ -146,8 +143,6 @@ public class RenderTest {
 
 
     }
-
-
     @Test
     public void pointLightTest1(){
 
@@ -170,8 +165,6 @@ public class RenderTest {
         imageWriter.writeToimage();
 
     }
-
-
     @Test
     public void pointLightTest2(){
         Scene scene = new Scene();
@@ -202,43 +195,41 @@ public class RenderTest {
         ////render.printGrid(50);
         imageWriter.writeToimage();
     }
-
    @Test
    public void pointLightTest7(){
        Scene scene = new Scene();
        scene.setScreenDistance(100);
-       Sphere sphere = new Sphere (new Color(0,0,100),new Material(0.5, 0.5, 80,0,0.9),400, new Point3D(0,0, -1000));
+       Sphere sphere = new Sphere(new Color(0, 0, 100),400,new Point3D(0,0, -1000));
        Material m=new Material();
-       scene.addLight(new DirectionalLight(new Color(80, 80, 80),new Vector(-1,1,-1)));
        m.setnShininess(20);
+       //	m.set_Ks(1);
        sphere.setMaterial(m);
+
        Triangle triangle = new Triangle(new Color(0,0,0), new Point3D(  3500, 3500, -2000),
                new Point3D( -3500, -3500, -1000),  new Point3D(3500, -3500, -2000) );
        Triangle triangle2 = new Triangle(new Color(0,0,0), new Point3D(   3500, 3500, -2000),
                new Point3D(   -3500, 3500, -1000), new Point3D( -3500, -3500, -1000));
-       m.setKr(1);
-       m.setKt(1);
-       triangle.setMaterial(m);
-       m.setKr(0);
-       m.setKt(0);
        scene.addGeometry(sphere);
-       triangle2.setMaterial(m);
        scene.addGeometry(triangle);
        scene.addGeometry(triangle2);
-      // scene.addLight(new PointLight(new Color(255,100,100), new Point3D(200,200, 100),
-       //        0, 0.00001, 0.000005));
-       ImageWriter imageWriter = new ImageWriter("Point Test2", 500, 500, 500, 500);
+
+       scene.addLight(new PointLight(new Color(255, 100, 100), new Point3D(-200, 200, -100),
+               0.1, 0.000001, 0.0000005));
+
+
+       ImageWriter imageWriter = new ImageWriter("Point test 2", 500, 500, 500, 500);
+
        Render render = new Render(scene, imageWriter);
 
        render.renderImage();
-       ////render.printGrid(50);
        imageWriter.writeToimage();
-   }
 
+
+   }
    @Test
    public void proTests(){
        Scene scene = new Scene();
-       scene.setCamera(new Camera(new Point3D(-800,-200,0),new Vector(0,-1,0),new Vector(1,0,0), new Vector(0,0,-1)));
+       scene.setCamera(new Camera(new Point3D(-800,-200,1000),new Vector(0,-1,0),new Vector(1,0,0), new Vector(0,0,-1)));
        scene.setScreenDistance(200);
        scene.setBackGround(Color.BLACK);
        scene.addLight(new PointLight(new Color(50, 100, 100), new Point3D(-700, -200,-300),
@@ -271,8 +262,6 @@ public class RenderTest {
        imw.writeToimage();
 
    }
-
-
     @Test
     public void spotLightTest1(){
 
@@ -298,7 +287,6 @@ public class RenderTest {
         ////render.printGrid(50);
         imageWriter.writeToimage();
     }
-
     @Test
     public void spotLightTest2(){
 
@@ -334,7 +322,6 @@ public class RenderTest {
         ////render.printGrid(50);
         imageWriter.writeToimage();
     }
-
     @Test
     public void spotLightTest3(){
 
@@ -360,7 +347,7 @@ public class RenderTest {
         scene.addGeometry(triangle2);
 
         scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(200, 200, -100),
-                new Vector(-2, -2, -3),0, 0.000001, 0.0000005 ));
+                new Vector(-2, -2, -3),0, 0.000001, 0.0000005));
 
 
         ImageWriter imageWriter = new ImageWriter("Spot Test3", 500, 500, 500, 500);
@@ -496,7 +483,6 @@ public class RenderTest {
         render.renderImage();
         imageWriter.writeToimage();
     }
-
     @Test
     public void recursiveTest3(){
 
@@ -554,7 +540,6 @@ public class RenderTest {
         imageWriter.writeToimage();
 
     }
-
     @Test
     public void myTest(){
 
