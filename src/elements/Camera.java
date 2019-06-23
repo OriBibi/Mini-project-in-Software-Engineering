@@ -2,14 +2,15 @@ package elements;
 import primitives.*;
 
 
+@SuppressWarnings("WeakerAccess")
 public class Camera {
 
     // ***************** variables ********************** //
 
-    protected Point3D p0;
-    protected Vector vUp;
-    protected Vector vRight;
-    protected Vector vToward;
+    private Point3D p0;
+    private Vector vUp;
+    private Vector vRight;
+    private Vector vToward;
 
 
     // ***************** Constructors ********************** //

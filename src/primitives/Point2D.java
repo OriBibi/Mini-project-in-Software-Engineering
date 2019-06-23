@@ -2,9 +2,10 @@ package primitives;
 
 import java.util.Objects;
 
+@SuppressWarnings("WeakerAccess")
 public class Point2D {
-    protected Coordinate x;
-    protected Coordinate y;
+    private Coordinate x;
+    private Coordinate y;
     public Point2D(double x,double y){
 
         this.setX(new Coordinate(x));

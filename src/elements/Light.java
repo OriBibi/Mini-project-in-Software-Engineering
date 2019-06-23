@@ -6,6 +6,7 @@ import primitives.Vector;
 
 import java.awt.*;
 
+@SuppressWarnings("WeakerAccess")
 public abstract class Light {
 
     // ***************** variables ********************** //

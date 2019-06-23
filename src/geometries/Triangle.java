@@ -55,13 +55,13 @@ public class Triangle extends Geometry implements FlatGeometry {
         Vector v2 = new Vector(A, C);
         Vector v = v1.crossProduct(v2);
         v.normalize();
-        v.scale(-1);
+        //v.scale(-1);
         return v;
     }
     @Override
     public List<Point3D> findIntersections(Ray ray) {
 
-        List<Point3D> intersectionPoints = new ArrayList<Point3D>(1);
+        List<Point3D> intersectionPoints = new ArrayList<>(1);
 
         // Intersecting the triangular plane
 

@@ -1,5 +1,6 @@
 package primitives;
 //A class that defines for everything that wants to be a geometry that has to be made of a particular material.
+@SuppressWarnings("WeakerAccess")
 public class Material {
 
     // ***************** variables ************************* //

@@ -8,6 +8,7 @@ import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
 
+@SuppressWarnings("WeakerAccess")
 public class CameraTests {
 
     @Test
@@ -62,7 +63,7 @@ public class CameraTests {
                 System.out.println(" *** " + ray.getStartPoint());
 
                 // Checking z-coordinate
-                assertTrue(Double.compare(screen[i][j].getZ().get(), -1.0) == 0);
+                assertEquals(0, Double.compare(screen[i][j].getZ().get(), -1.0));
 
                 // Checking all options
                 double x = screen[i][j].getX().get();

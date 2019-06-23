@@ -5,6 +5,7 @@ import primitives.Vector;
 
 import java.awt.*;
 //Light that is found in the infinite. He has strength and intensity. I do not have a position, so the amount of light is equal to each point in space.
+@SuppressWarnings("WeakerAccess")
 public class DirectionalLight extends Light {
     // ***************** variables ********************** //
 

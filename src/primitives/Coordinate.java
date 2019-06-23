@@ -4,7 +4,7 @@ import static primitives.Util.*;
 
 public final class Coordinate {
 	//private static final double EPSILON = 0.0000001;
-	protected double _coord;
+	private double _coord;
 
 	public static Coordinate ZERO = new Coordinate(0.0);
 	

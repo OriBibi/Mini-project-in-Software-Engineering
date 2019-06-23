@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+@SuppressWarnings("WeakerAccess")
 public class ImageWriter {
 
     private int _imageWidth;

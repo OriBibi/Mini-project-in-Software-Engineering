@@ -34,7 +34,7 @@ class TriangleTest {
     void findIntersections() {
         // creating the expected values
 
-        List<Point3D> answerList = new ArrayList<Point3D>();
+        List<Point3D> answerList = new ArrayList<>();
         Point3D answerPoint = new Point3D(0, 0, -200);
         answerList.add(answerPoint);
 
@@ -55,7 +55,7 @@ class TriangleTest {
 
         // testing the findIntersection function
 
-        List<Point3D> list = new ArrayList<Point3D>();
+        List<Point3D> list;
         list = t2.findIntersections(ray);
         assertEquals(answerList, list);
     }

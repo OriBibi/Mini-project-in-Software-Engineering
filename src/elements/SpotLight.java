@@ -47,10 +47,9 @@ public class SpotLight extends PointLight {
 
         if (k > 1) k = 1; // doesn't allow light magnification
 
-        Color color = new Color((int) (pointColor.getRed() * k),
+        return new Color((int) (pointColor.getRed() * k),
                 (int) (pointColor.getGreen() * k),
                 (int) (pointColor.getBlue() * k));
-        return color;
     }
 
     public Vector getDirection() {

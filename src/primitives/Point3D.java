@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Point3D extends Point2D  {
 
-    protected Coordinate z;
+    private Coordinate z;
 
     // ***************** Constructors ********************** //
 
@@ -59,9 +59,8 @@ public class Point3D extends Point2D  {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (this == null) return false;
         if (!(o instanceof Point3D)) return false;
-        if(!super.equals((Point2D)o)) return false;
+        if(!super.equals(o)) return false;
         Point3D point3D = (Point3D) o;
         return getZ().equals(point3D.getZ());
     }

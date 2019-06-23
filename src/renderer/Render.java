@@ -5,7 +5,6 @@ import scene.*;
 import primitives.*;
 import geometries.*;
 import java.awt.*;
-import java.security.KeyStore;
 import java.util.*;
 import java.util.List;
 import java.util.Map.Entry;
@@ -13,9 +12,9 @@ import java.util.Map.Entry;
 
 public class Render  {
 
-    protected Scene scene;
-    protected ImageWriter imageWriter;
-    private final int RECURSION_LEVEL = 3;
+    private Scene scene;
+    private ImageWriter imageWriter;
+
     // ************* Constructors ******************* //
     public Render(Scene scene, ImageWriter imageWriter) {
         this.scene = scene;
@@ -138,15 +137,13 @@ public class Render  {
         int red=Math.max(0,Math.min(255,c1.getRed()+c2.getRed()));
         int green=Math.max(0,Math.min(255,c1.getGreen() + c2.getGreen()));
         int blue=Math.max(0,Math.min(255, c1.getBlue()+ c2.getBlue()));
-        Color color = new Color (red, green, blue);
-        return color;
+        return new Color (red, green, blue);
     }
     private Color scaleColor(Color color,double scaling){
         int red=(int)Math.max(0,Math.min(255,color.getRed()*scaling));
         int green=(int)Math.max(0,Math.min(255,color.getGreen() *scaling));
         int blue=(int)Math.max(0,Math.min(255, color.getBlue()*scaling));
-        Color scaledcolor = new Color (red, green, blue);
-        return scaledcolor;
+        return new Color (red, green, blue);
     }
     private Color mixColors(Color color1,Color color2){
         return addColors(scaleColor(color1,0.5),scaleColor(color2,0.5));
@@ -174,6 +171,7 @@ public class Render  {
 
     }
     public Color calcColor(Point3D point,Geometry geometry, Ray inRay,int level) {
+        int RECURSION_LEVEL = 3;
         if (level == RECURSION_LEVEL){
             return new Color(0, 0, 0);
         }
@@ -254,8 +252,7 @@ public class Render  {
         if(diffuse<0){
             diffuse=0.0;
         }
-        Color color=scaleColor(intensity,diffuse);
-        return color;
+        return scaleColor(intensity,diffuse);
 
     }//Light that comes to geometry and creates the effect of light that distributes light to its environment.
     private Color calcSpecularComp(double ks,Vector vector,Vector normal,Vector vecL, int shininess,Color intensity){
@@ -270,8 +267,7 @@ public class Render  {
         if(vector.dotProduct(R)>0){
             colorscale=ks*Math.pow(vector.dotProduct(R),shininess);
         }
-        Color color=scaleColor(intensity,colorscale);
-        return color;
+        return scaleColor(intensity,colorscale);
     }//Light created by a special break of light.
     private Ray constructRefractedRay(Geometry geometry, Point3D point, Ray inRay)  {
 
@@ -279,8 +275,6 @@ public class Render  {
        normal.scale(-2);
        point=point.addVector(normal);
        Vector temp= new Vector( inRay.getVector());
-       Point3D poinetAndRey=new Point3D(point);
-       poinetAndRey=poinetAndRey.addVector(temp);
        if (geometry instanceof FlatGeometry){
            return new Ray (temp,point);
        } else {
@@ -302,9 +296,7 @@ public class Render  {
         point=point.addVector(normal);
         Point3D point1 = new Point3D(point);
         point1.addVector(R);
-        Ray reflectedRay = new Ray( R,point);
-
-        return reflectedRay;
+        return new Ray( R,point);
     }
     private Entry<Geometry, Point3D> findClosesntIntersection(Ray ray)  {
         Map<Geometry, List<Point3D>> intersectionPoints = getSceneRayIntersections(ray);
@@ -313,7 +305,6 @@ public class Render  {
             return null;
 
         Map<Geometry, Point3D> closestPoint = getClosestPoint(intersectionPoints);
-        Entry<Geometry, Point3D> entry = closestPoint.entrySet().iterator().next();
-        return entry;
+        return closestPoint.entrySet().iterator().next();
     }
 }

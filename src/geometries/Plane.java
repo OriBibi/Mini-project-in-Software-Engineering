@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.awt.Color;
 
+@SuppressWarnings("WeakerAccess")
 public class Plane extends Geometry implements FlatGeometry {
-    protected Point3D point;
-    protected Vector orthogonalVector;
+    private Point3D point;
+    private Vector orthogonalVector;
     public Plane(Point3D point, Vector orthogonalVector) {
         super();
         this.point = point;
@@ -35,7 +36,7 @@ public class Plane extends Geometry implements FlatGeometry {
     }
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersectionPoints = new ArrayList<Point3D>();
+        List<Point3D> intersectionPoints = new ArrayList<>();
         Point3D P0 = ray.getStartPoint();
         Point3D Q0 = this.getPoint();
         Vector N = this.getOrthogonalVector();

@@ -46,7 +46,7 @@ public class Sphere extends RadialGeometry {
 
     @Override
     public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersectionPoints= new ArrayList<Point3D>(2);
+        List<Point3D> intersectionPoints= new ArrayList<>(2);
 
         Vector u = new Vector(ray.getStartPoint(), this.getMiddlePoint());//Vector "center" which is between the main point and the center point of the sphere.
         Vector nd=ray.getVector().getNormal();//Find  normal vector for multiplication with the special coefficient.

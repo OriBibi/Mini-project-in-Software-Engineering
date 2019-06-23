@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Cylinder extends Tube {
 
-    protected Double height;
+    private Double height;
 
 
     public Cylinder(double _radius, Ray ray, Double height) {

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import primitives.Point3D;
 import primitives.Ray;
 import primitives.Vector;
-import java.awt.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,10 +83,10 @@ public void Test16(){
     Sphere sphere2 = new Sphere(10, new Point3D(0.0, 0.0, -3.0));
 
     // Only the center ray intersect the sphere in two locations
-    List<Point3D> intersectionPointsSphere1 = new ArrayList<Point3D>();
+    List<Point3D> intersectionPointsSphere1 = new ArrayList<>();
 
     // The sphere encapsulates the view plane - all rays intersect with the sphere once
-    List<Point3D> intersectionPointsSphere2 = new ArrayList<Point3D>();
+    List<Point3D> intersectionPointsSphere2 = new ArrayList<>();
 
     System.out.println("Camera:\n" + camera);
 
@@ -99,17 +99,15 @@ public void Test16(){
             List<Point3D> rayIntersectionPoints1 = sphere1.findIntersections(rays[i][j]);
             List<Point3D> rayIntersectionPoints2 = sphere2.findIntersections(rays[i][j]);
 
-            for (Point3D iPoint: rayIntersectionPoints1)
-                intersectionPointsSphere1.add(iPoint);
+            intersectionPointsSphere1.addAll(rayIntersectionPoints1);
 
-            for (Point3D iPoint: rayIntersectionPoints2)
-                intersectionPointsSphere2.add(iPoint);
+            intersectionPointsSphere2.addAll(rayIntersectionPoints2);
 
         }
     }
 
-    assertTrue(intersectionPointsSphere1.size() == 2);
-    assertTrue(intersectionPointsSphere2.size() == 9);
+    assertEquals(2, intersectionPointsSphere1.size());
+    assertEquals(9, intersectionPointsSphere2.size());
 
     System.out.println("Intersection Points:");
     for (Point3D iPoint: intersectionPointsSphere1)
@@ -122,18 +120,18 @@ public void Test16(){
 }
     @Test
     public void testFindIntersections() {
-        /**
-         * test for p0==o
+        /*
+          test for p0==o
          */
         Sphere sphere = new Sphere(5, new Point3D(0, 0, 1));
         Ray ray = new Ray( new Vector(0, 0, -2),new Point3D(0, 0, 1));
-        ArrayList<Point3D> list = new ArrayList<Point3D>();
+        ArrayList<Point3D> list = new ArrayList<>();
 
         list.add(new Point3D(0, 0, -4));
         assertEquals(sphere.findIntersections(ray), list);
 
-        /**
-         * test for p0 inside the sphere with the same Direction
+        /*
+          test for p0 inside the sphere with the same Direction
          */
 
         sphere = new Sphere(5, new Point3D(0, 0, 1));
@@ -142,34 +140,34 @@ public void Test16(){
         list.add(new Point3D(0, 0, 6));
         assertEquals(sphere.findIntersections(ray), list);
 
-        /**
-         * test for p0 inside the sphere with the different Direction
+        /*
+          test for p0 inside the sphere with the different Direction
          */
 
         sphere = new Sphere(4,new  Point3D());
         ray = new Ray( new Vector(1, 0, 0),new Point3D(0, 1, 0));
-        list = new ArrayList<Point3D>();
+        list = new ArrayList<>();
         list.add(new Point3D(Math.sqrt(15), 1, 0));
         assertEquals(sphere.findIntersections(ray), list);
 
-        /**
-         * Test for ray Parallel to the sphere without passing through it
+        /*
+          Test for ray Parallel to the sphere without passing through it
          */
         sphere = new Sphere(1, new Point3D());
         ray = new Ray(new Vector(1, 0, 0),new Point3D(0, 0, 2));
-        list = new ArrayList<Point3D>();
+        list = new ArrayList<>();
         assertEquals(sphere.findIntersections(ray), list);
 
-        /**
-         * Test for getting 2 point on the sphere
+        /*
+          Test for getting 2 point on the sphere
          */
         ray = new Ray(new Vector(0, 0, -1),new Point3D(0, 0, 3));
         list.add(new Point3D(0, 0, 1));
         list.add(new Point3D(0, 0, -1));
         assertEquals(sphere.findIntersections(ray), list);
 
-        /**
-         * test for ray that tangent to the sphere
+        /*
+          test for ray that tangent to the sphere
          */
 
         ray = new Ray(new Vector(0, -5, 0),new Point3D(0, 1, 1));
@@ -178,8 +176,8 @@ public void Test16(){
         List<Point3D> l=sphere.findIntersections(ray);
         assertEquals(l, list);
 
-        /**
-         * test for when the ray start on the surface of the sphere and go away from it
+        /*
+          test for when the ray start on the surface of the sphere and go away from it
          */
 
         ray = new Ray( new Vector(0, 0, 1),new Point3D(0, 0, 1));
