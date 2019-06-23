@@ -545,14 +545,14 @@ public class RenderTest {
 
 
         Scene scene = new Scene();
-        scene.setScreenDistance(100);
+        scene.setScreenDistance(500);
         Camera camera=scene.getCamera();
-        camera.setP0(camera.getp0().addVector(new Vector(0,0,200)));
+        camera.setP0(camera.getp0().addVector(new Vector(0,0,700)));
 
-        Sphere sphere = new Sphere (new Color(0,0,100),400, new Point3D(500,0,-700));
+        Sphere sphere = new Sphere (new Color(0,0,100),400, new Point3D(500,0,-500));
         Material m1=new Material();
-        m1.setnShininess(5);
-        m1.setKt(0.8);
+        m1.setnShininess(25);
+        //m1.setKt(0.8);
         sphere.setMaterial(m1);
         scene.addGeometry(sphere);
         Sphere sphere2 = new Sphere (new Color(0,100,100),150, new Point3D(300,-500,-500));
