@@ -72,7 +72,7 @@ public class Render  {
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
                     Color color=calcColor(entry.getValue(),entry.getKey(),ray,0);
 
-                    //color=mixColors(color,antiAliasing(ray));
+                    color=mixColors(color,antiAliasing(ray));
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
                 }
