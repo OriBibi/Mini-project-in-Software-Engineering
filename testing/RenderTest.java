@@ -148,7 +148,9 @@ public class RenderTest {
 
         DirectionalLight dl = new DirectionalLight(new Color(255, 100, 100),new Vector());
 
+
     }
+
 
     @Test
     public void pointLightTest1(){

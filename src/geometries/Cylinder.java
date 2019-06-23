@@ -3,7 +3,7 @@ import primitives.Point3D;
 import primitives.Ray;
 import java.util.List;
 
-
+// This class not in use.
 public class Cylinder extends Tube {
 
     protected Double height;

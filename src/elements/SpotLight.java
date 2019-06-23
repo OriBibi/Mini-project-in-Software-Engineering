@@ -5,13 +5,19 @@ import primitives.Point3D;
 import primitives.Vector;
 
 import java.awt.*;
-//A light that combines direction and location. Its light is smaller as distance grows.
+
+/*A light that combines direction and location.
+ Its light is smaller as distance grows.*/
+
 public class SpotLight extends PointLight {
 
+    // ***************** variables ********************** //
+
     private Vector direction;
+
     // ***************** Constructor ********************** //
-    public SpotLight(Color color, Point3D position, Vector direction,
-                     double kc, double kl, double kq){
+
+    public SpotLight(Color color, Point3D position, Vector direction, double kc, double kl, double kq){
         this.setColor(color);
         this.setPosition(position);
         this.setDirection(direction);
@@ -36,7 +42,19 @@ public class SpotLight extends PointLight {
         this.setKl(0);
         this.setKq(0);
     }
+
     // ***************** Getters/Setters ********************** //
+
+    /*************************************************
+     * FUNCTION
+     getIntensity
+     * PARAMETERS
+     Point3D
+     * RETURN VALUE
+     Color
+     * MEANING
+     This functions computes the intensity of the light by the distance from the point
+     /*********************************************/
     public Color getIntensity(Point3D point) {
 
         Color pointColor = super.getIntensity(point);
@@ -52,11 +70,9 @@ public class SpotLight extends PointLight {
                 (int) (pointColor.getBlue() * k));
         return color;
     }
-
     public Vector getDirection() {
         return direction.getNormal();
     }
-
     public void setDirection(Vector direction) {
         this.direction = direction.getNormal();
     }

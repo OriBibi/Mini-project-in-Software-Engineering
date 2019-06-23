@@ -9,6 +9,7 @@ public class Material {
     private int nShininess;  // Refraction index
     private double kr;
     private double kt;
+
     // ***************** Constructors ********************** //
 
     public Material(double kd, double ks, int nShininess,double kr, double kt) {
@@ -44,43 +45,33 @@ public class Material {
 
     // ***************** Getters/Setters ******************* //
 
-
     public double getKr() {
         return kr;
     }
-
     public void setKr(double kr) {
         this.kr = kr;
     }
-
     public double getKt() {
         return kt;
     }
-
     public void setKt(double kt) {
         this.kt = kt;
     }
-
     public double getKd() {
         return kd;
     }
-
     public void setKd(double kd) {
         this.kd = kd;
     }
-
     public double getKs() {
         return ks;
     }
-
     public void setKs(double ks) {
         this.ks = ks;
     }
-
     public int getnShininess() {
         return nShininess;
     }
-
     public void setnShininess(int nShininess) {
         this.nShininess = nShininess;
     }

@@ -62,7 +62,7 @@ public class AmbientLight extends Light{
      color.
      * MEANING
      We are never use this function,  inheritance from an abstract class.
-     **************************************************/
+     /***************************************************/
     public Color getIntensity(Point3D point){
         return new Color((int) (getColor().getRed() * getKa()),
                 (int) (getColor().getGreen() * getKa()),
@@ -81,7 +81,7 @@ public class AmbientLight extends Light{
        color.
      * MEANING
        This function returns the color of the geomtry that using the ambient light.
-     **************************************************/
+     /***************************************************/
     public Color getIntensity() {
         return new Color((int) (getColor().getRed() * getKa()),
                 (int) (getColor().getGreen() * getKa()),

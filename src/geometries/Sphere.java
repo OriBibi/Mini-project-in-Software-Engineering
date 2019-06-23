@@ -45,6 +45,16 @@ public class Sphere extends RadialGeometry {
     // ************* Functions ************************ //
 
     @Override
+    /*************************************************
+     * FUNCTION:
+       FindIntersections
+     * PARAMETERS:
+       ray
+     * RETURN VALUE:
+       List<Point3D>
+     * MEANING:
+       This functions computes a all the intersections of specific ray with the sphere.
+     /*********************************************/
     public List<Point3D> findIntersections(Ray ray) {
         List<Point3D> intersectionPoints= new ArrayList<Point3D>(2);
 

@@ -27,7 +27,8 @@ public class Point3D extends Point2D  {
         super(x, y);
         this.setZ(new Coordinate(z));
     }
-    // ***************** Operations ******************** //
+
+    // ************* Getters/Setters ****************** //
 
     public Coordinate getZ() {//////////////////////////////////////////////////
         return new Coordinate(z);
@@ -35,6 +36,9 @@ public class Point3D extends Point2D  {
     public void setZ(Coordinate z) {
         this.z = new Coordinate(z);
     }
+
+    // ***************** Operations ******************** //
+
     @Override
     public String toString() {
         String str= super.toString();
@@ -43,6 +47,16 @@ public class Point3D extends Point2D  {
                 ", z=" + getZ().get()+
                 '}';
     }
+    /*************************************************
+     * FUNCTION:
+      distance
+     * PARAMETERS:
+      vector
+     * RETURN VALUE:
+      double
+     * MEANING:
+      This function subtract two points, by taking the parameters from vectors' point.
+     **************************************************/
     public static double distance(Point3D point1, Point3D point2)
     {
         double x1 = point1.getX().get();
@@ -69,6 +83,16 @@ public class Point3D extends Point2D  {
     public int hashCode() {
         return Objects.hash(getZ());
     }
+    /*************************************************
+     * FUNCTION:
+      add
+     * PARAMETERS:
+      vector
+     * RETURN VALUE:
+     Point3D
+     * MEANING:
+      This function add two points, by taking the parameters from vectors' point
+     **************************************************/
     public Point3D addVector(Vector v)
     {
         return new  Point3D(this.getX().add(v.getHead().getX()),

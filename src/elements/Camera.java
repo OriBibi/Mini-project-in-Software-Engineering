@@ -41,6 +41,7 @@ public class Camera {
     }
 
     // ***************** Getters/Setters ********************** //
+
     public Point3D getp0() {
         return p0;
     }
@@ -65,7 +66,9 @@ public class Camera {
         this.vToward = vToward;
         vRight=vToward.crossProduct(vUp);
     }
+
 // ***************** Operations ******************** //
+
     public String toString(){
         return "vToward: "   + vToward + "\n" +
                 "vUp: "   + vUp + "\n" +
@@ -82,7 +85,7 @@ public class Camera {
       Ray.
      * MEANING
       This function sends ray through the center of the  pixel into the  view plane.
-     **************************************************/
+     /***************************************************/
     public Ray constructRayThroughPixel (int Nx, int Ny, double i, double j, double screenDist, double screenWidth, double screenHeight)
     {
         Vector vToward = new Vector(getvToward());

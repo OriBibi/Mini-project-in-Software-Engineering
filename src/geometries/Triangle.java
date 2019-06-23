@@ -9,13 +9,14 @@ public class Triangle extends Geometry implements FlatGeometry {
 
     protected Point3D A,B,C;
 
+    // ************* Constructors ****************** //
+
     public Triangle() {
         super();
         A=new Point3D(1,0,0);
         B=new Point3D(0,1,0);
         C=new Point3D(0,0,1);
     }
-
     public Triangle (Triangle triangle){
         super(triangle.getEmmission(),triangle.getMaterial());
         this.A = triangle.A;
@@ -40,6 +41,8 @@ public class Triangle extends Geometry implements FlatGeometry {
         C = c;
     }
 
+    // ************* Getters/Setters ****************** //
+
     public Point3D getA() {
         return A;
     }
@@ -50,6 +53,19 @@ public class Triangle extends Geometry implements FlatGeometry {
         return C;
     }
 
+    // ************* Functions ************************ //
+
+    /*************************************************
+     * FUNCTION
+     * getNormal
+     * PARAMETERS
+     * Point3D point
+     * RETURN VALUE
+     * Vector who is the normal to the point
+     * MEANING
+     * This functions computes a normal vector into specific point.
+
+     /***************************************************/
     public Vector getNormal(Point3D p) {
         Vector v1 = new Vector(A, B);
         Vector v2 = new Vector(A, C);
@@ -59,6 +75,16 @@ public class Triangle extends Geometry implements FlatGeometry {
         return v;
     }
     @Override
+    /*************************************************
+     * FUNCTION:
+      FindIntersections
+     * PARAMETERS:
+      ray
+     * RETURN VALUE:
+      List<Point3D>
+     * MEANING:
+      This functions computes a all the intersections of specific ray with the triangle
+     /***************************************************/
     public List<Point3D> findIntersections(Ray ray) {
 
         List<Point3D> intersectionPoints = new ArrayList<Point3D>(1);

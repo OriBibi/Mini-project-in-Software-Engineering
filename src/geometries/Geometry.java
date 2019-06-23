@@ -12,7 +12,7 @@ public abstract class  Geometry {
 
     // ***************** variables ************************* //
 
-    private Material material;//everything that wants to be a geometry that has to be made of a particular material.
+    private Material material;//every geometry has to be made of a particular material.
     private Color emmission;//The light that geometry produces
 
     // ***************** Constructors ********************** //
@@ -47,8 +47,8 @@ public abstract class  Geometry {
 
     // ***************** Operations ******************** //
 
-    public abstract List<Point3D> findIntersections( Ray ray);//All geometries must contain this function if they want to be visible in space
-    public abstract Vector getNormal(Point3D point);//You must know Normal at any point in geometry for many uses, such as for correct calculation of lighting
+    public abstract List<Point3D> findIntersections( Ray ray);//All geometries must contain this function if they want to be visible in scene.
+    public abstract Vector getNormal(Point3D point);//You must know Normal at any point in geometry for many uses, such as for correct calculation of lighting.
 
 
 }
