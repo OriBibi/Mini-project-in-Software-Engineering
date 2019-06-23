@@ -107,6 +107,16 @@ public class Render  {
             }
         }
     }
+    /*************************************************
+     * FUNCTION:
+     findClosesntIntersection.
+     * PARAMETERS:
+     ray.
+     * RETURN VALUE:
+     Entry<Geometry, Point3D>.
+     * MEANING:
+     getting the point and geometry of the geometry closest to the camera that intersecting with given ray
+     **************************************************/
     private Entry<Geometry, Point3D> findClosesntIntersection(Ray ray)  {
         Map<Geometry, List<Point3D>> intersectionPoints = getSceneRayIntersections(ray);
 
@@ -149,6 +159,17 @@ public class Render  {
         return false;
 
     }
+    /*************************************************
+     * FUNCTION:
+     getSceneRayIntersections
+     * PARAMETERS:
+     ray
+     * RETURN VALUE:
+     map of the geomtries and lists
+     * MEANING:
+     send the inserted ray fo intersections with all the geometries in the scene
+     and returning the intersected geometries with their corresponding intersections list
+     **************************************************/
     private Map<Geometry,List<Point3D>> getSceneRayIntersections(Ray ray) {
 
         Iterator<Geometry> geometries = scene.getGeometriesIterator();
@@ -197,7 +218,16 @@ public class Render  {
    }
 
    //***Color functions***//
-
+    /*************************************************
+     * FUNCTION
+     superSampling
+     * PARAMETERS
+     ray, space.
+     * RETURN VALUE
+     average.
+     * MEANING
+     Calculate the final color while considering the different light types that affect of the shape. Using a Phong model.
+     **************************************************/
     private Color superSampling(Ray ray,int space){
         Entry<Geometry,Point3D> entry;
 
@@ -245,9 +275,10 @@ public class Render  {
      * PARAMETERS
      Geometry, Point3d,Ray,Level.
      * RETURN VALUE
-     color.
+     average color of the surround area .
      * MEANING
-     Calculate the final color while considering the different light types that affect of the shape. Using a Phong model.
+     moving the ray several times to the surrounding area and calculating the color
+     sending the moved ray to calccolor and each time calculating the average between the colors
      **************************************************/
     public Color calcColor(Point3D point,Geometry geometry, Ray inRay,int level) {
         int RECURSION_LEVEL = 3;
@@ -405,20 +436,48 @@ public class Render  {
         point1.addVector(R);
         return new Ray( R,point);
     }
+
+    //***simple Color functions***//
+
+    /*************************************************
+     * FUNCTION:
+     addColors.
+     * PARAMETERS:
+     2 colors.
+     * RETURN VALUE:
+     add each color RGB field to a new color.
+     **************************************************/
     public Color addColors(Color c1,Color c2){
         int red=Math.max(0,Math.min(255,c1.getRed()+c2.getRed()));
         int green=Math.max(0,Math.min(255,c1.getGreen() + c2.getGreen()));
         int blue=Math.max(0,Math.min(255, c1.getBlue()+ c2.getBlue()));
         return new Color (red, green, blue);
     }
+    /*************************************************
+     * FUNCTION:
+     scaleColor.
+     * PARAMETERS:
+     color and scaling factor.
+     * RETURN VALUE:
+     scale each RGB field of the color by scaling factor.
+     **************************************************/
     private Color scaleColor(Color color,double scaling){
         int red=(int)Math.max(0,Math.min(255,color.getRed()*scaling));
         int green=(int)Math.max(0,Math.min(255,color.getGreen() *scaling));
         int blue=(int)Math.max(0,Math.min(255, color.getBlue()*scaling));
         return new Color (red, green, blue);
     }
+    /*************************************************
+     * FUNCTION:
+     mixColors.
+     * PARAMETERS:
+     2 colors.
+     * RETURN VALUE:
+     average of the two colors.
+     **************************************************/
     private Color mixColors(Color color1,Color color2){
         return addColors(scaleColor(color1,0.5),scaleColor(color2,0.5));
     }
+
 
 }
