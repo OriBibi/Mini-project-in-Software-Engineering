@@ -16,6 +16,7 @@ public class Render  {
     private ImageWriter imageWriter;
 
     // ************* Constructors ******************* //
+
     public Render(Scene scene, ImageWriter imageWriter) {
         this.scene = scene;
         this.imageWriter = imageWriter;
@@ -26,6 +27,7 @@ public class Render  {
     }
 
     // ************* Getters/Setters ****************** //
+
     public Scene getScene() {
         return scene;
     }
@@ -38,6 +40,11 @@ public class Render  {
     public void setImageWriter(ImageWriter imageWriter) {
         this.imageWriter = imageWriter;
     }
+
+    // ***************** Operations ******************** //
+
+    //***Picture functions***//
+
     private static class GeoPoint {
         public Geometry geometry;
         public Point3D point;
@@ -55,8 +62,19 @@ public class Render  {
             }
         }
     }
+    /*************************************************
+     * FUNCTION:
+     renderImage.
+     * PARAMETERS:
+     null.
+     * RETURN VALUE:
+     null.
+     * MEANING:
+     A function that builds a ray for each pixel and checks for Intersection points with shapes in the scene.
+     **************************************************/
     public void renderImage(){
         for (int i = 0; i < imageWriter.getHeight(); i++) {
+            if(i%(imageWriter.getHeight()/100) == 0)System.out.println((double)100*i/imageWriter.getHeight()+"%");
             for (int j = 0; j < imageWriter.getWidth(); j++) {
 
                 Ray ray = scene.getCamera().constructRayThroughPixel(
@@ -72,51 +90,58 @@ public class Render  {
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
                     Color color=calcColor(entry.getValue(),entry.getKey(),ray,0);
 
-                    //color=mixColors(color,antiAliasing(ray));
+                    color=mixColors(color,antiAliasing(ray));
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
                 }
             }
         }
-    }//A function that builds a ray for each pixel and checks for Intersection points with shapes in the scene.
-    private Color antiAliasing(Ray ray){
-        Entry<Geometry,Point3D> entry;
+    }
+    private Entry<Geometry, Point3D> findClosesntIntersection(Ray ray)  {
+        Map<Geometry, List<Point3D>> intersectionPoints = getSceneRayIntersections(ray);
 
-        Color tempcolor=scene.getBackGround();
-        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,2,0)));
-        Map<Geometry,List<Point3D>> intersections = getSceneRayIntersections(ray);
-        if(!intersections.isEmpty()) {
-            entry = getClosestPoint(intersections).entrySet().iterator().next();
-            tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
-        }
-        Color color=tempcolor;
+        if (intersectionPoints.size() == 0)
+            return null;
 
-        tempcolor=scene.getBackGround();
-        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,-4,0)));
-        intersections = getSceneRayIntersections(ray);
-        if(!intersections.isEmpty()) {
-            entry = getClosestPoint(intersections).entrySet().iterator().next();
-            tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
-        }
-        color=mixColors(color,tempcolor);
+        Map<Geometry, Point3D> closestPoint = getClosestPoint(intersectionPoints);
+        return closestPoint.entrySet().iterator().next();
+    }
+    private boolean occluded(Light light, Point3D point, Geometry geometry)  {
+        Vector lightDirection = light.getL(point);
+        lightDirection.scale(-1);
 
-        tempcolor=scene.getBackGround();
-        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(2,2,0)));
-        intersections = getSceneRayIntersections(ray);
-        if(!intersections.isEmpty()) {
-            entry = getClosestPoint(intersections).entrySet().iterator().next();
-            tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
-        }
-        color=mixColors(color,tempcolor);
+        Point3D geometryPoint = new Point3D(point);
 
-        tempcolor=scene.getBackGround();
-        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(-4,0,0)));
-        intersections = getSceneRayIntersections(ray);
-        if(!intersections.isEmpty()) {
-            entry = getClosestPoint(intersections).entrySet().iterator().next();
-            tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+        Vector epsVector = new Vector(geometry.getNormal(point));
+        epsVector.scale(2);
+        geometryPoint=geometryPoint.addVector(epsVector);
+
+        Ray lightRay = new Ray( lightDirection,geometryPoint);
+        Map <Geometry,List<Point3D>> intersectionPoint = getSceneRayIntersections(lightRay);
+
+        if (geometry instanceof FlatGeometry){
+            intersectionPoint.remove(geometry);
         }
-        return mixColors(tempcolor,color);
+        for (Entry<Geometry, List<Point3D>> entry: intersectionPoint.entrySet())//Adding a condition to the shadow: If the geometry is sealed (KT == 0) - there is a shadow, if it is a bit transparent - no shadow.
+            if (entry.getKey().getMaterial().getKt() == 0)
+                return true;
+        return false;
+
+    }
+    private Map<Geometry,List<Point3D>> getSceneRayIntersections(Ray ray) {
+
+        Iterator<Geometry> geometries = scene.getGeometriesIterator();
+        HashMap<Geometry,List<Point3D>> intersectionPoints=new HashMap<>();
+
+        while (geometries.hasNext()) {
+            Geometry geometry = geometries.next();
+            List<Point3D> geometryIntersectionPoints = geometry.findIntersections(ray);
+            if (geometryIntersectionPoints.isEmpty())
+                continue;
+            intersectionPoints.put(geometry,geometryIntersectionPoints);
+        }
+        return intersectionPoints;
+
     }
     private Map<Geometry, Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints){
 
@@ -139,42 +164,48 @@ public class Render  {
        return minDistancMap;
    }
 
-    public Color addColors(Color c1,Color c2){
-        int red=Math.max(0,Math.min(255,c1.getRed()+c2.getRed()));
-        int green=Math.max(0,Math.min(255,c1.getGreen() + c2.getGreen()));
-        int blue=Math.max(0,Math.min(255, c1.getBlue()+ c2.getBlue()));
-        return new Color (red, green, blue);
-    }
-    private Color scaleColor(Color color,double scaling){
-        int red=(int)Math.max(0,Math.min(255,color.getRed()*scaling));
-        int green=(int)Math.max(0,Math.min(255,color.getGreen() *scaling));
-        int blue=(int)Math.max(0,Math.min(255, color.getBlue()*scaling));
-        return new Color (red, green, blue);
-    }
-    private Color mixColors(Color color1,Color color2){
-        return addColors(scaleColor(color1,0.5),scaleColor(color2,0.5));
-    }
+   //***Color functions***//
 
-    private boolean occluded(Light light, Point3D point, Geometry geometry)  {
-        Vector lightDirection = light.getL(point);
-        lightDirection.scale(-1);
+    private Color antiAliasing(Ray ray){
+        Entry<Geometry,Point3D> entry;
 
-        Point3D geometryPoint = new Point3D(point);
+        Color tempcolor=scene.getBackGround();
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,2,0)));
+        Map<Geometry,List<Point3D>> intersections = getSceneRayIntersections(ray);
+        if(!intersections.isEmpty()) {
+                       entry = getClosestPoint(intersections).entrySet().iterator().next();
+                       tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+                   }
+        Color color=tempcolor;
 
-        Vector epsVector = new Vector(geometry.getNormal(point));
-        epsVector.scale(2);
-        geometryPoint=geometryPoint.addVector(epsVector);
+        tempcolor=scene.getBackGround();
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,-4,0)));
+        intersections = getSceneRayIntersections(ray);
+        if(!intersections.isEmpty()) {
+                       entry = getClosestPoint(intersections).entrySet().iterator().next();
+                       tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+                   }
+        color=mixColors(color,tempcolor);
 
-        Ray lightRay = new Ray( lightDirection,geometryPoint);
-        Map <Geometry,List<Point3D>> intersectionPoint = getSceneRayIntersections(lightRay);
+        tempcolor=scene.getBackGround();
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(2,2,0)));
+        intersections = getSceneRayIntersections(ray);
+        if(!intersections.isEmpty()) {
+                       entry = getClosestPoint(intersections).entrySet().iterator().next();
+                       tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+                   }
+        color=mixColors(color,tempcolor);
 
-        if (geometry instanceof FlatGeometry){
-            intersectionPoint.remove(geometry);
-        }
-        for (Entry<Geometry, List<Point3D>> entry: intersectionPoint.entrySet())//Adding a condition to the shadow: If the geometry is sealed (KT == 0) - there is a shadow, if it is a bit transparent - no shadow.
-            if (entry.getKey().getMaterial().getKt() == 0)
-                return true;
-        return false;
+        tempcolor=scene.getBackGround();
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(-4,0,0)));
+        intersections = getSceneRayIntersections(ray);
+                   if(!intersections.isEmpty()) {
+                       entry = getClosestPoint(intersections).entrySet().iterator().next();
+                       tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+                   }
+        tempcolor=scene.getBackGround();
+
+        return mixColors(tempcolor,color);
 
     }
     public Color calcColor(Point3D point,Geometry geometry, Ray inRay,int level) {
@@ -233,21 +264,6 @@ public class Render  {
 
 
     }//Calculate the final color while considering the different light types that affect the shape. Using a Phong model
-    private Map<Geometry,List<Point3D>> getSceneRayIntersections(Ray ray) {
-
-        Iterator<Geometry> geometries = scene.getGeometriesIterator();
-        HashMap<Geometry,List<Point3D>> intersectionPoints=new HashMap<>();
-
-        while (geometries.hasNext()) {
-            Geometry geometry = geometries.next();
-            List<Point3D> geometryIntersectionPoints = geometry.findIntersections(ray);
-            if (geometryIntersectionPoints.isEmpty())
-                continue;
-            intersectionPoints.put(geometry,geometryIntersectionPoints);
-        }
-        return intersectionPoints;
-
-    }
     private Color calcDiffuseComp(double kd, Vector normal, Vector vecL, Color intensity,boolean isFlat)   {
 
         vecL.normalize();
@@ -308,13 +324,20 @@ public class Render  {
         point1.addVector(R);
         return new Ray( R,point);
     }
-    private Entry<Geometry, Point3D> findClosesntIntersection(Ray ray)  {
-        Map<Geometry, List<Point3D>> intersectionPoints = getSceneRayIntersections(ray);
-
-        if (intersectionPoints.size() == 0)
-            return null;
-
-        Map<Geometry, Point3D> closestPoint = getClosestPoint(intersectionPoints);
-        return closestPoint.entrySet().iterator().next();
+    public Color addColors(Color c1,Color c2){
+        int red=Math.max(0,Math.min(255,c1.getRed()+c2.getRed()));
+        int green=Math.max(0,Math.min(255,c1.getGreen() + c2.getGreen()));
+        int blue=Math.max(0,Math.min(255, c1.getBlue()+ c2.getBlue()));
+        return new Color (red, green, blue);
     }
+    private Color scaleColor(Color color,double scaling){
+        int red=(int)Math.max(0,Math.min(255,color.getRed()*scaling));
+        int green=(int)Math.max(0,Math.min(255,color.getGreen() *scaling));
+        int blue=(int)Math.max(0,Math.min(255, color.getBlue()*scaling));
+        return new Color (red, green, blue);
+    }
+    private Color mixColors(Color color1,Color color2){
+        return addColors(scaleColor(color1,0.5),scaleColor(color2,0.5));
+    }
+
 }
