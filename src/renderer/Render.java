@@ -100,7 +100,7 @@ public class Render  {
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
                     Color color=calcColor(entry.getValue(),entry.getKey(),ray,0);
 
-                    color=mixColors(color,antiAliasing(ray));
+                    color=mixColors(color,superSampling(ray,4));
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
                 }
@@ -164,6 +164,17 @@ public class Render  {
         return intersectionPoints;
 
     }
+    /*************************************************
+     * FUNCTION:
+      getClosestPoint
+     * PARAMETERS:
+      Map (geometry, list(Point3D))
+     * RETURN VALUE:
+      Map (geometry, Point3D)
+     * MEANING:
+      this functions takes all the points and calculate the closest one to the camera.
+     **************************************************/
+
     private Map<Geometry, Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints){
 
        double distance = Double.MAX_VALUE;
