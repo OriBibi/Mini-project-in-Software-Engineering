@@ -100,7 +100,7 @@ public class Render  {
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
                     Color color=calcColor(entry.getValue(),entry.getKey(),ray,0);
 
-                    color=mixColors(color,antiAliasing(ray));
+                    color=mixColors(color,superSampling(ray,5));
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
                 }
@@ -176,11 +176,11 @@ public class Render  {
 
    //***Color functions***//
 
-    private Color antiAliasing(Ray ray){
+    private Color superSampling(Ray ray,int space){
         Entry<Geometry,Point3D> entry;
 
         Color tempcolor=scene.getBackGround();
-        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,2,0)));
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(space,space,0)));
         Map<Geometry,List<Point3D>> intersections = getSceneRayIntersections(ray);
         if(!intersections.isEmpty()) {
                        entry = getClosestPoint(intersections).entrySet().iterator().next();
@@ -189,7 +189,7 @@ public class Render  {
         Color color=tempcolor;
 
         tempcolor=scene.getBackGround();
-        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,-4,0)));
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,-space*2,0)));
         intersections = getSceneRayIntersections(ray);
         if(!intersections.isEmpty()) {
                        entry = getClosestPoint(intersections).entrySet().iterator().next();
@@ -198,7 +198,7 @@ public class Render  {
         color=mixColors(color,tempcolor);
 
         tempcolor=scene.getBackGround();
-        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(2,2,0)));
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(space*2,0,0)));
         intersections = getSceneRayIntersections(ray);
         if(!intersections.isEmpty()) {
                        entry = getClosestPoint(intersections).entrySet().iterator().next();
@@ -207,13 +207,12 @@ public class Render  {
         color=mixColors(color,tempcolor);
 
         tempcolor=scene.getBackGround();
-        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(-4,0,0)));
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,space*2,0)));
         intersections = getSceneRayIntersections(ray);
                    if(!intersections.isEmpty()) {
                        entry = getClosestPoint(intersections).entrySet().iterator().next();
                        tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
                    }
-        tempcolor=scene.getBackGround();
 
         return mixColors(tempcolor,color);
 
