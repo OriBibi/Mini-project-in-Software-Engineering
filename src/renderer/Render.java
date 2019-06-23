@@ -49,6 +49,16 @@ public class Render  {
         public Geometry geometry;
         public Point3D point;
     }
+    /*************************************************
+     * FUNCTION:
+     printGrid.
+     * PARAMETERS:
+     int.
+     * RETURN VALUE:
+     Null.
+     * MEANING:
+     This function prints white grid on the scene.
+     **************************************************/
     public void printGrid(int interval){
         int height = imageWriter.getHeight();
         int width = imageWriter.getWidth();
@@ -208,6 +218,16 @@ public class Render  {
         return mixColors(tempcolor,color);
 
     }
+    /*************************************************
+     * FUNCTION
+     calcColor
+     * PARAMETERS
+     Geometry, Point3d,Ray,Level.
+     * RETURN VALUE
+     color.
+     * MEANING
+     Calculate the final color while considering the different light types that affect the shape. Using a Phong model.
+     **************************************************/
     public Color calcColor(Point3D point,Geometry geometry, Ray inRay,int level) {
         int RECURSION_LEVEL = 3;
         if (level == RECURSION_LEVEL){

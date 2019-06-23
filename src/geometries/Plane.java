@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.awt.Color;
 
-@SuppressWarnings("WeakerAccess")
 public class Plane extends Geometry implements FlatGeometry {
 
     // ***************** variables ************************* //
@@ -38,6 +37,14 @@ public class Plane extends Geometry implements FlatGeometry {
         this.orthogonalVector=plane.orthogonalVector;
     }
 
+    // ************* Getters/Setters ****************** //
+
+    public Point3D getPoint() {
+        return point;
+    }
+    public Vector getOrthogonalVector() {
+        return orthogonalVector;
+    }
     // ***************** Operations ******************** //
 
     public Vector getNormal(Point3D point){
@@ -46,13 +53,13 @@ public class Plane extends Geometry implements FlatGeometry {
     @Override
     /*************************************************
      * FUNCTION:
-       FindIntersections
+     FindIntersections
      * PARAMETERS:
-       ray
+     ray
      * RETURN VALUE:
-       List<Point3D>
+     List<Point3D>
      * MEANING:
-       This functions computes a all the intersections of specific ray with the plane.
+     This functions computes a all the intersections of specific ray with the plane.
      /*********************************************/
     public List<Point3D> findIntersections(Ray ray) {
         List<Point3D> intersectionPoints = new ArrayList<>();
@@ -77,12 +84,6 @@ public class Plane extends Geometry implements FlatGeometry {
             intersectionPoints.add(p);
         }
         return intersectionPoints;
-    }
-    public Point3D getPoint() {
-        return point;
-    }
-    public Vector getOrthogonalVector() {
-        return orthogonalVector;
     }
 
 }
