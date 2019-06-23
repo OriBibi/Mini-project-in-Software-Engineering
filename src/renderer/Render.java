@@ -100,7 +100,7 @@ public class Render  {
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
                     Color color=calcColor(entry.getValue(),entry.getKey(),ray,0);
 
-                    color=mixColors(color,antiAliasing(ray));
+                   // color=mixColors(color,antiAliasing(ray));
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
                 }
@@ -116,6 +116,17 @@ public class Render  {
         Map<Geometry, Point3D> closestPoint = getClosestPoint(intersectionPoints);
         return closestPoint.entrySet().iterator().next();
     }
+    /*************************************************
+     * FUNCTION:
+     occluded
+     * PARAMETERS:
+     Light, point3d, Geometry
+     * RETURN VALUE:
+     boolean
+     * MEANING:
+     This function check for specific point if there more then one object how stand in front of him,
+     and return true only if we have the frontal point.
+     **************************************************/
     private boolean occluded(Light light, Point3D point, Geometry geometry)  {
         Vector lightDirection = light.getL(point);
         lightDirection.scale(-1);
@@ -226,7 +237,7 @@ public class Render  {
      * RETURN VALUE
      color.
      * MEANING
-     Calculate the final color while considering the different light types that affect the shape. Using a Phong model.
+     Calculate the final color while considering the different light types that affect of the shape. Using a Phong model.
      **************************************************/
     public Color calcColor(Point3D point,Geometry geometry, Ray inRay,int level) {
         int RECURSION_LEVEL = 3;
@@ -283,7 +294,17 @@ public class Render  {
         return I0;
 
 
-    }//Calculate the final color while considering the different light types that affect the shape. Using a Phong model
+    }
+    /*************************************************
+     * FUNCTION:
+      calcDiffusiveComp.
+     * PARAMETERS:
+     double kd, Vector normal, Vector vecL, Color intensity,boolean isFlat.
+     * RETURN VALUE:
+      color.
+     * MEANING:
+      This function calculate the diffusive factor and change the color byy it.
+     **************************************************/
     private Color calcDiffuseComp(double kd, Vector normal, Vector vecL, Color intensity,boolean isFlat)   {
 
         vecL.normalize();
@@ -301,6 +322,16 @@ public class Render  {
         return scaleColor(intensity,diffuse);
 
     }//Light that comes to geometry and creates the effect of light that distributes light to its environment.
+    /*************************************************
+     * FUNCTION:
+      calcSpecularComp
+     * PARAMETERS:
+      double ks,Vector vector,Vector normal,Vector vecL, int shininess,Color intensity
+     * RETURN VALUE:
+      color
+     * MEANING:
+      This function calculate the specular factor and change the color by it, Light created by a special break of light.
+     **************************************************/
     private Color calcSpecularComp(double ks,Vector vector,Vector normal,Vector vecL, int shininess,Color intensity){
         normal.normalize();
         vecL.normalize();
@@ -314,7 +345,17 @@ public class Render  {
             colorscale=ks*Math.pow(vector.dotProduct(R),shininess);
         }
         return scaleColor(intensity,colorscale);
-    }//Light created by a special break of light.
+    }
+    /*************************************************
+     * FUNCTION:
+     constructRefractedRay.
+     * PARAMETERS:
+     Geometry, point3d, Ray.
+     * RETURN VALUE:
+     ray.
+     * MEANING:
+     This function calculate the refracted ray towards the next object.
+     **************************************************/
     private Ray constructRefractedRay(Geometry geometry, Point3D point, Ray inRay)  {
 
        Vector normal = geometry.getNormal(point);
@@ -328,6 +369,16 @@ public class Render  {
        }
 
    }
+    /*************************************************
+     * FUNCTION:
+       constructReflectedRay.
+     * PARAMETERS:
+       Vector, point3d, Ray.
+     * RETURN VALUE:
+       Ray.
+     * MEANING:
+       This function calculate the reflected ray from the surface.
+     **************************************************/
     private Ray constructReflectedRay(Vector normal, Point3D point, Ray inRay)  {
 
         Vector l = inRay.getVector();
