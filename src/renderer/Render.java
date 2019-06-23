@@ -45,10 +45,6 @@ public class Render  {
 
     //***Picture functions***//
 
-    private static class GeoPoint {
-        public Geometry geometry;
-        public Point3D point;
-    }
     /*************************************************
      * FUNCTION:
      printGrid.
@@ -93,14 +89,24 @@ public class Render  {
                         imageWriter.getWidth(), imageWriter.getHeight());
                 Map<Geometry,List<Point3D>> intersections = getSceneRayIntersections(ray);//A function that collects all the points of intersection of the beam with the shapes.
 
-                if(intersections.isEmpty()) {//If intersection == null inserts the background color.
+                if(intersections.isEmpty()) {
+                    /**
+                     * if the middle of the pixel is empty than dont calculate the supersampling
+                     * and insert the background color- improvement in rendering time
+                     */
                     imageWriter.writePixel(j, i, scene.getBackGround());
                 }
                 else {//If there are any cut points then you will return the nearest crop point.
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
                     Color color=calcColor(entry.getValue(),entry.getKey(),ray,0);
-
+                    /**
+                     * calculating the average color of he pixel by getting the supersamling color from its function
+                     * with how much you want to go to the sides for each sample.
+                     * the call for supersamling is inside the else to save computing time
+                     * so when the center of the pixel is a background dont calculate the supersampling
+                     */
                     color=mixColors(color,superSampling(ray,4));
+
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
                 }
@@ -289,16 +295,18 @@ public class Render  {
         Color emissionLight = geometry.getEmmission();
         Color I0 = addColors(ambientLight,emissionLight);
         Iterator<Light> lights = scene.getLightsIterator();
-        while (lights.hasNext()) {
+        while (lights.hasNext()) //how the lights of the scene add color to the point
+        {
             Light light = lights.next();
-            if (!occluded(light, point, geometry)) {
-
+            if (!occluded(light, point, geometry)) //if the geometry is occluded by another geometry dont calculate the light effects
+            {
+                //adding the diffuse factor to the point color
                 I0 = addColors(I0,
                         calcDiffuseComp(geometry.getMaterial().getKd(),
                                 geometry.getNormal(point),
                                 light.getL(point),
                                 light.getIntensity(point),(geometry instanceof FlatGeometry)));
-
+                //adding the specular factor to the point color
                 I0 = addColors(I0,
                         calcSpecularComp(geometry.getMaterial().getKs(),
                                 new Vector(point, scene.getCamera().getp0()),
@@ -330,6 +338,7 @@ public class Render  {
                 refracted = scaleColor(refracted,kt);
 
             }
+            //adding the reflected and refracted change to the color
         I0= addColors(I0,reflected);
         I0= addColors(I0,refracted);
         return I0;
@@ -354,10 +363,16 @@ public class Render  {
          and direction vector of the light will be the bigger the
          amount of light will decreasing*/
         Double diffuse= -1*kd*normal.dotProduct(vecL);
-        if(isFlat){
+        if(isFlat) {
+            /**
+             * if the geometry is flat the normal can be toward any of the geometry sides
+             * what caused to the flat geometry to remove the diffuse comp from the color
+             * when the normal is toward the side farther from the light
+             */
             diffuse=Math.abs(diffuse);
         }
         if(diffuse<0){
+             //remove glowing edges of the geometry
             diffuse=0.0;
         }
         return scaleColor(intensity,diffuse);
