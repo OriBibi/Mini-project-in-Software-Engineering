@@ -72,48 +72,53 @@ public class Render  {
                     Entry<Geometry,Point3D> entry=getClosestPoint(intersections).entrySet().iterator().next();
                     Color color=calcColor(entry.getValue(),entry.getKey(),ray,0);
 
-                    Color tempcolor=Color.black;
-                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,2,0)));
-                    intersections = getSceneRayIntersections(ray);
-                    if(!intersections.isEmpty()) {
-                        entry = getClosestPoint(intersections).entrySet().iterator().next();
-                        tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
-                    }
-                    color=mixColors(color,tempcolor);
-
-                    tempcolor=Color.black;
-                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,-4,0)));
-                    intersections = getSceneRayIntersections(ray);
-                    if(!intersections.isEmpty()) {
-                        entry = getClosestPoint(intersections).entrySet().iterator().next();
-                        tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
-                    }
-                    color=mixColors(color,tempcolor);
-
-                    tempcolor=Color.black;
-                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(2,2,0)));
-                    intersections = getSceneRayIntersections(ray);
-                    if(!intersections.isEmpty()) {
-                        entry = getClosestPoint(intersections).entrySet().iterator().next();
-                        tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
-                    }
-                    color=mixColors(color,tempcolor);
-
-                    tempcolor=Color.black;
-                    ray.setStartPoint(ray.getStartPoint().addVector(new Vector(-4,0,0)));
-                    intersections = getSceneRayIntersections(ray);
-                    if(!intersections.isEmpty()) {
-                        entry = getClosestPoint(intersections).entrySet().iterator().next();
-                        tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
-                    }
-                    color=mixColors(color,tempcolor);
+                    //color=mixColors(color,antiAliasing(ray));
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
                 }
             }
         }
     }//A function that builds a ray for each pixel and checks for Intersection points with shapes in the scene.
-   private Map<Geometry, Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints){
+    private Color antiAliasing(Ray ray){
+        Entry<Geometry,Point3D> entry;
+
+        Color tempcolor=scene.getBackGround();
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,2,0)));
+        Map<Geometry,List<Point3D>> intersections = getSceneRayIntersections(ray);
+        if(!intersections.isEmpty()) {
+            entry = getClosestPoint(intersections).entrySet().iterator().next();
+            tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+        }
+        Color color=tempcolor;
+
+        tempcolor=scene.getBackGround();
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(0,-4,0)));
+        intersections = getSceneRayIntersections(ray);
+        if(!intersections.isEmpty()) {
+            entry = getClosestPoint(intersections).entrySet().iterator().next();
+            tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+        }
+        color=mixColors(color,tempcolor);
+
+        tempcolor=scene.getBackGround();
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(2,2,0)));
+        intersections = getSceneRayIntersections(ray);
+        if(!intersections.isEmpty()) {
+            entry = getClosestPoint(intersections).entrySet().iterator().next();
+            tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+        }
+        color=mixColors(color,tempcolor);
+
+        tempcolor=scene.getBackGround();
+        ray.setStartPoint(ray.getStartPoint().addVector(new Vector(-4,0,0)));
+        intersections = getSceneRayIntersections(ray);
+        if(!intersections.isEmpty()) {
+            entry = getClosestPoint(intersections).entrySet().iterator().next();
+            tempcolor=calcColor(entry.getValue(),entry.getKey(),ray,0);
+        }
+        return mixColors(tempcolor,color);
+    }
+    private Map<Geometry, Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints){
 
        double distance = Double.MAX_VALUE;
        Point3D P0 = new Point3D(scene.getCamera().getp0());
@@ -133,6 +138,7 @@ public class Render  {
        minDistancMap.put(minDistancGeometry,minDistancPoint);
        return minDistancMap;
    }
+
     public Color addColors(Color c1,Color c2){
         int red=Math.max(0,Math.min(255,c1.getRed()+c2.getRed()));
         int green=Math.max(0,Math.min(255,c1.getGreen() + c2.getGreen()));
@@ -148,6 +154,7 @@ public class Render  {
     private Color mixColors(Color color1,Color color2){
         return addColors(scaleColor(color1,0.5),scaleColor(color2,0.5));
     }
+
     private boolean occluded(Light light, Point3D point, Geometry geometry)  {
         Vector lightDirection = light.getL(point);
         lightDirection.scale(-1);
@@ -187,7 +194,7 @@ public class Render  {
                         calcDiffuseComp(geometry.getMaterial().getKd(),
                                 geometry.getNormal(point),
                                 light.getL(point),
-                                light.getIntensity(point)));
+                                light.getIntensity(point),(geometry instanceof FlatGeometry)));
 
                 I0 = addColors(I0,
                         calcSpecularComp(geometry.getMaterial().getKs(),
@@ -241,7 +248,7 @@ public class Render  {
         return intersectionPoints;
 
     }
-    private Color calcDiffuseComp(double kd, Vector normal, Vector vecL, Color intensity)   {
+    private Color calcDiffuseComp(double kd, Vector normal, Vector vecL, Color intensity,boolean isFlat)   {
 
         vecL.normalize();
         normal.normalize();
@@ -249,6 +256,9 @@ public class Render  {
          and direction vector of the light will be the bigger the
          amount of light will decreasing*/
         Double diffuse= -1*kd*normal.dotProduct(vecL);
+        if(isFlat){
+            diffuse=Math.abs(diffuse);
+        }
         if(diffuse<0){
             diffuse=0.0;
         }
