@@ -240,7 +240,7 @@ public class RenderTest {
        scene.addLight(new DirectionalLight(new Color(20,20,20),new Vector(-1,1,-1)));
        scene.addGeometry(new Triangle(new Material(0.5,0.5,100,1,0),new Color(20,20,20),new Point3D(600,400,-400),new Point3D(-1400,400,-400),new Point3D(600,-600,-2320)));
        scene.addGeometry(new Triangle(new Material(0.5,0.5,100,1,0),new Color(20,20,20),new Point3D(-1400,400,-400),new Point3D(600,-600,-2320),new Point3D(-1400,-600,-2320)));
-       for(int i=1;i<5;i++){
+       /*for(int i=1;i<5;i++){
            for(int j=1;j<5;j++){
                if((j+i)%2==0) {
                    Sphere sphere = new Sphere(new Color((int) (Math.random() * 250), (int) (Math.random() * 250), (int) (Math.random() * 250)), new Material(0.5, 0.5, 100), 100, new Point3D(500 - i * 200*2, -(100 + j * 100) + 400, -(500 + j * 180) + 100));
@@ -255,7 +255,7 @@ public class RenderTest {
 
                }
            }
-       }
+       }*/
        ImageWriter imw = new ImageWriter("IMG_0021_Balls",500,500,500,300);
        Render rn = new Render(scene,imw);
        rn.renderImage();
@@ -546,37 +546,46 @@ public class RenderTest {
 
         Scene scene = new Scene();
         scene.setScreenDistance(100);
+        Camera camera=scene.getCamera();
+        camera.setP0(camera.getp0().addVector(new Vector(0,0,200)));
 
-        Sphere sphere = new Sphere (new Color(0,0,100),500, new Point3D(0,0,-1000));
+        Sphere sphere = new Sphere (new Color(0,0,100),400, new Point3D(500,0,-700));
+        Material m1=new Material();
+        m1.setnShininess(5);
+        m1.setKt(0.8);
+        sphere.setMaterial(m1);
         scene.addGeometry(sphere);
-        Sphere sphere2 = new Sphere (new Color(0,100,100),500, new Point3D(500,0,-500));
+        Sphere sphere2 = new Sphere (new Color(0,100,100),150, new Point3D(300,-500,-500));
         scene.addGeometry(sphere2);
-        Sphere sphere3 = new Sphere (new Color(0,100,0),500, new Point3D(0,500,-500));
+        Sphere sphere3 = new Sphere (new Color(0,100,0),150, new Point3D(300,500,-500));
         scene.addGeometry(sphere3);
-        Sphere sphere4 = new Sphere (new Color(100,100,0),500, new Point3D(0,500,-1500));
+        Sphere sphere4 = new Sphere (new Color(100,100,0),150, new Point3D(1000,500,-1000));
         scene.addGeometry(sphere4);
-        Sphere sphere5 = new Sphere (new Color(100,0,0),500, new Point3D(500,0,-1500));
+        Sphere sphere5 = new Sphere (new Color(100,0,0),150, new Point3D(1000,-500,-1000));
         scene.addGeometry(sphere5);
         Triangle triangle = new Triangle(new Color(0,0,0),
-                new Point3D(  2500,  3500, -2000),
-                new Point3D( -3500, -3500, -1000),
-                new Point3D(  2500, -3500, -2000)
+                new Point3D(  2000,  4000, -2500),
+                new Point3D( -800, -3500, -100),
+                new Point3D(  2000, -4000, -2500)
         );
-
+        Material m=new Material();
+        m.setKr(0.5);
 
 
         Triangle triangle2 = new Triangle(new Color(0,0,0),
-                new Point3D(  2500,  3500, -2000),
-                new Point3D( -3500,  3500, -1000),
-                new Point3D( -3500, -3500, -1000)
+                new Point3D(  2000,  4000, -2500),
+                new Point3D( -800,  3500, -100),
+                new Point3D( -800, -3500, -100)
         );
+        triangle2.setMaterial(m);
+
 
         scene.addGeometry(triangle);
         scene.addGeometry(triangle2);
 
-        scene.addLight(new SpotLight(new Color(255, 100, 100), new Point3D(200, 200, -100),
+        scene.addLight(new SpotLight(new Color(255/2, 100/2, 100/2), new Point3D(200, 200, -100),
                 new Vector(-2, -2, -3),0, 0.000001, 0.0000005 ));
-        scene.addLight(new PointLight(new Color(255, 100, 100), new Point3D(-200, -200,-100),//-200, -200, -100),
+        scene.addLight(new PointLight(new Color(255/2, 100/2, 100/2), new Point3D(-200, -200,-100),//-200, -200, -100),
                 0, 0.00001, 0.000005));
 
         ImageWriter imageWriter = new ImageWriter("Spot Test3", 500, 500, 500, 500);
