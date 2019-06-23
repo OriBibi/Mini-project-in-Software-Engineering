@@ -18,7 +18,7 @@ public class AmbientLight extends Light{
 
     public AmbientLight() {
         this.setColor(Color.white);
-        this.setKa(0);
+        this.setKa(0.1);
     }
     public AmbientLight(Color color, double ka) {
         this.setColor(color);
