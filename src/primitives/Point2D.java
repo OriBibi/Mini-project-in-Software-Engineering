@@ -59,7 +59,6 @@ public class Point2D {
         return getX().equals(point2D.getX()) &&
                 getY().equals(point2D.getY());
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(getX(), getY());

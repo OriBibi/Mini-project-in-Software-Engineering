@@ -16,15 +16,6 @@ public abstract class Light {
     public abstract Vector getL(Point3D point);
 
 
-    // ***************** Getters/Setters ********************** //
-
-    public Color getColor() {
-        return color;
-    }
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
     // ***************** Constructors ********************** //
 
     public Light(){
@@ -35,5 +26,14 @@ public abstract class Light {
     }
     public Light(Color color) {
         this.setColor(color);
+    }
+
+    // ***************** Getters/Setters ********************** //
+
+    public Color getColor() {
+        return color;
+    }
+    public void setColor(Color color) {
+        this.color = color;
     }
 }

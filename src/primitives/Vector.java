@@ -56,6 +56,16 @@ public class Vector
     public int hashCode() {
         return Objects.hash(getHead());
     }
+    /*************************************************
+     * FUNCTION:
+      scale
+     * PARAMETERS:
+      double
+     * RETURN VALUE:
+      none
+     * MEANING:
+      This function scaling the vector by miltiply each component by the scaling factor
+     **************************************************/
     public void scale(double scalingFactor){
 
         this.head.setX(new Coordinate(
@@ -67,6 +77,16 @@ public class Vector
         this.head.setZ(new Coordinate(
                 head.getZ().scale(scalingFactor)));
     }
+    /*************************************************
+     * FUNCTION
+     * crossProduct
+     * PARAMETERS
+     * vector
+     * RETURN VALUE
+     * vector
+     * MEANING
+     * This function aplly the cross product of two 3D vectors
+     **************************************************/
     public Vector crossProduct (Vector vector){
 
         double x1 = this.getHead().getX().get();

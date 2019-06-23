@@ -37,7 +37,7 @@ public final class Coordinate {
 		return "" + _coord;
 	}
 
-	/************** Operations ***************/
+	// ************* Functions ************************ //
 	public Coordinate subtract(Coordinate other) {
 		return new Coordinate(usubtract(_coord, other._coord));
 	}

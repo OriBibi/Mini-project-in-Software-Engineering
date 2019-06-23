@@ -6,6 +6,8 @@ import primitives.Vector;
 
 import java.util.List;
 
+// This class not in use.
+
 public class Tube extends RadialGeometry {
 
     protected Ray ray;

@@ -5,14 +5,22 @@ import primitives.Point3D;
 import primitives.Vector;
 
 import java.awt.*;
-//Light without direction but the light decreases with the distance that it has a location. And therefore has: intensity, location and has no direction.
 @SuppressWarnings("WeakerAccess")
+
+/*Light without direction but the light decreases with the distance that it has a location.
+ And therefore has: intensity, location and has no direction.*/
+
 public class PointLight extends Light {
+
+    // ***************** variables ********************** //
+
     private Point3D position;
     private double Kc;
     private double Kl;
     private double Kq;
+
     // ***************** Constructors ********************** //
+
     public PointLight(Color color, Point3D position, double kc, double kl, double kq){
         this.setColor(color);
         this.setPosition(position);
@@ -35,7 +43,18 @@ public class PointLight extends Light {
         this.setKq(0);
 
     }
+
     // ***************** Getters/Setters ********************** //
+    /*************************************************
+     * FUNCTION
+     getIntensity
+     * PARAMETERS
+     Point3D
+     * RETURN VALUE
+     Color
+     * MEANING
+     This functions computes the intensity of the light by the distance from the point
+     /*********************************************/
     @Override
     public Color getIntensity(Point3D point) {
 
