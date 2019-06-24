@@ -94,6 +94,7 @@ public class RenderTest {
 
 
     }
+    @Test
     public void SameTestAsPart6() {
         Scene scene = new Scene();
 
@@ -195,8 +196,8 @@ public class RenderTest {
         ////render.printGrid(50);
         imageWriter.writeToimage();
     }
-   @Test
-   public void pointLightTest7(){
+    @Test
+    public void pointLightTest7(){
        Scene scene = new Scene();
        scene.setScreenDistance(100);
        Sphere sphere = new Sphere(new Color(0, 0, 100),400,new Point3D(0,0, -1000));
@@ -223,14 +224,12 @@ public class RenderTest {
 
        render.renderImage();
        imageWriter.writeToimage();
-
-
-   }
-   @Test
-   public void proTests(){
+    }
+    @Test
+    public void proTests(){
        Scene scene = new Scene();
-       scene.setCamera(new Camera(new Point3D(-800,-200,1000),new Vector(0,-1,0),new Vector(1,0,0), new Vector(0,0,-1)));
-       scene.setScreenDistance(200);
+       scene.setCamera(new Camera(new Point3D(-1000,0,1100),new Vector(0,-1,0),new Vector(1,0,0), new Vector(0,0,-1)));
+       scene.setScreenDistance(750);
        scene.setBackGround(Color.BLACK);
        scene.addLight(new PointLight(new Color(50, 100, 100), new Point3D(-700, -200,-300),
                0, 0.000001, 0.0000005));
@@ -240,7 +239,7 @@ public class RenderTest {
        scene.addLight(new DirectionalLight(new Color(20,20,20),new Vector(-1,1,-1)));
        scene.addGeometry(new Triangle(new Material(0.5,0.5,100,1,0),new Color(20,20,20),new Point3D(600,400,-400),new Point3D(-1400,400,-400),new Point3D(600,-600,-2320)));
        scene.addGeometry(new Triangle(new Material(0.5,0.5,100,1,0),new Color(20,20,20),new Point3D(-1400,400,-400),new Point3D(600,-600,-2320),new Point3D(-1400,-600,-2320)));
-       /*for(int i=1;i<5;i++){
+       for(int i=1;i<5;i++){
            for(int j=1;j<5;j++){
                if((j+i)%2==0) {
                    Sphere sphere = new Sphere(new Color((int) (Math.random() * 250), (int) (Math.random() * 250), (int) (Math.random() * 250)), new Material(0.5, 0.5, 100), 100, new Point3D(500 - i * 200*2, -(100 + j * 100) + 400, -(500 + j * 180) + 100));
@@ -255,13 +254,12 @@ public class RenderTest {
 
                }
            }
-       }*/
+       }
        ImageWriter imw = new ImageWriter("IMG_0021_Balls",500,500,500,300);
        Render rn = new Render(scene,imw);
        rn.renderImage();
        imw.writeToimage();
-
-   }
+    }
     @Test
     public void spotLightTest1(){
 
@@ -545,9 +543,9 @@ public class RenderTest {
 
 
         Scene scene = new Scene();
-        scene.setScreenDistance(500);
+        scene.setScreenDistance(450);
         Camera camera=scene.getCamera();
-        camera.setP0(camera.getp0().addVector(new Vector(0,0,700)));
+        camera.setP0(camera.getp0().addVector(new Vector(0,0,800)));
 
         Sphere sphere = new Sphere (new Color(0,0,100),400, new Point3D(500,0,-500));
         Material m1=new Material();
@@ -588,7 +586,7 @@ public class RenderTest {
         scene.addLight(new PointLight(new Color(255/2, 100/2, 100/2), new Point3D(-200, -200,-100),//-200, -200, -100),
                 0, 0.00001, 0.000005));
 
-        ImageWriter imageWriter = new ImageWriter("Spot Test3", 500, 500, 500, 500);
+        ImageWriter imageWriter = new ImageWriter("my Test3", 500, 500, 500, 500);
 
         Render render = new Render(scene, imageWriter);
 

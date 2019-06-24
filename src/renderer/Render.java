@@ -105,7 +105,7 @@ public class Render  {
                      * the call for supersamling is inside the else to save computing time
                      * so when the center of the pixel is a background dont calculate the supersampling
                      */
-                    color=mixColors(color,superSampling(ray,4));
+                    //color=mixColors(color,superSampling(ray,1));
 
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
@@ -234,7 +234,7 @@ public class Render  {
      * MEANING
      Calculate the final color while considering the different light types that affect of the shape. Using a Phong model.
      **************************************************/
-    private Color superSampling(Ray ray,int space){
+    private Color superSampling(Ray ray,double space){
         Entry<Geometry,Point3D> entry;
 
         Color tempcolor=scene.getBackGround();
