@@ -105,7 +105,7 @@ public class Render  {
                      * the call for supersamling is inside the else to save computing time
                      * so when the center of the pixel is a background dont calculate the supersampling
                      */
-                    //color=mixColors(color,superSampling(ray,1));
+                    color=mixColors(color,superSampling(ray,1));
 
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
