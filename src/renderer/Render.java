@@ -105,7 +105,7 @@ public class Render  {
                      * the call for supersamling is inside the else to save computing time
                      * so when the center of the pixel is a background dont calculate the supersampling
                      */
-                    //color=mixColors(color,superSampling(ray,1));
+                    color=mixColors(color,superSampling(ray,1));
 
 
                     imageWriter.writePixel(j, i, color);//Request from imageWriter to write a certain color to the current pixel.
@@ -201,7 +201,6 @@ public class Render  {
      * MEANING:
       this functions takes all the points and calculate the closest one to the camera.
      **************************************************/
-
     private Map<Geometry, Point3D> getClosestPoint(Map<Geometry,List<Point3D>> intersectionPoints){
 
        double distance = Double.MAX_VALUE;
@@ -224,6 +223,7 @@ public class Render  {
    }
 
    //***Color functions***//
+
     /*************************************************
      * FUNCTION
      superSampling
@@ -234,7 +234,7 @@ public class Render  {
      * MEANING
      Calculate the final color while considering the different light types that affect of the shape. Using a Phong model.
      **************************************************/
-    private Color superSampling(Ray ray,double space){
+        private Color superSampling(Ray ray,double space){
         Entry<Geometry,Point3D> entry;
 
         Color tempcolor=scene.getBackGround();
@@ -287,7 +287,7 @@ public class Render  {
      sending the moved ray to calccolor and each time calculating the average between the colors
      **************************************************/
     public Color calcColor(Point3D point,Geometry geometry, Ray inRay,int level) {
-        int RECURSION_LEVEL = 3;
+        int RECURSION_LEVEL = 7;
         if (level == RECURSION_LEVEL){
             return new Color(0, 0, 0);
         }
